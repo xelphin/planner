@@ -24,4 +24,23 @@ int amountDaysInMonth(const int year, const int month);
 */
 bool validDate(const int year, const int month, const int day);
 
+/*
+* Check if the time exists
+*
+* @param minutes - Chosen minutes.
+* @return
+*      True: Time is valid | False: Time is invalid
+*/
+bool checkValidTime(const int minutes);
+
+/*
+* Check if the time exists
+*
+* @param start - Minutes marking start.
+* @param end - Minutes marking end.
+* @return
+*      True: Time is valid | False: Time is invalid
+*/
+bool checkValidTimeRange(const int start, const int end);
+
 #endif

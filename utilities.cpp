@@ -21,3 +21,13 @@ bool validDate(const int year, const int month, const int day)
     }
     return true;
 }
+
+bool checkValidTime(const int minutes)
+{
+    return !(minutes<0 || minutes>1440);
+}
+
+bool checkValidTimeRange(const int start, const int end)
+{
+    return !(start>end || !checkValidTime(start) || !checkValidTime(end));
+}

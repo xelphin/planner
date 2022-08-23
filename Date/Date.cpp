@@ -8,7 +8,7 @@ Date::Date(const int year, const int month, const int day) :
 
 void Date::updateDate(const int newMonth, const int newDay)
 {
-    if(!validDate(m_year, m_month, m_day))
+    if(!validDate(m_year, newMonth, newDay))
         throw InvalidDate();
     m_month = newMonth;
     m_day = newDay;
