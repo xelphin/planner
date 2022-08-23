@@ -4,7 +4,10 @@ Date::Date(const int year, const int month, const int day) :
     m_year(year),
     m_month(month),
     m_day(day)
-{}
+{
+    if(!validDate(year, month, day))
+        throw InvalidDate();
+}
 
 void Date::updateDate(const int newMonth, const int newDay)
 {

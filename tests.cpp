@@ -16,6 +16,14 @@ void printSuccess ();
 void run_all_tests() {
     run_test(utilities_amountDaysInMonth, "utilities_amountDaysInMonth");
     run_test(utilities_validDate, "utilities_validDate");
+    run_test(utilities_checkValidTime, "utilities_checkValidTime");
+    run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange");
+    run_test(date_createDate, "date_createDate");
+    run_test(date_updateDate, "date_updateDate");
+    run_test(dateDeadline_createDate, "dateDeadline_createDate");
+    run_test(dateDeadline_updateDate, "dateDeadline_updateDate");
+    run_test(dateRange_createDate, "dateRange_createDate");
+    run_test(dateRange_updateDate, "dateRange_updateDate");
 }
 
 void run_test(std::function<bool()> test, std::string test_name)
@@ -96,4 +104,171 @@ bool utilities_validDate()
     count += validDate(2023,0,2) == false;
     count += validDate(2023,1,2) == true;
     return count == 10;
+}
+
+bool utilities_checkValidTime()
+{
+    int count = 0;
+    count += checkValidTime(1220) == true;
+    count += checkValidTime(0) == true;
+    count += checkValidTime(1440) == true;
+    count += checkValidTime(1441) == false;
+    count += checkValidTime(-1) == false;
+    return count == 5;
+}
+
+bool utilities_checkValidTimeRange()
+{
+    int count = 0;
+    count += checkValidTimeRange(1220, 1225) == true;
+    count += checkValidTimeRange(1225, 1220) == false;
+    count += checkValidTimeRange(1220, 1440) == true;
+    count += checkValidTimeRange(1220, 1441) == false;
+    count += checkValidTimeRange(0, 0) == true;
+    count += checkValidTimeRange(20, 20) == true;
+    count += checkValidTimeRange(-1, 1225) == false;
+    count += checkValidTimeRange(10, 100) == true;
+    return count == 8;
+}
+
+bool date_createDate()
+{
+    Date date(2022,12,4);
+    Date date2(2024,2,29);
+    try {
+        Date date3(2023,2,29);
+    } catch(const InvalidDate&) {
+        return true;
+    }
+    return false;
+}
+
+bool date_updateDate()
+{
+    Date date(2022,12,4);
+    date.updateDate(3,23);
+    int count = 0;
+    try {
+        date.updateDate(3,32);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,31);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    return count == 2;
+}
+
+bool dateDeadline_createDate()
+{
+    DateDeadline date(2022,12,4,1200);
+    DateDeadline date2(2024,2,29,60);
+    int count = 0;
+    try {
+        DateDeadline date3(2023,2,29,100);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        DateDeadline date4(2023,2,28,1441);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    return count == 2;
+}
+
+bool dateDeadline_updateDate()
+{
+    DateDeadline date(2022,12,4, 600);
+    date.updateDate(3,23,500);
+    int count = 0;
+    try {
+        date.updateDate(3,32,500);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,31,500);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,3,1600);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    return count == 3;
+}
+
+bool dateRange_createDate()
+{
+    DateRange date(2022,12,4,1200,1250);
+    DateRange date2(2024,2,29,60,60);
+    int count = 0;
+    try {
+        DateRange date3(2023,2,29,100,100);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        DateRange date4(2023,2,28,1441,1442);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        DateRange date4(2023,2,28,80,60);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        DateRange date4(2023,2,28,-1,60);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        DateRange date4(2023,2,28,100,1600);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    return count == 5;
+}
+
+bool dateRange_updateDate()
+{
+    DateRange date(2022,12,4, 600, 800);
+    date.updateDate(3,23,500,600);
+    int count = 0;
+    try {
+        date.updateDate(3,32,500, 600);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,31,500, 600);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,3,1600, 1700);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,3,1400, 1700);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,3,-1, 500);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    try {
+        date.updateDate(4,3, 500, 400);
+    } catch(const InvalidDate&) {
+        count++;
+    }
+    return count == 6;
 }

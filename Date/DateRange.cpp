@@ -4,7 +4,10 @@ DateRange::DateRange(const int year, const int month, const int day, const int s
     Date(year,month,day),
     m_start(start),
     m_end(end)
-{}
+{
+    if(!checkValidTimeRange(start,end))
+        throw InvalidDate();
+}
 
 void DateRange::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
 {
