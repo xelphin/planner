@@ -2,7 +2,7 @@
 
 int amountDaysInMonth(const int year, const int month)
 {
-    if (year<0 || month<1 || month>12)
+    if (year<2000 || month<1 || month>12)
         throw;
     bool isLeapYear = (year%4 == 0);
     return (month == 2) ?
@@ -11,7 +11,7 @@ int amountDaysInMonth(const int year, const int month)
 
 bool validDate(const int year, const int month, const int day)
 {
-    if (year<0 || month<1 || month>12 || day<1 || day>31)
+    if (year<2000 || month<1 || month>12 || day<1 || day>31)
         return false;
     try {
         if (day > amountDaysInMonth(year, month))

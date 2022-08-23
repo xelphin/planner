@@ -24,6 +24,7 @@ void run_all_tests() {
     run_test(dateDeadline_updateDate, "dateDeadline_updateDate");
     run_test(dateRange_createDate, "dateRange_createDate");
     run_test(dateRange_updateDate, "dateRange_updateDate");
+    run_test(date_operators, "date_operators");
 }
 
 void run_test(std::function<bool()> test, std::string test_name)
@@ -159,6 +160,30 @@ bool date_updateDate()
         count++;
     }
     return count == 2;
+}
+
+bool date_operators()
+{
+    int year = 2022;
+    Date date1(year,3,14);
+    Date date2(year,5,14);
+    Date date3(year,2,16);
+    Date date4(year,8,2);
+    Date date5(year,5,14);
+    int count = 0;
+    count += (date2==date5) == true;
+    count += (date2==date1) == false;
+    count += (date2 < date1) == false;
+    count += (date2 > date1) == true;
+    count += (date1 < date2) == true;
+    count += (date1 > date2) == false;
+    count += (date4 != date2) == true;
+    count += (date4 != date3) == true;
+    count += (date2 <= date5) == true;
+    count += (date5 <= date2) == true;
+    count += (date5 >= date2) == true;
+    count += (date5 >= date4) == false;
+    return count == 12;
 }
 
 bool dateDeadline_createDate()

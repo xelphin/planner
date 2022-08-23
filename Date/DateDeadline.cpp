@@ -15,3 +15,39 @@ void DateDeadline::updateDate(const int newMonth, const int newDay, const int ne
         throw InvalidDate();
     m_minutes = newDeadline;
 }
+
+bool operator==(const DateDeadline& d1, const DateDeadline& d2)
+{
+    return (d1.m_month == d2.m_month && d1.m_day == d2.m_day && d1.m_minutes == d2.m_minutes);   
+}
+
+bool DateDeadline::operator!=(const DateDeadline& other) const
+{
+  return !(other == *this);
+}
+
+bool operator<(const DateDeadline& d1, const DateDeadline& d2)
+{
+    if ((Date)d1<(Date)d2)
+        return true;
+    if((Date)d1>(Date)d2)
+        return false;
+    if (d1.m_minutes<d2.m_minutes)
+        return true;
+    return false;
+}
+
+bool DateDeadline::operator>(const DateDeadline& other) const
+{
+  return (!(*this < other) && !(*this == other)) ;
+}
+
+bool DateDeadline::operator<=(const DateDeadline& other) const
+{
+  return !(*this > other);
+}
+
+bool DateDeadline::operator>=(const DateDeadline& other) const
+{
+  return !(*this < other);
+}

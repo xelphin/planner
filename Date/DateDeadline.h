@@ -24,6 +24,42 @@ public:
     */
     void updateDate(const int newMonth, const int newDay, const int newDeadline);
 
+    /*
+    * @return
+    *      True: d1 == d2
+    */
+    friend bool operator==(const DateDeadline& d1, const DateDeadline& d2);
+
+    /*
+    * @return
+    *      True: d1 != d2
+    */
+    bool operator!=(const DateDeadline& other) const;
+
+    /*
+    * @return
+    *      True: d1 < d2
+    */
+    friend bool operator<(const DateDeadline& d1, const DateDeadline& d2);
+
+    /*
+    * @return
+    *      True: d1 > d2
+    */
+    bool operator>(const DateDeadline& other) const;
+
+    /*
+    * @return
+    *      True: d1 <= d2
+    */
+    bool operator<=(const DateDeadline& other) const;
+
+    /*
+    * @return
+    *      True: d1 >= d2
+    */
+    bool operator>=(const DateDeadline& other) const;
+
 
 private:
     int m_minutes;

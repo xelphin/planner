@@ -24,6 +24,42 @@ class Date {
         */
        void updateDate(const int newMonth, const int newDay);
 
+        /*
+        * @return
+        *      True: d1 == d2
+        */
+       friend bool operator==(const Date& d1, const Date& d2);
+
+        /*
+        * @return
+        *      True: d1 != d2
+        */
+       bool operator!=(const Date& other) const;
+
+        /*
+        * @return
+        *      True: d1 < d2
+        */
+       friend bool operator<(const Date& d1, const Date& d2);
+
+        /*
+        * @return
+        *      True: d1 > d2
+        */
+       bool operator>(const Date& other) const;
+
+        /*
+        * @return
+        *      True: d1 <= d2
+        */
+       bool operator<=(const Date& other) const;
+
+        /*
+        * @return
+        *      True: d1 >= d2
+        */
+       bool operator>=(const Date& other) const;
+
     protected:
         int m_year;
         int m_month;

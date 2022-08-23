@@ -24,6 +24,41 @@ public:
     */
     void updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd);
 
+    /*
+    * @return
+    *      True: d1 == d2
+    */
+    friend bool operator==(const DateRange& d1, const DateRange& d2);
+
+    /*
+    * @return
+    *      True: d1 != d2
+    */
+    bool operator!=(const DateRange& other) const;
+
+    /*
+    * @return
+    *      True: d1 < d2
+    */
+    friend bool operator<(const DateRange& d1, const DateRange& d2);
+
+    /*
+    * @return
+    *      True: d1 > d2
+    */
+    bool operator>(const DateRange& other) const;
+
+    /*
+    * @return
+    *      True: d1 <= d2
+    */
+    bool operator<=(const DateRange& other) const;
+
+    /*
+    * @return
+    *      True: d1 >= d2
+    */
+    bool operator>=(const DateRange& other) const;
 
 private:
     int m_start;

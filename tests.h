@@ -42,11 +42,14 @@ bool utilities_checkValidTimeRange();
 // DATE
 bool date_createDate();
 bool date_updateDate();
+bool date_operators();
 // DATE_DEADLINE
 bool dateDeadline_createDate();
 bool dateDeadline_updateDate();
+// Todo: dateDeadline_operators();
 // DATE_RANGE
 bool dateRange_createDate();
 bool dateRange_updateDate();
+// Todo: dateRange_operators();
 
 #endif
