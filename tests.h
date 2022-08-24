@@ -1,7 +1,8 @@
 /*
 RUN TESTS:
-g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp Date/Date.cpp Date/DateDeadline.cpp Date/DateRange.cpp -o output
+g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp -o output
 ./output
+
 */
 
 #ifndef TESTS_H
@@ -18,9 +19,12 @@ g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp Date/Date.cpp Date/DateD
 #include <functional>
 
 #include "./utilities.h"
+#include "./Date/DateAbstract.h"
 #include "./Date/Date.h"
 #include "./Date/DateDeadline.h"
 #include "./Date/DateRange.h"
+//#include "./Points/Point.h"
+//#include "./Points/Event.h"
 
 
 // --RUN TESTS
@@ -39,6 +43,7 @@ bool utilities_amountDaysInMonth();
 bool utilities_validDate();
 bool utilities_checkValidTime();
 bool utilities_checkValidTimeRange();
+
 // DATE
 bool date_createDate();
 bool date_updateDate();
@@ -46,10 +51,13 @@ bool date_operators();
 // DATE_DEADLINE
 bool dateDeadline_createDate();
 bool dateDeadline_updateDate();
-// Todo: dateDeadline_operators();
+bool dateDeadline_operators();
 // DATE_RANGE
 bool dateRange_createDate();
 bool dateRange_updateDate();
-// Todo: dateRange_operators();
+bool dateRange_operators();
+// DATE COMPARISONS
+bool dateAll_operators();
+
 
 #endif

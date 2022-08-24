@@ -22,9 +22,12 @@ void run_all_tests() {
     run_test(date_updateDate, "date_updateDate");
     run_test(dateDeadline_createDate, "dateDeadline_createDate");
     run_test(dateDeadline_updateDate, "dateDeadline_updateDate");
+    run_test(dateDeadline_operators, "dateDeadline_operators");
     run_test(dateRange_createDate, "dateRange_createDate");
     run_test(dateRange_updateDate, "dateRange_updateDate");
-    run_test(date_operators, "date_operators");
+    run_test(dateRange_operators, "dateRange_operators");
+    //run_test(date_operators, "date_operators");
+    
 }
 
 void run_test(std::function<bool()> test, std::string test_name)
@@ -134,6 +137,7 @@ bool utilities_checkValidTimeRange()
 
 bool date_createDate()
 {
+    
     Date date(2022,12,4);
     Date date2(2024,2,29);
     try {
@@ -146,7 +150,9 @@ bool date_createDate()
 
 bool date_updateDate()
 {
+    
     Date date(2022,12,4);
+    
     date.updateDate(3,23);
     int count = 0;
     try {
@@ -160,6 +166,8 @@ bool date_updateDate()
         count++;
     }
     return count == 2;
+    
+   return true;
 }
 
 bool date_operators()
@@ -225,6 +233,34 @@ bool dateDeadline_updateDate()
         count++;
     }
     return count == 3;
+}
+
+bool dateDeadline_operators()
+{
+    int year = 2022;
+    DateDeadline date1(year,3,14, 1400);
+    DateDeadline date2(year,3,14, 1400);
+    DateDeadline date3(year,3,12, 1400);
+    DateDeadline date4(year,3,14, 400);
+    DateDeadline date5(year,3,15, 1400);
+    DateDeadline date6(year,3,12, 1420);
+    DateDeadline date7(year,3,16, 400);
+    int count = 0;
+    count += (date1 == date2) == true;
+    count += (date1 <= date2) == true;
+    count += (date1 == date3) == false;
+    count += (date1 == date4) == false;
+    count += (date3 != date6) == true;
+    count += (date1 != date3) == true;
+    count += (date1 >  date3) == true;
+    count += (date1 >= date3) == true;
+    count += (date1 >  date4) == true; 
+    count += (date1 <  date4) == false; 
+    count += (date1 >  date5) == false; 
+    count += (date1 >  date6) == true; 
+    count += (date1 >= date6) == true; 
+    count += (date1 >  date7) == false; 
+    return count == 14;
 }
 
 bool dateRange_createDate()
@@ -296,4 +332,54 @@ bool dateRange_updateDate()
         count++;
     }
     return count == 6;
+}
+
+bool dateRange_operators()
+{
+    int year = 2022;
+    DateRange date1(year,3,14, 1400, 1440);
+    DateRange date2(year,3,14, 1400, 1440);
+    DateRange date3(year,3,12, 1400, 1440);
+    DateRange date4(year,3,14, 400, 1200);
+    DateRange date5(year,3,15, 1400, 1440);
+    DateRange date6(year,3,12, 1420, 1440);
+    DateRange date7(year,3,16, 400, 1200);
+    DateRange date8(year,3,14, 1400, 1420);
+    int count = 0;
+    count += (date1 == date2) == true;
+    count += (date1 <= date2) == true;
+    count += (date1 == date3) == false;
+    count += (date1 == date4) == false;
+    count += (date3 != date6) == true;
+    count += (date1 != date3) == true;
+    count += (date1 >  date3) == true;
+    count += (date1 >= date3) == true;
+    count += (date1 >  date4) == true; 
+    count += (date1 <  date4) == false; 
+    count += (date1 >  date5) == false; 
+    count += (date1 >  date6) == true; 
+    count += (date1 >= date6) == true; 
+    count += (date1 >  date7) == false; 
+    count += (date1 >  date8) == true;   
+    count += (date1 ==  date8) == false;
+    return count == 16;
+}
+
+bool dateAll_operators()
+{
+    int year = 2022;
+    DateRange date1(year, 3, 14, 1200, 1400);
+    DateDeadline date2(year, 3, 14, 1400);
+    DateDeadline date3(year, 3, 14, 1200);
+    Date date4(year, 3, 14);
+    int count = 0;
+    count += (date1 == date2) == false;
+    count += (date1 == date3) == false;
+    count += (date1 == date4) == false;
+    count += (date1 < date2) == true;
+    count += (date1 < date3) == false;
+    count += (date1 < date4) == false;
+    count += (date2 < date4) == false;
+    count += (date2 > date4) == true;
+    return count==8;
 }

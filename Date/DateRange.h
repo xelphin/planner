@@ -1,12 +1,12 @@
 #ifndef DATE_RANGE_H
 #define DATE_RANGE_H
 
-#include "Date.h"
+#include "./DateAbstract.h"
 #include "../utilities.h"
 #include <iostream>
 #include <string>
 
-class DateRange : public Date {
+class DateRange : public DateAbstract {
 public:
     /*
      * C'tor of DateDeadline class
@@ -25,40 +25,16 @@ public:
     void updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd);
 
     /*
-    * @return
-    *      True: d1 == d2
+    * Gets the starting time [important for comparison]
     */
-    friend bool operator==(const DateRange& d1, const DateRange& d2);
+    int getTime() const override;
 
     /*
-    * @return
-    *      True: d1 != d2
+    * Get amount of minutes passed till reached end
     */
-    bool operator!=(const DateRange& other) const;
+    int getEnd() const override;
 
-    /*
-    * @return
-    *      True: d1 < d2
-    */
-    friend bool operator<(const DateRange& d1, const DateRange& d2);
-
-    /*
-    * @return
-    *      True: d1 > d2
-    */
-    bool operator>(const DateRange& other) const;
-
-    /*
-    * @return
-    *      True: d1 <= d2
-    */
-    bool operator<=(const DateRange& other) const;
-
-    /*
-    * @return
-    *      True: d1 >= d2
-    */
-    bool operator>=(const DateRange& other) const;
+    ~DateRange() {}
 
 private:
     int m_start;

@@ -1,12 +1,12 @@
 #ifndef DATE_DEADLINE_H
 #define DATE_DEADLINE_H
 
-#include "Date.h"
+#include "./DateAbstract.h"
 #include "../utilities.h"
 #include <iostream>
 #include <string>
 
-class DateDeadline : public Date {
+class DateDeadline : public DateAbstract {
 public:
     /*
      * C'tor of DateDeadline class
@@ -25,45 +25,22 @@ public:
     void updateDate(const int newMonth, const int newDay, const int newDeadline);
 
     /*
-    * @return
-    *      True: d1 == d2
+    * Gets the starting time [important for comparison]
     */
-    friend bool operator==(const DateDeadline& d1, const DateDeadline& d2);
+    int getTime() const override;
 
     /*
-    * @return
-    *      True: d1 != d2
+    * Get amount of minutes passed till reached end
     */
-    bool operator!=(const DateDeadline& other) const;
+    int getEnd() const;
 
-    /*
-    * @return
-    *      True: d1 < d2
-    */
-    friend bool operator<(const DateDeadline& d1, const DateDeadline& d2);
-
-    /*
-    * @return
-    *      True: d1 > d2
-    */
-    bool operator>(const DateDeadline& other) const;
-
-    /*
-    * @return
-    *      True: d1 <= d2
-    */
-    bool operator<=(const DateDeadline& other) const;
-
-    /*
-    * @return
-    *      True: d1 >= d2
-    */
-    bool operator>=(const DateDeadline& other) const;
+    ~DateDeadline() {}
 
 
 private:
     int m_minutes;
     static const int GENERAL = -1;
 };
+
 
 #endif

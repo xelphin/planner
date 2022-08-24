@@ -14,6 +14,12 @@
 int amountDaysInMonth(const int year, const int month);
 
 /*
+* Get min/max allowed year
+*/
+int getMinYear();
+int getMaxYear();
+
+/*
 * Check if the day/month/year exists
 *
 * @param year - Chosen year.

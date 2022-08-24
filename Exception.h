@@ -40,5 +40,12 @@ public:
     }
 };
 
+class InvalidFormatOfRepetitionArray : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "The array format is incorrect.";
+    }
+};
+
 
 #endif // EXCEPTION_H
