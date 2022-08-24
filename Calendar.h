@@ -43,8 +43,6 @@ class Calendar {
 
         /*
         * Create database.txt file
-        * @return
-        *      True: Success | False: Failure
         */
        void createDatabase() const;
 };

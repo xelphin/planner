@@ -47,5 +47,25 @@ public:
     }
 };
 
+class ArrayValueIsTooLarge : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "The value in the array is too large or written inappropriately.";
+    }
+};
+
+class TooManyValuesInString : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "There are too many values in the string. Larger array required.";
+    }
+};
+class TooLittleValuesInString : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "There are too little values in the string. Smaller array required.";
+    }
+};
+
 
 #endif // EXCEPTION_H
