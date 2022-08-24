@@ -1,6 +1,6 @@
 /*
 RUN TESTS:
-g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp -o output
+g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp Points/Point.h -o output
 ./output
 
 */
@@ -13,6 +13,8 @@ g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/Date
 #include <string>
 #include <algorithm>
 #include <random>
+#include <array>
+#include <memory>
 #include <cstdio>
 #include <fstream>
 #include <cstring>
@@ -23,7 +25,7 @@ g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/Date
 #include "./Date/Date.h"
 #include "./Date/DateDeadline.h"
 #include "./Date/DateRange.h"
-//#include "./Points/Point.h"
+#include "./Points/Point.h"
 //#include "./Points/Event.h"
 
 
@@ -43,6 +45,7 @@ bool utilities_amountDaysInMonth();
 bool utilities_validDate();
 bool utilities_checkValidTime();
 bool utilities_checkValidTimeRange();
+bool utilities_checkParseStringToArray();
 
 // DATE
 bool date_createDate();

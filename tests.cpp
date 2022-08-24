@@ -18,6 +18,7 @@ void run_all_tests() {
     run_test(utilities_validDate, "utilities_validDate");
     run_test(utilities_checkValidTime, "utilities_checkValidTime");
     run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange");
+    run_test(utilities_checkParseStringToArray, "utilities_checkParseStringToArray");
     run_test(date_createDate, "date_createDate");
     run_test(date_updateDate, "date_updateDate");
     run_test(dateDeadline_createDate, "dateDeadline_createDate");
@@ -133,6 +134,98 @@ bool utilities_checkValidTimeRange()
     count += checkValidTimeRange(-1, 1225) == false;
     count += checkValidTimeRange(10, 100) == true;
     return count == 8;
+}
+
+bool utilities_checkParseStringToArray()
+{
+    int count = 0;
+
+    std::string str1 = "[1,2,3]";
+    std::array<int, 3> arr1 {1,2,3};
+    std::array<int, 3> arr1Result;
+    parseStringToArray(arr1Result, str1);
+    if(arr1 == arr1Result)
+        count++;
+    
+    std::string str2 = "[23, 400, 2000,    21,1,3,11,  4]";
+    std::array<int, 8> arr2 {23,400,2000,21,1,3,11,4};
+    std::array<int, 8> arr2Result;
+    parseStringToArray(arr2Result, str2);
+    if(arr2 == arr2Result)
+        count++;
+    
+    std::string str3 = "[]";
+    std::array<int, 0> arr3 {};
+    std::array<int, 0> arr3Result;
+    parseStringToArray(arr3Result, str3);
+    if(arr3 == arr3Result)
+        count++;
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1, 20000, 24]"); 
+    } catch (ArrayValueIsTooLarge&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "1, 2000, 24]"); 
+    } catch (InvalidFormatOfRepetitionArray&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1, 2000,y24]"); 
+    } catch (InvalidFormatOfRepetitionArray&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1, 2000,24,33]"); 
+    } catch (TooManyValuesInString&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1, 2000]"); 
+    } catch (TooLittleValuesInString&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1,, 2000, 30]"); 
+    } catch (InvalidFormatOfRepetitionArray&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[,1, 2000, 30]"); 
+    } catch (InvalidFormatOfRepetitionArray&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1,   , , 30]"); 
+    } catch (InvalidFormatOfRepetitionArray&){
+        count++;
+    }
+
+    try {
+        std::array<int, 3> arr4Result;
+        parseStringToArray(arr4Result, "[1, 2 , 30,]"); 
+    } catch (InvalidFormatOfRepetitionArray&){
+        count++;
+    }
+    
+    
+    return count == 12;
 }
 
 bool date_createDate()
