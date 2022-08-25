@@ -1,0 +1,69 @@
+COMPILER = g++
+EXE = Planner
+FLAGS = -std=c++14 -Wall -Werror -pedantic-errors
+G_FLAG = -g
+
+MAIN = main
+
+DATE_ABSTRACT = Date/DateAbstract
+DATE = Date/Date
+DATE_DEADLINE = Date/DateDeadline
+DATE_RANGE = Date/DateRange
+ALL_DATE = $(DATE_ABSTRACT).h $(DATE).h $(DATE_DEADLINE).h $(DATE_RANGE).h
+ALL_DATE_OBJ = $(DATE_ABSTRACT).o $(DATE).o $(DATE_DEADLINE).o $(DATE_RANGE).o
+POINT = Points/Point
+EVENT = Points/Event
+REMINDER = Points/Reminder
+TASK = Points/Task
+ALL_POINTS = $(POINT).h $(EVENT).h $(REMINDER).h $(TASK).h
+ALL_POINTS_OBJ = $(POINT).o $(EVENT).o $(REMINDER).o $(TASK).o
+
+EXCEPTION = Exception
+UTILTITIES = utilities
+TESTS = tests
+
+OBJ_FILES = $(ALL_DATE_OBJ) $(ALL_POINTS_OBJ) $(UTILTITIES).o $(TESTS).o $(MAIN).o
+
+
+$(EXE): $(OBJ_FILES)
+	$(COMPILER) $(G_FLAG) $(FLAGS) $(OBJ_FILES) -o $(EXE)
+
+
+
+$(MAIN).o: $(MAIN).cpp  $(ALL_DATE) $(ALL_POINTS) $(EXCEPTION).h $(UTILTITIES).h $(TESTS).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(MAIN).cpp -o $(MAIN).o
+
+$(DATE_ABSTRACT).o: $(DATE_ABSTRACT).cpp $(DATE_ABSTRACT).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(DATE_ABSTRACT).cpp -o $(DATE_ABSTRACT).o
+
+$(DATE).o: $(DATE).cpp $(DATE).h $(DATE_ABSTRACT).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(DATE).cpp -o $(DATE).o
+
+$(DATE_DEADLINE).o: $(DATE_DEADLINE).cpp $(DATE_DEADLINE).h $(DATE_ABSTRACT).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(DATE_DEADLINE).cpp -o $(DATE_DEADLINE).o
+
+$(DATE_RANGE).o: $(DATE_RANGE).cpp $(DATE_RANGE).h $(DATE_ABSTRACT).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(DATE_RANGE).cpp -o $(DATE_RANGE).o
+
+$(POINT).o: $(POINT).cpp $(POINT).h $(DATE_ABSTRACT).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(POINT).cpp -o $(POINT).o
+
+$(EVENT).o: $(EVENT).cpp $(EVENT).h $(POINT).h $(DATE_ABSTRACT).h $(DATE_RANGE).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(EVENT).cpp -o $(EVENT).o
+
+$(REMINDER).o: $(REMINDER).cpp $(REMINDER).h $(POINT).h $(DATE_ABSTRACT).h $(DATE_DEADLINE).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(REMINDER).cpp -o $(REMINDER).o
+
+$(TASK).o: $(TASK).cpp $(TASK).h $(POINT).h $(DATE_ABSTRACT).h $(DATE).h $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(TASK).cpp -o $(TASK).o
+
+$(UTILITIES).o: $(UTILITIES).cpp $(UTILITIES).h  $(EXCEPTION).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(UTILITIES).cpp -o $(UTILITIES).o
+
+$(TESTS).o: $(TESTS).cpp $(TESTS).h  $(ALL_DATE) $(ALL_POINTS) $(EXCEPTION).h $(UTILTITIES).h
+	$(COMPILER) $(FLAGS) $(G_FLAG) -c $(TESTS).cpp -o $(TESTS).o
+
+
+
+clean:
+	rm -f $(OBJ_FILES) $(EXE)

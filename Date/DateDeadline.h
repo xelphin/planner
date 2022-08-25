@@ -3,6 +3,7 @@
 
 #include "./DateAbstract.h"
 #include "../utilities.h"
+#include "../Exception.h"
 #include <iostream>
 #include <string>
 

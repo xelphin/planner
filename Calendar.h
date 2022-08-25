@@ -2,6 +2,15 @@
 #define CALENDAR_H
 
 #include "./Points/Point.h"
+#include "./Points/Event.h"
+#include "./Points/Reminder.h"
+#include "./Points/Task.h"
+#include "./Date/DateAbstract.h"
+#include "./Date/Date.h"
+#include "./Date/DateDeadline.h"
+#include "./Date/DateRange.h"
+#include "./utilities.h"
+#include "./Exception.h"
 
 #include <string>
 #include <fstream>

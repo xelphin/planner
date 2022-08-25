@@ -8,9 +8,6 @@
 #include "../Exception.h"
 #include "../utilities.h"
 #include "../Date/DateAbstract.h"
-#include "../Date/Date.h"
-#include "../Date/DateDeadline.h"
-#include "../Date/DateRange.h"
 
 class Point {
 

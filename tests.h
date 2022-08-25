@@ -21,6 +21,7 @@ g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/Date
 #include <functional>
 
 #include "./utilities.h"
+#include "./Exception.h"
 #include "./Date/DateAbstract.h"
 #include "./Date/Date.h"
 #include "./Date/DateDeadline.h"
