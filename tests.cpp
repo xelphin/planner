@@ -27,7 +27,7 @@ void run_all_tests() {
     run_test(dateRange_createDate, "dateRange_createDate");
     run_test(dateRange_updateDate, "dateRange_updateDate");
     run_test(dateRange_operators, "dateRange_operators");
-    //run_test(dateAll_operators, "dateAll_operators");
+    run_test(dateAll_operators, "dateAll_operators");
     run_test(event_createEvent, "event_createEvent");
     
 }
@@ -480,6 +480,6 @@ bool dateAll_operators()
 
 bool event_createEvent()
 {
-    // Event event("Alice's Birthday", 2022, 7,24, 600, 1200, false, "[]", 0, "Bring cake");
+    Event event("Alice's Birthday", 2022, 7,24, 600, 1200, false, "[]", 0, "Bring cake");
     return true;
 }

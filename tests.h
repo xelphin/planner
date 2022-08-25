@@ -1,6 +1,6 @@
 /*
 RUN TESTS:
-g++ -std=c++11 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp Points/Point.h Points/Event.h -o output
+g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp Points/Point.cpp Points/Event.cpp -o output
 ./output
 
 */
