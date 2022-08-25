@@ -29,6 +29,8 @@ void run_all_tests() {
     run_test(dateRange_operators, "dateRange_operators");
     run_test(dateAll_operators, "dateAll_operators");
     run_test(event_createEvent, "event_createEvent");
+    run_test(reminder_createReminder, "reminder_createReminder");
+    run_test(task_createTask, "task_createTask");
     
 }
 
@@ -482,5 +484,19 @@ bool event_createEvent()
 {
     Event event("Alice's Birthday", 2022, 7,24, 600, 1200, false, "[]", 0, "Bring cake");
     event.updateDate(7,24,1200,1400);
+    return true;
+}
+
+bool reminder_createReminder()
+{
+    Reminder reminder("Alice's Birthday", 2022, 7,24, 600, false, "[]", 0, "Bring cake");
+    reminder.updateDate(7,24,1200);
+    return true;
+}
+
+bool task_createTask()
+{
+    Task task("Alice's Birthday", 2022, 7,24, false, "[]", 0, "Bring cake");
+    task.updateDate(7,24,1200);
     return true;
 }

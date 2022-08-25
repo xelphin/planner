@@ -1,6 +1,6 @@
 /*
 RUN TESTS:
-g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp Points/Point.cpp Points/Event.cpp -o output
+g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp Points/Point.cpp Points/Event.cpp Points/Reminder.cpp Points/Task.cpp -o output
 ./output
 
 */
@@ -27,6 +27,8 @@ g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/Date
 #include "./Date/DateRange.h"
 #include "./Points/Point.h"
 #include "./Points/Event.h"
+#include "./Points/Reminder.h"
+#include "./Points/Task.h"
 
 
 // --RUN TESTS
@@ -62,8 +64,12 @@ bool dateRange_operators();
 // DATE COMPARISONS
 bool dateAll_operators();
 
+// POINT
 // EVENT
 bool event_createEvent();
-
+// REMINDER
+bool reminder_createReminder();
+// TASK
+bool task_createTask();
 
 #endif

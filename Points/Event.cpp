@@ -9,6 +9,8 @@ Event::Event(const std::string title, const int year, const int month, const int
 
 void Event::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
 {
+    if (newStart == Point::EMPTY_ARG || newEnd == Point::EMPTY_ARG)
+        throw InvalidDate();
     (*m_date).updateDate(newMonth, newDay, newStart, newEnd);
 }
 

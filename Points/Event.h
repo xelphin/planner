@@ -1,7 +1,6 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-#include "./Event.h"
 #include "./Point.h"
 #include "../utilities.h"
 #include "../Date/DateRange.h"
