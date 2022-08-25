@@ -1,39 +1,11 @@
 #include "./Point.h"
 
 
-Point::Point(const std::string title, const int year, const int month, const int day,
-    const bool repeat, const std::string repeatArray,  const int amountRepetitions,
+Point::Point(const std::string title, const int year, const bool repeat,
+    const std::string repeatArray,  const int amountRepetitions,
     const std::string description) :
     m_title(title),
     m_year(year),
-    m_date(std::make_unique<Date>(year, month, day)),
-    m_repeat(repeat),
-    m_amountRepetitions(amountRepetitions),
-    m_description(description)
-{
-
-}
-
-Point::Point(const std::string title, const int year, const int month, const int day,
-    const int deadline, const bool repeat, const std::string repeatArray,
-    const int amountRepetitions, const std::string description) :
-    m_title(title),
-    m_year(year),
-    m_date(std::make_unique<DateDeadline>(year, month, day, deadline)),
-    m_repeat(repeat),
-    m_amountRepetitions(amountRepetitions),
-    m_description(description)
-{
-
-}
-
-Point::Point(const std::string title, const int year, const int month, const int day,
-    const int startTime,  const int endTime,
-    const bool repeat, const std::string repeatArray, const int amountRepetitions,
-    const std::string description) :
-    m_title(title),
-    m_year(year),
-    m_date(std::make_unique<DateRange>(year, month, day, startTime, endTime)),
     m_repeat(repeat),
     m_amountRepetitions(amountRepetitions),
     m_description(description)

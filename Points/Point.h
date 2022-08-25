@@ -21,15 +21,8 @@ class Point {
         * @return
         *      A new instance of Point.
         */
-        Point(const std::string title, const int year, const int month, const int day,
-            const bool repeat, const std::string repeatArray,  const int amountRepetitions,
-            const std::string description);
-        Point(const std::string title, const int year, const int month, const int day,
-            const int deadline, const bool repeat, const std::string repeatArray,
-            const int amountRepetitions, const std::string description);
-        Point(const std::string title, const int year, const int month, const int day,
-            const int startTime,  const int endTime,
-            const bool repeat, const std::string repeatArray, const int amountRepetitions,
+        Point(const std::string title, const int year,const bool repeat,
+            const std::string repeatArray,  const int amountRepetitions,
             const std::string description);
 
         /*
@@ -48,8 +41,11 @@ class Point {
         * Edit date
         * @param newMonth - The new month for the point
         * @param newDay - The new day for the point
+        * @param arg1 - Deadline or TimeStart depending on whether or not arg2 is EMPTY_ARG
+        * @param arg2 - TimeEnd
         */
-       virtual void updateDate(const int newMonth, const int newDay) = 0;
+       virtual void updateDate(const int newMonth, const int newDay,
+                               const int arg1 = EMPTY_ARG, const int arg2 = EMPTY_ARG) = 0;
 
         /*
         * Add date where Point will be repeated
@@ -63,7 +59,6 @@ class Point {
     protected:
         std::string m_title;
         int m_year;
-        std::unique_ptr<DateAbstract> m_date;
         bool m_repeat;
         int m_amountRepetitions;
         std::string m_description;
@@ -73,6 +68,7 @@ class Point {
         static const int MAX_TITLE_LENGTH = 40;
         static const int MIN_DESCRIPTION_LENGTH = 0;
         static const int MAX_DESCRIPTION_LENGTH = 400;
+        static const int EMPTY_ARG = -1;
 
 };
 

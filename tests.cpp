@@ -481,5 +481,6 @@ bool dateAll_operators()
 bool event_createEvent()
 {
     Event event("Alice's Birthday", 2022, 7,24, 600, 1200, false, "[]", 0, "Bring cake");
+    event.updateDate(7,24,1200,1400);
     return true;
 }
