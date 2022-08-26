@@ -1,16 +1,13 @@
 #include "./Reminder.h"
 
-Reminder::Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
-    const int deadline) :
+Reminder::Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day) :
     Point(move(banner), year),
-    m_date(std::make_unique<DateDeadline>(year, month, day, deadline))
+    m_date(std::make_unique<Date>(year, month, day))
 {}
 
-void Reminder::updateDate(const int newMonth, const int newDay, const int newDeadline, const int arg2)
+void Reminder::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
 {
-    if (newDeadline == Point::EMPTY_ARG)
-        throw InvalidDate();
-    (*m_date).updateDate(newMonth, newDay, newDeadline);
+    (*m_date).updateDate(newMonth, newDay);
 }
 
 DateAbstract* Reminder::getDate() const

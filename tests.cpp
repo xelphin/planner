@@ -504,44 +504,44 @@ bool event_createEvent()
     return count==5;
 }
 
-bool reminder_createReminder()
-{
-    int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
-    Reminder rem1(banner, 2022, 7, 24, 600);
-    Reminder rem2(banner, 2022, 7, 24, 600);
-    if(rem1 == rem2)
-        count++;
-    rem1.updateDate(7,24,1200);
-    if(rem1 > rem2)
-        count++;
-    if (rem2.getTitle().compare("Picnic") == 0)
-        count++;
-    rem2.updateTitle("Berry Themed Picnic");
-    if (rem2.getTitle().compare("Berry Themed Picnic") == 0)
-        count++;
-    if (rem1.getTitle().compare(rem2.getTitle()) == 0)
-        count++;
-    return count==5;
-}
-
 bool task_createTask()
 {
     int count = 0;
     std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
-    Task task1(banner, 2022, 7, 24);
-    Task task2(banner, 2022, 7, 24);
+    Task task1(banner, 2022, 7, 24, 600);
+    Task task2(banner, 2022, 7, 24, 600);
     if(task1 == task2)
         count++;
-    task1.updateDate(7,25);
+    task1.updateDate(7,24,1200);
     if(task1 > task2)
         count++;
-    if (task1.getTitle().compare("Picnic") == 0)
+    if (task2.getTitle().compare("Picnic") == 0)
         count++;
-    task1.updateTitle("Berry Themed Picnic");
-    if (task1.getTitle().compare("Berry Themed Picnic") == 0)
+    task2.updateTitle("Berry Themed Picnic");
+    if (task2.getTitle().compare("Berry Themed Picnic") == 0)
         count++;
-    if (task1.getTitle().compare(task1.getTitle()) == 0)
+    if (task1.getTitle().compare(task2.getTitle()) == 0)
+        count++;
+    return count==5;
+}
+
+bool reminder_createReminder()
+{
+    int count = 0;
+    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    Reminder rem1(banner, 2022, 7, 24);
+    Reminder rem2(banner, 2022, 7, 24);
+    if(rem1 == rem2)
+        count++;
+    rem1.updateDate(7,25);
+    if(rem1 > rem2)
+        count++;
+    if (rem1.getTitle().compare("Picnic") == 0)
+        count++;
+    rem1.updateTitle("Berry Themed Picnic");
+    if (rem1.getTitle().compare("Berry Themed Picnic") == 0)
+        count++;
+    if (rem1.getTitle().compare(rem1.getTitle()) == 0)
         count++;
     return count==5;
     return true;
@@ -550,6 +550,16 @@ bool task_createTask()
 bool calendar_createCalendar()
 {
     Calendar calendar;
-    //calendar.addEvent("Alice's Birthday", 7,24,1200, 1400, false, "[11,12,1200,1400]", 1, "Bring cake");
+    /*
+    std::cout << "here" << std::endl;
+    std::shared_ptr<Banner> banner1(new Banner("Picnic","Bring cake"));
+    calendar.addEvent(banner1, 7, 24, 600, 1200);
+    std::cout << "here" << std::endl;
+    std::shared_ptr<Banner> banner2(new Banner("Finish Art Assignment","Sketching plants"));
+    calendar.addTask(banner2, 7, 24);
+    std::shared_ptr<Banner> banner3(new Banner("Theatre show in 2 days",""));
+    std::cout << "here" << std::endl;
+    calendar.addReminder(banner3, 7, 24, 1200);
+    */
     return true;
 }

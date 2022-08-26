@@ -1,13 +1,16 @@
 #include "./Task.h"
 
-Task::Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day) :
+Task::Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
+    const int deadline) :
     Point(move(banner), year),
-    m_date(std::make_unique<Date>(year, month, day))
+    m_date(std::make_unique<DateDeadline>(year, month, day, deadline))
 {}
 
-void Task::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
+void Task::updateDate(const int newMonth, const int newDay, const int newDeadline, const int arg2)
 {
-    (*m_date).updateDate(newMonth, newDay);
+    if (newDeadline == Point::EMPTY_ARG)
+        throw InvalidDate();
+    (*m_date).updateDate(newMonth, newDay, newDeadline);
 }
 
 DateAbstract* Task::getDate() const

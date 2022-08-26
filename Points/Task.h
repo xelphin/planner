@@ -4,7 +4,7 @@
 #include "./Point.h"
 #include "../utilities.h"
 #include "../Exception.h"
-#include "../Date/Date.h"
+#include "../Date/DateDeadline.h"
 #include "../Banner/Banner.h"
 #include <iostream>
 #include <string>
@@ -20,7 +20,8 @@ public:
      * @return
      *      A new instance of Task.
     */
-    Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day);
+    Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
+             const int deadline);
 
     /*
     * Edit date
@@ -35,7 +36,7 @@ public:
     ~Task() {}
 
 private:
-    std::unique_ptr<Date> m_date;
+    std::unique_ptr<DateDeadline> m_date;
     
 };
 

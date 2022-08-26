@@ -4,7 +4,7 @@
 #include "./Point.h"
 #include "../utilities.h"
 #include "../Exception.h"
-#include "../Date/DateDeadline.h"
+#include "../Date/Date.h"
 #include "../Banner/Banner.h"
 #include <iostream>
 #include <string>
@@ -20,8 +20,7 @@ public:
      * @return
      *      A new instance of Reminder.
     */
-    Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
-             const int deadline);
+    Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day);
 
     /*
     * Edit date
@@ -30,14 +29,14 @@ public:
     * @param newDeadline - The new deadline for the point
     */
     void updateDate(const int newMonth, const int newDay,
-                    const int newDeadline, const int arg2 = Point::EMPTY_ARG) override;
+                    const int arg1 = Point::EMPTY_ARG, const int arg2 = Point::EMPTY_ARG) override;
 
     DateAbstract* getDate() const override;
 
     ~Reminder() {}
 
 private:
-    std::unique_ptr<DateDeadline> m_date;
+    std::unique_ptr<Date> m_date;
     
 };
 

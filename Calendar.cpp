@@ -21,23 +21,21 @@ void Calendar::createDatabase() const
 }
 
 
-void Calendar::addEvent(const std::string title, const int month, const int day,
-    const int timeStart, const int timeEnd, const bool repeat, const std::string repeatArray, 
-    const int repeatAmount, const std::string description)
+void Calendar::addEvent(std::shared_ptr<Banner> banner, const int month, const int day,
+        const int timeStart, const int timeEnd)
 {
-    /*
-    m_points.push_back(std::make_unique<Event>(title, m_year, month, day,
-     timeStart, timeEnd, repeat, repeatAmount, description));
-    int jump = Event::DATE_VARIABLE_AMOUNT;
-    int arrSize = repeatAmount*jump; // [month, day, start, end]
-    int* arrResult = new int[arrSize]();
-
-    for(int i=0; i<repeatAmount; i++) {
-        (*m_points.back()).addRepeat(arrResult[i*jump+0], arrResult[i*jump+1], arrResult[i*jump+2], arrResult[i*jump+3]);
-    }
-
-    delete[] arrResult;
-    */
+    m_points.push_back(std::make_unique<Event>(std::move(banner), m_year, month, day,
+     timeStart, timeEnd));
 }
 
+void Calendar::addTask(std::shared_ptr<Banner> banner, const int month, const int day,
+    const int deadline)
+{
+    m_points.push_back(std::make_unique<Task>(std::move(banner), m_year, month, day,
+     deadline));
+}
 
+void Calendar::addReminder(std::shared_ptr<Banner> banner, const int month, const int day)
+{
+    m_points.push_back(std::make_unique<Reminder>(std::move(banner), m_year, month, day));
+}

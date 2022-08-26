@@ -37,19 +37,32 @@ public:
 
     /*
     * Add Event to Calendar
-    * @param title - The title of the Event
+    * @param banner - Banner of Event, contains title and description
     * @param month - The month of the Event
     * @param day - The day of the Event
     * @param timeStart - The timeStart of the Event
     * @param timeEnd - The timeEnd of the Event
-    * @param repeat - The repeat of the Event
-    * @param repeatArray - The repeatArray of the Event
-    * @param repeatAmount - The repeatAmount of the Event
-    * @param description - The description of the Event
     */
-   void addEvent(const std::string title, const int month, const int day,
-        const int timeStart, const int timeEnd, const bool repeat, const std::string repeatArray, 
-        const int repeatAmount, const std::string description);
+   void addEvent(std::shared_ptr<Banner> banner, const int month, const int day,
+        const int timeStart, const int timeEnd);
+
+    /*
+    * Add Task to Calendar
+    * @param banner - Banner of Event, contains title and description
+    * @param month - The month of the Event
+    * @param day - The day of the Event
+    * @param deadline - The timeStart of the Event
+    */
+   void addTask(std::shared_ptr<Banner> banner, const int month, const int day,
+        const int deadline);
+
+    /*
+    * Add Reminder to Calendar
+    * @param banner - Banner of Event, contains title and description
+    * @param month - The month of the Event
+    * @param day - The day of the Event
+    */
+   void addReminder(std::shared_ptr<Banner> banner, const int month, const int day);
 
     /*
     * Print Calendar.
