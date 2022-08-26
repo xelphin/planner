@@ -19,7 +19,7 @@ ALL_POINTS_SHARED_DEPENDENCIES = $(POINT).h $(DATE_ABSTRACT).h $(BANNER).h $(EXC
 ALL_POINTS = $(POINT).h $(EVENT).h $(REMINDER).h $(TASK).h
 ALL_POINTS_OBJ = $(POINT).o $(EVENT).o $(REMINDER).o $(TASK).o
 BANNER = Banner/Banner
-CALENDAR = Calendar
+CALENDAR = Calendar/Calendar
 
 EXCEPTION = Exception
 UTILTITIES = utilities

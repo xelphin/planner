@@ -1,10 +1,3 @@
-/*
-RUN TESTS:
-g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/DateAbstract.cpp Date/DateDeadline.cpp Date/DateRange.cpp Points/Point.cpp Points/Event.cpp Points/Reminder.cpp Points/Task.cpp -o output
-./output
-
-*/
-
 #ifndef TESTS_H
 #define TESTS_H
 
@@ -31,7 +24,7 @@ g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/Date
 #include "./Points/Reminder.h"
 #include "./Points/Task.h"
 #include "./Banner/Banner.h"
-#include "./Calendar.h"
+#include "./Calendar/Calendar.h"
 
 
 // --RUN TESTS

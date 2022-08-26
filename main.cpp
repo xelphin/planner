@@ -9,7 +9,7 @@
 #include "./Points/Event.h"
 #include "./Points/Reminder.h"
 #include "./Points/Task.h"
-#include "./Calendar.h"
+#include "./Calendar/Calendar.h"
 
 #include <iostream>
 
