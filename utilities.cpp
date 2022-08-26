@@ -101,3 +101,23 @@ bool checkEquivalence(int arr1[], int arr2[], const int amount)
     }
     return true;
 }
+
+int getYear()
+{
+    std::string strYear;
+    int year = 2000;
+    bool accepted = false;
+    while(!accepted) {
+        try {
+            std::cout << "Please enter a year for the calendar between "<< getMinYear() << " and " << getMaxYear() << std::endl;
+            std::getline(std::cin, strYear);
+            year = std::stoi(strYear);
+            if (year<getMinYear() || year>getMaxYear())
+                throw InvalidLength(getMinYear(), getMaxYear(), year);
+            accepted = true;
+        } catch (...) {
+            std::cout << "Wrong: ";
+        }
+    }
+    return year;
+}

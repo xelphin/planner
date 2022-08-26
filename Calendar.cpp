@@ -4,13 +4,17 @@ Calendar::Calendar()
 {
     std::ifstream data;
     data.open(m_fileName);
+    std::string strYear;
     if(data) {
-        std::cout<< "file exists" << std::endl;
+        getline(data,strYear);
+        m_year = std::stoi(strYear);
+        if (m_year<getMinYear() || m_year>getMaxYear())
+            throw InvalidLength(getMinYear(), getMaxYear(), m_year);
     } else {
-        // TODO: Ask user for year
-        m_year = 2022;
+        m_year = getYear();
         Calendar::createDatabase();
     } 
+    data.close();
 }
 
 void Calendar::createDatabase() const

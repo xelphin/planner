@@ -67,4 +67,12 @@ void printArray(int arr[], const int amount);
 
 bool checkEquivalence(int arr1[], int arr2[], const int amount);
 
+
+/*
+* Ask user for year
+* @return
+*      A valid year.
+*/
+int getYear();
+
 #endif

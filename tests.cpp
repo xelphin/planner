@@ -550,16 +550,12 @@ bool reminder_createReminder()
 bool calendar_createCalendar()
 {
     Calendar calendar;
-    /*
-    std::cout << "here" << std::endl;
     std::shared_ptr<Banner> banner1(new Banner("Picnic","Bring cake"));
+    Event event1(banner1, 2022, 7, 24, 600, 1200);
     calendar.addEvent(banner1, 7, 24, 600, 1200);
-    std::cout << "here" << std::endl;
     std::shared_ptr<Banner> banner2(new Banner("Finish Art Assignment","Sketching plants"));
-    calendar.addTask(banner2, 7, 24);
+    calendar.addTask(banner2, 7, 24, 1200);
     std::shared_ptr<Banner> banner3(new Banner("Theatre show in 2 days",""));
-    std::cout << "here" << std::endl;
-    calendar.addReminder(banner3, 7, 24, 1200);
-    */
+    calendar.addReminder(banner3, 7, 24);
     return true;
 }
