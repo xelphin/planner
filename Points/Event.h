@@ -3,7 +3,9 @@
 
 #include "./Point.h"
 #include "../utilities.h"
+#include "../Exception.h"
 #include "../Date/DateRange.h"
+#include "../Banner/Banner.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -11,6 +13,8 @@
 
 class Event : public Point {
 public:
+
+    static const int DATE_VARIABLE_AMOUNT = 4;
     /*
      * C'tor of Event class
      *
@@ -18,9 +22,8 @@ public:
      * @return
      *      A new instance of Event.
     */
-    Event(const std::string title, const int year, const int month, const int day,
-        const int timeStart, const int timeEnd, const bool repeat, const std::string repeatArray, 
-        const int repeatAmount, const std::string description);
+    Event(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
+        const int timeStart, const int timeEnd);
 
     /*
     * Edit date
@@ -31,16 +34,11 @@ public:
     */
     void updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd) override;
 
-    /*
-    * Add date where Event will be repeated
-    * @param times - Array with data of new date
-    */
-    void addRepeat(const int times[]) override;
-
     ~Event() {}
 
 private:
     std::unique_ptr<DateRange> m_date;
+    
     
 };
 

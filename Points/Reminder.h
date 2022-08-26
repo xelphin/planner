@@ -3,7 +3,9 @@
 
 #include "./Point.h"
 #include "../utilities.h"
+#include "../Exception.h"
 #include "../Date/DateDeadline.h"
+#include "../Banner/Banner.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -18,9 +20,8 @@ public:
      * @return
      *      A new instance of Reminder.
     */
-    Reminder(const std::string title, const int year, const int month, const int day,
-        const int deadline, const bool repeat, const std::string repeatArray, 
-        const int repeatAmount, const std::string description);
+    Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
+             const int deadline);
 
     /*
     * Edit date
@@ -30,12 +31,6 @@ public:
     */
     void updateDate(const int newMonth, const int newDay,
                     const int newDeadline, const int arg2 = Point::EMPTY_ARG) override;
-
-    /*
-    * Add date where Event will be repeated
-    * @param times - Array with data of new date
-    */
-    void addRepeat(const int times[]) override;
 
     ~Reminder() {}
 

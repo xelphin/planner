@@ -3,7 +3,9 @@
 
 #include "./Point.h"
 #include "../utilities.h"
+#include "../Exception.h"
 #include "../Date/Date.h"
+#include "../Banner/Banner.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -18,9 +20,7 @@ public:
      * @return
      *      A new instance of Task.
     */
-    Task(const std::string title, const int year, const int month, const int day,
-         const bool repeat, const std::string repeatArray, 
-         const int repeatAmount, const std::string description);
+    Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day);
 
     /*
     * Edit date
@@ -29,12 +29,6 @@ public:
     */
     void updateDate(const int newMonth, const int newDay,
                     const int arg1 = EMPTY_ARG, const int arg2 = EMPTY_ARG) override;
-
-    /*
-    * Add date where Task will be repeated
-    * @param times - Array with data of new date
-    */
-    void addRepeat(const int times[]) override;
 
     ~Task() {}
 

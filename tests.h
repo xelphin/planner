@@ -30,6 +30,8 @@ g++ -std=c++14 -Wall -Werror -pedantic-errors -g  *.cpp  Date/Date.cpp Date/Date
 #include "./Points/Event.h"
 #include "./Points/Reminder.h"
 #include "./Points/Task.h"
+#include "./Banner/Banner.h"
+#include "./Calendar.h"
 
 
 // --RUN TESTS
@@ -72,5 +74,8 @@ bool event_createEvent();
 bool reminder_createReminder();
 // TASK
 bool task_createTask();
+
+// CALENDAR
+bool calendar_createCalendar();
 
 #endif

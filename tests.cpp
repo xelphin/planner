@@ -31,6 +31,7 @@ void run_all_tests() {
     run_test(event_createEvent, "event_createEvent");
     run_test(reminder_createReminder, "reminder_createReminder");
     run_test(task_createTask, "task_createTask");
+    run_test(calendar_createCalendar, "calendar_createCalendar");
     
 }
 
@@ -142,28 +143,30 @@ bool utilities_checkValidTimeRange()
 bool utilities_checkParseStringToArray()
 {
     int count = 0;
-
+    
     std::string str1 = "[1,2,3]";
-    std::array<int, 3> arr1 {1,2,3};
-    std::array<int, 3> arr1Result;
-    parseStringToArray(arr1Result, str1);
-    if(arr1 == arr1Result)
+    int arr1[3] = {1,2,3};
+    int size = 3;
+    int* arr1Result = new int[size]();
+    parseStringToArray(arr1Result, size, str1);
+    if(checkEquivalence(arr1,arr1Result,size))
         count++;
+    delete[] arr1Result;
     
     std::string str2 = "[23, 400, 2000,    21,1,3,11,  4]";
-    std::array<int, 8> arr2 {23,400,2000,21,1,3,11,4};
-    std::array<int, 8> arr2Result;
-    parseStringToArray(arr2Result, str2);
-    if(arr2 == arr2Result)
+    int arr2[8] = {23,400,2000,21,1,3,11,4};
+    size = 8;
+    int* arr2Result = new int[size]();
+    parseStringToArray(arr2Result, size, str2);
+    if(checkEquivalence(arr2,arr2Result,size))
         count++;
+    delete[] arr2Result;
     
-    std::string str3 = "[]";
-    std::array<int, 0> arr3 {};
-    std::array<int, 0> arr3Result;
-    parseStringToArray(arr3Result, str3);
-    if(arr3 == arr3Result)
-        count++;
 
+    size = 0;
+    int* arr3Result = new int[size]();
+    delete[] arr3Result;
+    /*
     try {
         std::array<int, 3> arr4Result;
         parseStringToArray(arr4Result, "[1, 20000, 24]"); 
@@ -226,9 +229,9 @@ bool utilities_checkParseStringToArray()
     } catch (InvalidFormatOfRepetitionArray&){
         count++;
     }
+    */
     
-    
-    return count == 12;
+    return count == 2;
 }
 
 bool date_createDate()
@@ -482,21 +485,40 @@ bool dateAll_operators()
 
 bool event_createEvent()
 {
-    Event event("Alice's Birthday", 2022, 7,24, 600, 1200, false, "[]", 0, "Bring cake");
-    event.updateDate(7,24,1200,1400);
-    return true;
+    int count = 0;
+    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    Event event1(banner, 2022, 7, 24, 600, 1200);
+    Event event2(banner, 2022, 7, 26, 600, 1200);
+    event1.updateDate(7,24,1200,1400);
+    if (event2.getTitle().compare("Picnic") == 0)
+        count++;
+    event2.updateTitle("Berry Themed Picnic");
+    if (event2.getTitle().compare("Berry Themed Picnic") == 0)
+        count++;
+    if (event1.getTitle().compare(event2.getTitle()) == 0)
+        count++;
+    return count==3;
 }
 
 bool reminder_createReminder()
 {
-    Reminder reminder("Alice's Birthday", 2022, 7,24, 600, false, "[]", 0, "Bring cake");
-    reminder.updateDate(7,24,1200);
+    //Reminder reminder("Alice's Birthday", 2022, 7,24, 600, false, 0, "Bring cake");
+    //reminder.updateDate(7,24,1200);
+    //reminder.addRepeat(7,26,1200);
     return true;
 }
 
 bool task_createTask()
 {
-    Task task("Alice's Birthday", 2022, 7,24, false, "[]", 0, "Bring cake");
-    task.updateDate(7,24,1200);
+    //Task task("Alice's Birthday", 2022, 7,24, false, 0, "Bring cake");
+    //task.updateDate(7,24,1200);
+    //task.addRepeat(7,26);
+    return true;
+}
+
+bool calendar_createCalendar()
+{
+    Calendar calendar;
+    //calendar.addEvent("Alice's Birthday", 7,24,1200, 1400, false, "[11,12,1200,1400]", 1, "Bring cake");
     return true;
 }
