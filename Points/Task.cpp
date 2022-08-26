@@ -9,3 +9,8 @@ void Task::updateDate(const int newMonth, const int newDay, const int newStart, 
 {
     (*m_date).updateDate(newMonth, newDay);
 }
+
+DateAbstract* Task::getDate() const
+{
+    return m_date.get();
+}

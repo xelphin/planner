@@ -35,6 +35,13 @@ public:
     */
     int getEnd() const;
 
+     /*
+    * Prints to os the date
+    */
+    void print(std::ostream& os) const {
+        os << this->m_year << "/" << this->m_month << "/" << this->m_day << " till: " << m_minutes << std::endl;
+    }
+
     ~DateDeadline() {}
 
 

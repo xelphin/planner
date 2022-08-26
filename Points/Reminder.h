@@ -32,6 +32,8 @@ public:
     void updateDate(const int newMonth, const int newDay,
                     const int newDeadline, const int arg2 = Point::EMPTY_ARG) override;
 
+    DateAbstract* getDate() const override;
+
     ~Reminder() {}
 
 private:

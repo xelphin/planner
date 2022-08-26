@@ -55,6 +55,44 @@ class Point {
        virtual void updateDate(const int newMonth, const int newDay,
                                const int arg1 = EMPTY_ARG, const int arg2 = EMPTY_ARG) = 0;
 
+        virtual DateAbstract* getDate() const = 0;
+
+        /*
+        * @return
+        *      True: p1 == p2
+        */
+       friend bool operator==(const Point& p1, const Point& p2);
+
+        /*
+        * @return
+        *      True: p1 != p2
+        */
+       bool operator!=(const Point& other) const;
+
+        /*
+        * @return
+        *      True: p1 < p2
+        */
+       friend bool operator<(const Point& p1, const Point& p2);
+
+        /*
+        * @return
+        *      True: p1 > p2
+        */
+       bool operator>(const Point& other) const;
+
+        /*
+        * @return
+        *      True: p1 <= p2
+        */
+       bool operator<=(const Point& other) const;
+
+        /*
+        * @return
+        *      True: p1 >= p2
+        */
+       bool operator>=(const Point& other) const;
+
         // D'tor
         virtual ~Point() {}
 

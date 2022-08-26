@@ -70,3 +70,9 @@ bool DateAbstract::operator>=(const DateAbstract& other) const
 {
   return !(*this < other);
 }
+
+std::ostream& operator<<(std::ostream& os, const DateAbstract& toPrint)
+{
+    toPrint.print(os);
+    return os;
+}

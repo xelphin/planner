@@ -488,8 +488,12 @@ bool event_createEvent()
     int count = 0;
     std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
     Event event1(banner, 2022, 7, 24, 600, 1200);
-    Event event2(banner, 2022, 7, 26, 600, 1200);
+    Event event2(banner, 2022, 7, 24, 600, 1200);
+    if(event1 == event2)
+        count++;
     event1.updateDate(7,24,1200,1400);
+    if(event1 > event2)
+        count++;
     if (event2.getTitle().compare("Picnic") == 0)
         count++;
     event2.updateTitle("Berry Themed Picnic");
@@ -497,22 +501,49 @@ bool event_createEvent()
         count++;
     if (event1.getTitle().compare(event2.getTitle()) == 0)
         count++;
-    return count==3;
+    return count==5;
 }
 
 bool reminder_createReminder()
 {
-    //Reminder reminder("Alice's Birthday", 2022, 7,24, 600, false, 0, "Bring cake");
-    //reminder.updateDate(7,24,1200);
-    //reminder.addRepeat(7,26,1200);
-    return true;
+    int count = 0;
+    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    Reminder rem1(banner, 2022, 7, 24, 600);
+    Reminder rem2(banner, 2022, 7, 24, 600);
+    if(rem1 == rem2)
+        count++;
+    rem1.updateDate(7,24,1200);
+    if(rem1 > rem2)
+        count++;
+    if (rem2.getTitle().compare("Picnic") == 0)
+        count++;
+    rem2.updateTitle("Berry Themed Picnic");
+    if (rem2.getTitle().compare("Berry Themed Picnic") == 0)
+        count++;
+    if (rem1.getTitle().compare(rem2.getTitle()) == 0)
+        count++;
+    return count==5;
 }
 
 bool task_createTask()
 {
-    //Task task("Alice's Birthday", 2022, 7,24, false, 0, "Bring cake");
-    //task.updateDate(7,24,1200);
-    //task.addRepeat(7,26);
+    int count = 0;
+    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    Task task1(banner, 2022, 7, 24);
+    Task task2(banner, 2022, 7, 24);
+    if(task1 == task2)
+        count++;
+    task1.updateDate(7,25);
+    if(task1 > task2)
+        count++;
+    if (task1.getTitle().compare("Picnic") == 0)
+        count++;
+    task1.updateTitle("Berry Themed Picnic");
+    if (task1.getTitle().compare("Berry Themed Picnic") == 0)
+        count++;
+    if (task1.getTitle().compare(task1.getTitle()) == 0)
+        count++;
+    return count==5;
     return true;
 }
 

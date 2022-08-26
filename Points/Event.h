@@ -34,6 +34,8 @@ public:
     */
     void updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd) override;
 
+    DateAbstract* getDate() const override;
+
     ~Event() {}
 
 private:

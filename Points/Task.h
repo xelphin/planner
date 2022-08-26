@@ -30,6 +30,8 @@ public:
     void updateDate(const int newMonth, const int newDay,
                     const int arg1 = EMPTY_ARG, const int arg2 = EMPTY_ARG) override;
 
+    DateAbstract* getDate() const override;
+
     ~Task() {}
 
 private:

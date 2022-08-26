@@ -70,6 +70,13 @@ class DateAbstract {
         */
        bool operator>=(const DateAbstract& other) const;
 
+        /*
+        * Prints to os the date
+        */
+       virtual void print(std::ostream& os) const = 0;
+
+       friend std::ostream& operator<<(std::ostream& os, const DateAbstract& toPrint);
+
         // D'tor
         virtual ~DateAbstract() {}
 

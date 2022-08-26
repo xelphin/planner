@@ -13,3 +13,7 @@ void Reminder::updateDate(const int newMonth, const int newDay, const int newDea
     (*m_date).updateDate(newMonth, newDay, newDeadline);
 }
 
+DateAbstract* Reminder::getDate() const
+{
+    return m_date.get();
+}

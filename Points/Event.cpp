@@ -12,3 +12,8 @@ void Event::updateDate(const int newMonth, const int newDay, const int newStart,
         throw InvalidDate();
     (*m_date).updateDate(newMonth, newDay, newStart, newEnd);
 }
+
+DateAbstract* Event::getDate() const
+{
+    return m_date.get();
+}
