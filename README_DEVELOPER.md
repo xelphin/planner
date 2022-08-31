@@ -7,25 +7,50 @@ The data is saved in ```database.txt```. It is read by the program and a Calenda
 ```
 2022
 
+BANNERS
+
 Reminder
-["Remember Alice's Birthday on 11.18", 11, 11, true, [11,16], 1, ""]
+["Remember Alice's Birthday on 11.18", "Edison Park", ""]
+[11, 15, ""]
+[11, 16, ""]
+[11, 17, ""]
 
 Task
-["Buy gift for Alice", 11, 17, -1, false, [], 0, 2, "Buy daisies\n make accessorized headphones"]
+["Buy gift for Alice", 2, "Buy daisies\n make accessorized headphones"]
+[11, 17, 1400, false, ""]
 
 Event
-["Alice's Birthday", 11, 18, 1050, 1260, false, [], 0, "Edison Park", "23 years old\nFairy themed"]
+["Alice's Birthday", "Edison Park", "23 years old\nFairy themed"]
+[11, 18, 1000, 1300, ""]
+
+Task
+["Finish Art Assignment", 0, ""]
+[11, 17, true, ""]
+
 ```
 
 ### Understand database.txt
+
 At the start we have the year the calendar is set to
 
-- Reminder: [title, month, day, repeat, \[\[month,day]], amount repetitions, description]
-> The repeat array is 1D, but I wrote in 2D format (^ here and below) for it to be clearer
-- Task: [title, month, day, deadline, repeat, \[\[month,day,deadline]], amount repetitions, urgency, description]
-> Urgency: 1 - most, 5 - least, 0 - empty
-- Event: [title, month, day, timeStart, timeEnd, repeat, \[\[month,day,timeStart, timeEnd]], amount repetitions, location, description]
-> -1: All day (can be applied in timeStart/timeEnd/deadline)
+#### Banner
+
+Banner - Reminder
+- [title, location, description]
+Banner - Task
+- [title, urgency, description]
+Banner - Event
+- [title, location, description]
+
+#### Point
+
+Point - Reminder
+- [Banner ID, month, day, unique description]
+Point - Task
+- [Banner ID, month, day, deadline, completed, unique description]
+Point - Event
+- [Banner ID, month, day, timeStart, timeEnd unique description]
+
 
 
 
