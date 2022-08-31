@@ -70,6 +70,11 @@ public:
     */
     std::string getLocation() const;
 
+    /*
+    * Print Reminder
+    */
+    std::ostream& print(std::ostream& os) const override;
+
     ~Reminder() {}
 
 private:

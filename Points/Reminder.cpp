@@ -45,3 +45,12 @@ std::string Reminder::getLocation() const
 {
     return (*m_banner).getLocation();
 }
+
+std::ostream& Reminder::print(std::ostream& os) const
+{
+    os << " ❕ ";
+    os << this->getTitle() << std::endl;
+    os << "    " << *(this->getDate());
+    os << std::endl;
+    return os;
+}

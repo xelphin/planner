@@ -561,14 +561,14 @@ bool calendar_createCalendar()
 {
     
     Calendar calendar;
-    std::shared_ptr<BannerEvent> banner1(new BannerEvent("Picnic", "", "Bring cake"));
-    Event event1(banner1, 2022, 7, 24, 600, 1200);
-    calendar.addEvent(banner1, 7, 24, 600, 1200);
+    std::shared_ptr<BannerEvent> banner1(new BannerEvent("Birthday", "", "Bring cake"));
+    calendar.addEvent(banner1, 3, 24, 600, 1200);
     std::shared_ptr<BannerTask> banner2(new BannerTask("Picnic",2,"Bring cake"));
-    calendar.addTask(banner2, 7, 24, 1200);
-    std::shared_ptr<BannerReminder> banner3(new BannerReminder("Picnic","Leslie Park","Bring cake"));
+    calendar.addTask(banner2, 7, 26, 1200);
+    std::shared_ptr<BannerReminder> banner3(new BannerReminder("Anniversary","Leslie Park","Bring cake"));
     calendar.addReminder(banner3, 7, 24);
-    return true;
     
-   return true;
+    std::cout << calendar;
+
+    return true;
 }

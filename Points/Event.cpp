@@ -48,3 +48,12 @@ std::string Event::getLocation() const
 {
     return (*m_banner).getLocation();
 }
+
+std::ostream& Event::print(std::ostream& os) const
+{
+    os << " ◉  ";
+    os << this->getTitle() << std::endl;
+    os << "    " << *(this->getDate());
+    os << std::endl;
+    return os;
+}

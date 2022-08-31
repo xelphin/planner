@@ -48,3 +48,32 @@ int Task::getUrgency() const
 {
     return (*m_banner).getUrgency();
 }
+
+
+void Task::markComplete()
+{
+    m_complete = true;
+}
+
+void Task::markIncomplete()
+{
+    m_complete = false;
+}
+
+bool Task::getComplete() const
+{
+    return m_complete;
+}
+
+std::ostream& Task::print(std::ostream& os) const
+{
+    if(!(this->getComplete())) {
+        os << " ◻  ";
+    } else {
+        os << " ☑  ";
+    }
+    os << this->getTitle() << std::endl;
+    os << "    " << *(this->getDate());
+    os << std::endl;
+    return os;
+}

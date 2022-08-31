@@ -25,6 +25,12 @@ class DateAbstract {
        void updateDate(const int newMonth, const int newDay);
 
         /*
+        * @return
+        *      day
+        */
+       int getDay() const;
+
+        /*
         * Get amount of minutes from start of day
         */
        virtual int getTime() const;

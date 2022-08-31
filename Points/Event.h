@@ -73,6 +73,11 @@ public:
     */
     std::string getLocation() const;
 
+    /*
+    * Print Event
+    */
+    std::ostream& print(std::ostream& os) const override;
+
     ~Event() {}
 
 private:

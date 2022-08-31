@@ -16,9 +16,9 @@ A planner/calendar.
 ## How to read me?
 
 - ◉ : Event
-- ○ : Task
-- ◍ : Completed Task
-- ◌ : Reminder
+- ◻ : Incomplete Task
+- ☑ : Completed Task
+- ❕ : Reminder
 
 # How To Run Me
 

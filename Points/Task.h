@@ -67,13 +67,36 @@ public:
     */
     int getUrgency() const;
 
+    /*
+    * Mark task as complete
+    */
+    void markComplete();
+
+    /*
+    * Mark task as incomplete
+    */
+    void markIncomplete();
+
+    /*
+    * @return
+    *      true: task is complete || false: task is incomplete
+    */
+    bool getComplete() const;
+
+
     DateAbstract* getDate() const override;
+
+    /*
+    * Print Reminder
+    */
+    std::ostream& print(std::ostream& os) const override;
 
     ~Task() {}
 
 private:
     std::unique_ptr<DateDeadline> m_date;
     std::shared_ptr<BannerTask> m_banner;
+    bool m_complete = false;
     
 };
 

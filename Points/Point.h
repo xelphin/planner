@@ -93,6 +93,13 @@ class Point {
         */
        bool operator>=(const Point& other) const;
 
+        /*
+        * Print Point
+        */
+       virtual std::ostream& print(std::ostream& os) const = 0 ;
+
+       friend std::ostream& operator<<(std::ostream& os, const Point& toPrint);
+
         // D'tor
         virtual ~Point() {}
 
