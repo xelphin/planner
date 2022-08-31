@@ -42,6 +42,9 @@ class Banner {
         */
        std::string getDescription() const;
 
+        // D'tor
+        virtual ~Banner() {}
+
 
     protected:
         std::string m_title;

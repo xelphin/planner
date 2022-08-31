@@ -17,12 +17,13 @@ public:
         m_maxLength(maxLength),
         m_length(length)
     {
-        m_msg = new std::string(std::string("Invalid Length/Amount: Needs to be between ") 
+        m_msg = new std::string(std::string("Invalid Length: Needs to be between ") 
                     + std::to_string(m_minLength)
                     + std::string(" to ") 
                     + std::to_string(m_maxLength)
                     + std::string(" , your is ")
-                    + std::to_string(length));
+                    + std::to_string(length)
+                    + std::string(" characters long "));
     }
     const char* what() const noexcept override {
         return (*m_msg).c_str();
@@ -63,6 +64,35 @@ class TooLittleValuesInString : public std::exception {
 public:
     const char* what() const noexcept override {
         return "There are too little values in the string. Smaller array required.";
+    }
+};
+
+
+// DATABASE EXCEPTIONS
+class InvalidDatabaseFormat_Year : public std::exception {
+private:
+    int m_minLength;
+    int m_maxLength;
+    int m_length;
+    std::string* m_msg;
+public:
+    explicit InvalidDatabaseFormat_Year(const int minLength, const int maxLength, const int length) : 
+        m_minLength(minLength),
+        m_maxLength(maxLength),
+        m_length(length)
+    {
+        m_msg = new std::string(std::string("First line in database.txt should be year between ") 
+                    + std::to_string(m_minLength)
+                    + std::string(" to ") 
+                    + std::to_string(m_maxLength)
+                    + std::string(" , your first line is ")
+                    + std::to_string(length));
+    }
+    const char* what() const noexcept override {
+        return (*m_msg).c_str();
+    }
+    ~InvalidDatabaseFormat_Year() override {
+        delete m_msg;
     }
 };
 

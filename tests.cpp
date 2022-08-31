@@ -486,7 +486,7 @@ bool dateAll_operators()
 bool event_createEvent()
 {
     int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    std::shared_ptr<BannerEvent> banner(new BannerEvent("Picnic", "", "Bring cake"));
     Event event1(banner, 2022, 7, 24, 600, 1200);
     Event event2(banner, 2022, 7, 24, 600, 1200);
     if(event1 == event2)
@@ -501,13 +501,17 @@ bool event_createEvent()
         count++;
     if (event1.getTitle().compare(event2.getTitle()) == 0)
         count++;
-    return count==5;
+    event1.updateLocation("Edison Park");
+    if (event1.getLocation().compare("Edison Park") == 0)
+        count++;  
+    return count==6;
 }
 
 bool task_createTask()
 {
+    
     int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    std::shared_ptr<BannerTask> banner(new BannerTask("Picnic",2,"Bring cake"));
     Task task1(banner, 2022, 7, 24, 600);
     Task task2(banner, 2022, 7, 24, 600);
     if(task1 == task2)
@@ -522,13 +526,16 @@ bool task_createTask()
         count++;
     if (task1.getTitle().compare(task2.getTitle()) == 0)
         count++;
-    return count==5;
+    task1.updateUrgency(3);
+    if (task2.getUrgency() == 3)
+        count++; 
+    return count==6;
 }
 
 bool reminder_createReminder()
 {
     int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake"));
+    std::shared_ptr<BannerReminder> banner(new BannerReminder("Picnic","Leslie Park","Bring cake"));
     Reminder rem1(banner, 2022, 7, 24);
     Reminder rem2(banner, 2022, 7, 24);
     if(rem1 == rem2)
@@ -543,19 +550,25 @@ bool reminder_createReminder()
         count++;
     if (rem1.getTitle().compare(rem1.getTitle()) == 0)
         count++;
-    return count==5;
-    return true;
+    rem1.updateLocation("Edison Park");
+    if (rem2.getLocation().compare("Edison Park") == 0)
+        count++;  
+    return count==6;
+    
 }
 
 bool calendar_createCalendar()
 {
+    
     Calendar calendar;
-    std::shared_ptr<Banner> banner1(new Banner("Picnic","Bring cake"));
+    std::shared_ptr<BannerEvent> banner1(new BannerEvent("Picnic", "", "Bring cake"));
     Event event1(banner1, 2022, 7, 24, 600, 1200);
     calendar.addEvent(banner1, 7, 24, 600, 1200);
-    std::shared_ptr<Banner> banner2(new Banner("Finish Art Assignment","Sketching plants"));
+    std::shared_ptr<BannerTask> banner2(new BannerTask("Picnic",2,"Bring cake"));
     calendar.addTask(banner2, 7, 24, 1200);
-    std::shared_ptr<Banner> banner3(new Banner("Theatre show in 2 days",""));
+    std::shared_ptr<BannerReminder> banner3(new BannerReminder("Picnic","Leslie Park","Bring cake"));
     calendar.addReminder(banner3, 7, 24);
     return true;
+    
+   return true;
 }

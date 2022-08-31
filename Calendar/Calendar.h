@@ -43,7 +43,7 @@ public:
     * @param timeStart - The timeStart of the Event
     * @param timeEnd - The timeEnd of the Event
     */
-   void addEvent(std::shared_ptr<Banner> banner, const int month, const int day,
+   void addEvent(std::shared_ptr<BannerEvent> banner, const int month, const int day,
         const int timeStart, const int timeEnd);
 
     /*
@@ -53,7 +53,7 @@ public:
     * @param day - The day of the Event
     * @param deadline - The timeStart of the Event
     */
-   void addTask(std::shared_ptr<Banner> banner, const int month, const int day,
+   void addTask(std::shared_ptr<BannerTask> banner, const int month, const int day,
         const int deadline);
 
     /*
@@ -62,7 +62,7 @@ public:
     * @param month - The month of the Event
     * @param day - The day of the Event
     */
-   void addReminder(std::shared_ptr<Banner> banner, const int month, const int day);
+   void addReminder(std::shared_ptr<BannerReminder> banner, const int month, const int day);
 
     /*
     * Print Calendar.

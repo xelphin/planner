@@ -19,31 +19,31 @@ class Point {
         * @return
         *      A new instance of Point.
         */
-        Point(std::shared_ptr<Banner> banner, const int year);
+        Point(const int year);
 
         /*
         * Edit title
         * @param newTitle - The new title for the point
         */
-       void updateTitle(const std::string newTitle);
+       virtual void updateTitle(const std::string newTitle) = 0;
 
         /*
         * @return
         *      Title of banner.
         */
-       std::string getTitle() const;
+       virtual std::string getTitle() const = 0;
 
         /*
         * Edit description
         * @param newDescription - The new description
         */
-       void updateDescription(const std::string newDescription);
+       virtual void updateDescription(const std::string newDescription) = 0;
 
         /*
         * @return
         *      Description of banner.
         */
-       std::string getDescription() const;
+       virtual std::string getDescription() const = 0;
 
         /*
         * Edit date
@@ -98,7 +98,6 @@ class Point {
 
     protected:
         int m_year;
-        std::shared_ptr<Banner> m_banner;
 
         static const int EMPTY_ARG = -2;
 

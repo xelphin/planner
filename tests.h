@@ -24,6 +24,9 @@
 #include "./Points/Reminder.h"
 #include "./Points/Task.h"
 #include "./Banner/Banner.h"
+#include "./Banner/BannerEvent.h"
+#include "./Banner/BannerTask.h"
+#include "./Banner/BannerReminder.h"
 #include "./Calendar/Calendar.h"
 
 
