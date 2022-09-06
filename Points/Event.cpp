@@ -39,6 +39,16 @@ DateAbstract* Event::getDate() const
     return m_date.get();
 }
 
+int Event::getMonth() const
+{
+    return (*m_date).getMonth();
+}
+
+int Event::getDay() const
+{
+    return (*m_date).getDay();
+}
+
 void Event::updateLocation(const std::string newLocation)
 {
     (*m_banner).updateLocation(newLocation);
@@ -51,9 +61,14 @@ std::string Event::getLocation() const
 
 std::ostream& Event::print(std::ostream& os) const
 {
-    os << " ◉  ";
-    os << this->getTitle() << std::endl;
-    os << "    " << *(this->getDate());
+    int day = (*(this->getDate())).getDay();
+    int start = (*(this->getDate())).getTime();
+    int end = (*(this->getDate())).getEnd();
+    os << " " << day;
+    this->addSpaceAfterDay(day) == true ? os << " " : os << "";
+    os << "  ◉  " << this->getTitle();
+    os << " : " << minutesToTime(start) << " - " << minutesToTime(end) << std::endl;
+    os << "        " << this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) << std::endl;
     os << std::endl;
     return os;
 }

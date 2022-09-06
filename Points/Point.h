@@ -55,7 +55,26 @@ class Point {
        virtual void updateDate(const int newMonth, const int newDay,
                                const int arg1 = EMPTY_ARG, const int arg2 = EMPTY_ARG) = 0;
 
+        /*
+        * Get the Date of the Point
+        * @return
+        *      Date of the Point.
+        */
         virtual DateAbstract* getDate() const = 0;
+
+        /*
+        * Get the Month of the Point
+        * @return
+        *      Month of the Point.
+        */
+        virtual int getMonth() const = 0;
+
+        /*
+        * Get the Day of the Point
+        * @return
+        *      Day of the Point.
+        */
+        virtual int getDay() const = 0;
 
         /*
         * @return
@@ -107,6 +126,11 @@ class Point {
         int m_year;
 
         static const int EMPTY_ARG = -2;
+        static const std::string::size_type DESCRIPTION_START_LENGTH = 40;
+
+        bool addSpaceAfterDay(const int day) const;
+
+        std::string textStart(const std::string text, const std::string::size_type length) const;
 
 };
 

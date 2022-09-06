@@ -36,6 +36,16 @@ DateAbstract* Reminder::getDate() const
     return m_date.get();
 }
 
+int Reminder::getMonth() const
+{
+    return (*m_date).getMonth();
+}
+
+int Reminder::getDay() const
+{
+    return (*m_date).getDay();
+}
+
 void Reminder::updateLocation(const std::string newLocation)
 {
     (*m_banner).updateLocation(newLocation);
@@ -48,9 +58,11 @@ std::string Reminder::getLocation() const
 
 std::ostream& Reminder::print(std::ostream& os) const
 {
-    os << " ❕ ";
-    os << this->getTitle() << std::endl;
-    os << "    " << *(this->getDate());
+    int day = (*(this->getDate())).getDay();
+    os << " " << day;
+    this->addSpaceAfterDay(day) == true ? os << " " : os << "";
+    os << "  ❕ " << this->getTitle() << std::endl;
+    os << "        " << this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) << std::endl;
     os << std::endl;
     return os;
 }

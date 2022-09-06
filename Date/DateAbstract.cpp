@@ -17,6 +17,11 @@ void DateAbstract::updateDate(const int newMonth, const int newDay)
     m_day = newDay;
 }
 
+int DateAbstract::getMonth() const
+{
+    return m_month;
+}
+
 int DateAbstract::getDay() const
 {
     return m_day;

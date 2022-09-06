@@ -126,6 +126,23 @@ private:
     * Create database.txt file
     */
     void createDatabase() const;
+
+    /*
+    * Print month titles (not including) prev until curr
+    * @param os - OS onto which we are printing
+    * @param prev - (NOT printed) previous month
+    * @param curr - current month
+    */
+    void printMonthTitles(std::ostream& os, const int prev, const int curr) const;
+
+    /*
+    * Print month titles (not including) prev until (not including) curr
+    * @param os - OS onto which we are printing
+    * @param prev - (NOT printed) previous day
+    * @param curr - (NOT printed) current day
+    * @param month - Month which the days belong
+    */
+    void printEmptyDayRanges(std::ostream& os, const int prev, const int curr, const int month) const;
 };
 
 #endif

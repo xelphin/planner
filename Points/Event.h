@@ -59,7 +59,26 @@ public:
     */
     void updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd) override;
 
+    /*
+    * Get the Date of the Point
+    * @return
+    *      Date of the Point.
+    */
     DateAbstract* getDate() const override;
+
+    /*
+    * Get the Month of the Point
+    * @return
+    *      Month of the Point.
+    */
+    int getMonth() const override;
+
+    /*
+    * Get the Day of the Point
+    * @return
+    *      Day of the Point.
+    */
+    int getDay() const override;
 
     /*
     * Edit location

@@ -24,6 +24,12 @@ int getMinYear();
 int getMaxYear();
 
 /*
+* Get min/max allowed month
+*/
+int getMinMonth();
+int getMaxMonth();
+
+/*
 * Check if the day/month/year exists
 *
 * @param year - Chosen year.
@@ -73,6 +79,26 @@ bool checkEquivalence(int arr1[], int arr2[], const int amount);
 * @return
 *      A valid year.
 */
-int getYear();
+int askUserYear();
+
+
+/*
+* Returns the name of the month
+*
+* @param num - The month in num.
+* @return
+*      A string of the month name.
+*/
+std::string numToMonthName(const int num);
+
+/*
+* Translates the amount of minutes passed from start of the day into a string formatted time
+*
+* @param min - Amount of minutes passed from start of the day.
+* @return
+*      The time in string format.
+*/
+std::string minutesToTime(const int min);
+
 
 #endif

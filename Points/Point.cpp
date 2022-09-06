@@ -44,3 +44,17 @@ std::ostream& operator<<(std::ostream& os, const Point& toPrint)
     toPrint.print(os);
     return os;
 }
+
+bool Point::addSpaceAfterDay(const int day) const
+{
+  if (day>0 && day<10)
+    return true;
+  return false;
+}
+
+std::string Point::textStart(const std::string text, const std::string::size_type length) const
+{
+  if (text.size() <= length)
+    return text;
+  return text.substr(0,length-1) + "...";
+}

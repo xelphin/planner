@@ -2,11 +2,13 @@
 
 #define MIN_YEAR 2000
 #define MAX_YEAR 3000
+#define MIN_MONTH 1
+#define MAX_MONTH 12
 
 int amountDaysInMonth(const int year, const int month)
 {
     if (year<MIN_YEAR || year>MAX_YEAR || month<1 || month>12)
-        throw;
+        throw InvalidDate();
     bool isLeapYear = (year%4 == 0);
     return (month == 2) ?
 		(28 + isLeapYear) : 31 - (month - 1) % 7 % 2;
@@ -14,6 +16,8 @@ int amountDaysInMonth(const int year, const int month)
 
 int getMinYear() {return MIN_YEAR;}
 int getMaxYear() {return MAX_YEAR;}
+int getMinMonth() {return MIN_MONTH;}
+int getMaxMonth() {return MAX_MONTH;}
 
 bool validDate(const int year, const int month, const int day)
 {
@@ -102,7 +106,7 @@ bool checkEquivalence(int arr1[], int arr2[], const int amount)
     return true;
 }
 
-int getYear()
+int askUserYear()
 {
     std::string strYear;
     int year = 2000;
@@ -120,4 +124,49 @@ int getYear()
         }
     }
     return year;
+}
+
+std::string numToMonthName(const int num)
+{
+    switch(num) {
+    case 1:
+        return "January";
+    case 2:
+        return "February";
+    case 3:
+        return "March";
+    case 4:
+        return "April";
+    case 5:
+        return "May";
+    case 6:
+        return "June";
+    case 7:
+        return "July";
+    case 8:
+        return "August";
+    case 9:
+        return "September";
+    case 10:
+        return "October";
+    case 11:
+        return "November";
+    case 12:
+        return "December";
+    default:
+        return "[UNKNOWN]";
+    }
+}
+
+std::string minutesToTime(const int min)
+{
+    std::string time = "";
+    time += std::to_string((int)(min/60));
+    if (min/60 < 10)
+        time += "0";
+    time += ":";
+    time += std::to_string((int)(min%60));
+    if (min%60 < 10)
+        time += "0";
+    return time;
 }

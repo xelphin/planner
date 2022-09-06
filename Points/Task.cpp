@@ -39,6 +39,16 @@ DateAbstract* Task::getDate() const
     return m_date.get();
 }
 
+int Task::getMonth() const
+{
+    return (*m_date).getMonth();
+}
+
+int Task::getDay() const
+{
+    return (*m_date).getDay();
+}
+
 void Task::updateUrgency(const int newUrgency)
 {
     (*m_banner).updateUrgency(newUrgency);
@@ -67,13 +77,18 @@ bool Task::getComplete() const
 
 std::ostream& Task::print(std::ostream& os) const
 {
+    int day = (*(this->getDate())).getDay();
+    int deadline = (*(this->getDate())).getTime();
+    os << " " << day;
+    this->addSpaceAfterDay(day) == true ? os << " " : os << "";
     if(!(this->getComplete())) {
-        os << " ◻  ";
+        os << "  ◻  ";
     } else {
-        os << " ☑  ";
+        os << "  ☑  ";
     }
-    os << this->getTitle() << std::endl;
-    os << "    " << *(this->getDate());
+    os << this->getTitle();
+    os << " : " << minutesToTime(deadline) << std::endl;
+    os << "        " << this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) << std::endl;
     os << std::endl;
     return os;
 }

@@ -26,6 +26,12 @@ class DateAbstract {
 
         /*
         * @return
+        *      month
+        */
+       int getMonth() const;
+
+        /*
+        * @return
         *      day
         */
        int getDay() const;
