@@ -488,7 +488,7 @@ bool dateAll_operators()
 bool event_createEvent()
 {
     int count = 0;
-    std::shared_ptr<BannerEvent> banner(new BannerEvent("Picnic", "", "Bring cake"));
+    std::shared_ptr<Banner> banner(new Banner("Picnic", "Bring Cake", "",1));
     Event event1(banner, 2022, 7, 24, 600, 1200);
     Event event2(banner, 2022, 7, 24, 600, 1200);
     if(event1 == event2)
@@ -513,7 +513,7 @@ bool task_createTask()
 {
     
     int count = 0;
-    std::shared_ptr<BannerTask> banner(new BannerTask("Picnic",2,"Bring cake"));
+    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake","",2));
     Task task1(banner, 2022, 7, 24, 600);
     Task task2(banner, 2022, 7, 24, 600);
     if(task1 == task2)
@@ -537,7 +537,7 @@ bool task_createTask()
 bool reminder_createReminder()
 {
     int count = 0;
-    std::shared_ptr<BannerReminder> banner(new BannerReminder("Picnic","Leslie Park","Bring cake"));
+    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake","Leslie Park",1));
     Reminder rem1(banner, 2022, 7, 24);
     Reminder rem2(banner, 2022, 7, 24);
     if(rem1 == rem2)
@@ -564,12 +564,12 @@ bool calendar_createCalendar()
     
     Calendar calendar;
     
-    std::shared_ptr<BannerEvent> banner1(new BannerEvent("Board Game Night", "", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"));
+    std::shared_ptr<Banner> banner1(new Banner("Board Game Night", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla", "", 2));
     calendar.addEvent(banner1, 3, 2, 600, 1200);
     calendar.addEvent(banner1, 3, 9, 600, 1200);
-    std::shared_ptr<BannerTask> banner2(new BannerTask("Picnic",2,"Bring cake"));
+    std::shared_ptr<Banner> banner2(new Banner("Picnic","Bring cake and wine","",2));
     calendar.addTask(banner2, 7, 26, 1200);
-    std::shared_ptr<BannerReminder> banner3(new BannerReminder("Anniversary","Leslie Park","Bring cake"));
+    std::shared_ptr<Banner> banner3(new Banner("Anniversary","Bring cake","Leslie Park",2));
     calendar.addReminder(banner3, 7, 22);
     
     std::cout << calendar;
@@ -580,14 +580,17 @@ bool calendar_createCalendar()
 bool calendar_createNewBannerType()
 {
     Calendar calendar;
-    calendar.createNewBannerEvent("Board Game Night", "", "Board games and wine night with Micheal and Lara", 3, 2, 600, 1200);
+    calendar.createNewBannerEvent("Board Game Night","Board games and wine night with Micheal and Lara","",1, 3, 2, 600, 1200);
+    // std::cout << (*calendar.getCurrentPoint()).getBannerParsed() << std::endl;
+    //calendar.addEvent( ( *(calendar.getCurrentPoint()) ).getBanner(), 3, 2, 600, 1200);
     return true;
 }
+
 
 bool calendar_parseCalendarToDatabase() {
 
     Calendar calendar;
-    
+    /*
     std::shared_ptr<BannerEvent> banner1(new BannerEvent("Board Game Night", "", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"));
     calendar.addEvent(banner1, 3, 2, 600, 1200);
     calendar.addEvent(banner1, 3, 9, 600, 1200);
@@ -597,6 +600,6 @@ bool calendar_parseCalendarToDatabase() {
     calendar.addReminder(banner3, 7, 22);
 
     calendar.parseCalendarToDatabase();
-
+    */
     return true;
 }

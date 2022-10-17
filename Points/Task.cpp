@@ -1,13 +1,10 @@
 #include "./Task.h"
 
-Task::Task(std::shared_ptr<BannerTask> banner, const int year, const int month, const int day,
+Task::Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
     const int deadline) :
     Point(year, banner),
-    m_date(std::make_unique<DateDeadline>(year, month, day, deadline)),
-    m_banner(move(banner))
+    m_date(std::make_unique<DateDeadline>(year, month, day, deadline))
 {}
-
-
 
 void Task::updateDate(const int newMonth, const int newDay, const int newDeadline, const int arg2)
 {
@@ -29,36 +26,6 @@ int Task::getMonth() const
 int Task::getDay() const
 {
     return (*m_date).getDay();
-}
-
-std::string Task::getBannerParsed() const
-{
-    return (*m_banner).getBannerParsed();
-}
-
-void Task::updateUrgency(const int newUrgency)
-{
-    (*m_banner).updateUrgency(newUrgency);
-}
-
-int Task::getUrgency() const
-{
-    return (*m_banner).getUrgency();
-}
-
-void Task::markComplete()
-{
-    m_complete = true;
-}
-
-void Task::markIncomplete()
-{
-    m_complete = false;
-}
-
-bool Task::getComplete() const
-{
-    return m_complete;
 }
 
 std::ostream& Task::print(std::ostream& os) const

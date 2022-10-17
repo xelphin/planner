@@ -10,9 +10,6 @@
 #include "../Date/DateDeadline.h"
 #include "../Date/DateRange.h"
 #include "../Banner/Banner.h"
-#include "../Banner/BannerEvent.h"
-#include "../Banner/BannerTask.h"
-#include "../Banner/BannerReminder.h"
 #include "../utilities.h"
 #include "../Exception.h"
 
@@ -50,7 +47,7 @@ public:
     * @param timeStart - The timeStart of the Event
     * @param timeEnd - The timeEnd of the Event
     */
-   void createNewBannerEvent(const std::string title, const std::string location, const std::string description,
+   void createNewBannerEvent(const std::string title, const std::string location, const std::string description, const int urgency,
     const int month, const int day, const int timeStart, const int timeEnd);
 
     /*
@@ -62,7 +59,7 @@ public:
     * @param day - The day of the Event
     * @param deadline - The timeStart of the Event
     */
-   void createNewBannerTask(const std::string title, const int urgency, const std::string description,
+   void createNewBannerTask(const std::string title, const std::string location, const std::string description, const int urgency,
     const int month, const int day, const int deadline);
 
     /*
@@ -73,7 +70,7 @@ public:
     * @param month - The month of the Event
     * @param day - The day of the Event
     */
-   void createNewBannerReminder(const std::string title, const std::string location, const std::string description,
+   void createNewBannerReminder(const std::string title, const std::string location, const std::string description, const int urgency,
     const int month, const int day);
 
     /*
@@ -84,7 +81,7 @@ public:
     * @param timeStart - The timeStart of the Event
     * @param timeEnd - The timeEnd of the Event
     */
-   void addEvent(std::shared_ptr<BannerEvent> banner, const int month, const int day,
+   void addEvent(std::shared_ptr<Banner> banner, const int month, const int day,
         const int timeStart, const int timeEnd);
 
     /*
@@ -94,7 +91,7 @@ public:
     * @param day - The day of the Event
     * @param deadline - The timeStart of the Event
     */
-   void addTask(std::shared_ptr<BannerTask> banner, const int month, const int day,
+   void addTask(std::shared_ptr<Banner> banner, const int month, const int day,
         const int deadline);
 
     /*
@@ -103,7 +100,7 @@ public:
     * @param month - The month of the Event
     * @param day - The day of the Event
     */
-   void addReminder(std::shared_ptr<BannerReminder> banner, const int month, const int day);
+   void addReminder(std::shared_ptr<Banner> banner, const int month, const int day);
 
 
    std::shared_ptr<Point> getCurrentPoint(); // const???

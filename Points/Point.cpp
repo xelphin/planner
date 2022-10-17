@@ -3,7 +3,7 @@
 
 Point::Point(const int year, std::shared_ptr<Banner> banner) :
     m_year(year),
-    m_bannerInPoint(move(banner))
+    m_banner(move(banner))
 {
 
 }
@@ -11,25 +11,63 @@ Point::Point(const int year, std::shared_ptr<Banner> banner) :
 
 void Point::updateTitle(const std::string newTitle)
 {
-    (*m_bannerInPoint).updateTitle(newTitle);
+    (*m_banner).updateTitle(newTitle);
 }
 
 std::string Point::getTitle() const
 {
-    return (*m_bannerInPoint).getTitle();
+    return (*m_banner).getTitle();
 }
 
 void Point::updateDescription(const std::string newDescription)
 {
-    (*m_bannerInPoint).updateDescription(newDescription);
+    (*m_banner).updateDescription(newDescription);
 }
 
 std::string Point::getDescription() const
 {
-    return (*m_bannerInPoint).getDescription();
+    return (*m_banner).getDescription();
 }
 
+void Point::updateLocation(const std::string newLocation)
+{
+    (*m_banner).updateLocation(newLocation);
+}
 
+std::string Point::getLocation() const
+{
+    return (*m_banner).getLocation();
+}
+
+void Point::updateUrgency(const int newUrgency)
+{
+    (*m_banner).updateUrgency(newUrgency);
+}
+
+int Point::getUrgency() const
+{
+    return (*m_banner).getUrgency();
+}
+
+void Point::markComplete()
+{
+    m_complete = true;
+}
+
+void Point::markIncomplete()
+{
+    m_complete = false;
+}
+
+bool Point::getComplete() const
+{
+    return m_complete;
+}
+
+std::string Point::getBannerParsed() const
+{
+    return (*m_banner).getBannerParsed();
+}
 
 
 bool operator==(const Point& p1, const Point& p2)

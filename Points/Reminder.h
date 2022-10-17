@@ -6,7 +6,6 @@
 #include "../Exception.h"
 #include "../Date/Date.h"
 #include "../Banner/Banner.h"
-#include "../Banner/BannerReminder.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -21,7 +20,7 @@ public:
      * @return
      *      A new instance of Reminder.
     */
-    Reminder(std::shared_ptr<BannerReminder> banner, const int year, const int month, const int day);
+    Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day);
     
     /*
     * Edit date
@@ -53,25 +52,6 @@ public:
     int getDay() const override;
 
     /*
-    * Get the Banner of the Point Parsed
-    * @return
-    *      String of Parsed Banner
-    */
-    std::string getBannerParsed() const override;
-
-    /*
-    * Edit location
-    * @param newLocation - The new location
-    */
-    void updateLocation(const std::string newLocation);
-
-    /*
-    * @return
-    *      title of banner.
-    */
-    std::string getLocation() const;
-
-    /*
     * Print Reminder
     */
     std::ostream& print(std::ostream& os) const override;
@@ -80,7 +60,6 @@ public:
 
 private:
     std::unique_ptr<Date> m_date;
-    std::shared_ptr<BannerReminder> m_banner;
     
 };
 

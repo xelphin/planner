@@ -6,7 +6,6 @@
 #include "../Exception.h"
 #include "../Date/DateRange.h"
 #include "../Banner/Banner.h"
-#include "../Banner/BannerEvent.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -23,7 +22,7 @@ public:
      * @return
      *      A new instance of Event.
     */
-    Event(std::shared_ptr<BannerEvent> banner, const int year, const int month, const int day,
+    Event(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
         const int timeStart, const int timeEnd);
 
 
@@ -60,25 +59,6 @@ public:
     int getDay() const override;
 
     /*
-    * Get the Banner of the Point Parsed
-    * @return
-    *      String of Parsed Banner
-    */
-    std::string getBannerParsed() const override;
-
-    /*
-    * Edit location
-    * @param newLocation - The new location
-    */
-    void updateLocation(const std::string newLocation);
-
-    /*
-    * @return
-    *      title of banner.
-    */
-    std::string getLocation() const;
-
-    /*
     * Print Event
     */
     std::ostream& print(std::ostream& os) const override;
@@ -87,7 +67,6 @@ public:
 
 private:
     std::unique_ptr<DateRange> m_date;
-    std::shared_ptr<BannerEvent> m_banner;
     
     
 };

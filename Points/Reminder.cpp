@@ -1,12 +1,9 @@
 #include "./Reminder.h"
 
-Reminder::Reminder(std::shared_ptr<BannerReminder> banner, const int year, const int month, const int day) :
+Reminder::Reminder(std::shared_ptr<Banner> banner, const int year, const int month, const int day) :
     Point(year, banner),
-    m_date(std::make_unique<Date>(year, month, day)),
-    m_banner(move(banner))
+    m_date(std::make_unique<Date>(year, month, day))
 {}
-
-
 
 void Reminder::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
 {
@@ -26,21 +23,6 @@ int Reminder::getMonth() const
 int Reminder::getDay() const
 {
     return (*m_date).getDay();
-}
-
-std::string Reminder::getBannerParsed() const
-{
-    return (*m_banner).getBannerParsed();
-}
-
-void Reminder::updateLocation(const std::string newLocation)
-{
-    (*m_banner).updateLocation(newLocation);
-}
-
-std::string Reminder::getLocation() const
-{
-    return (*m_banner).getLocation();
 }
 
 std::ostream& Reminder::print(std::ostream& os) const

@@ -1,10 +1,9 @@
 #include "./Event.h"
 
-Event::Event(std::shared_ptr<BannerEvent> banner, const int year, const int month, const int day,
+Event::Event(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
     const int timeStart, const int timeEnd) :
     Point(year, banner),
-    m_date(std::make_unique<DateRange>(year, month, day, timeStart, timeEnd)),
-    m_banner(move(banner))
+    m_date(std::make_unique<DateRange>(year, month, day, timeStart, timeEnd))
 {}
 
 
@@ -28,21 +27,6 @@ int Event::getMonth() const
 int Event::getDay() const
 {
     return (*m_date).getDay();
-}
-
-std::string Event::getBannerParsed() const
-{
-    return (*m_banner).getBannerParsed();
-}
-
-void Event::updateLocation(const std::string newLocation)
-{
-    (*m_banner).updateLocation(newLocation);
-}
-
-std::string Event::getLocation() const
-{
-    return (*m_banner).getLocation();
 }
 
 std::ostream& Event::print(std::ostream& os) const

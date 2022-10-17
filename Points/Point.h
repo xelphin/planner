@@ -45,7 +45,45 @@ class Point {
         */
        std::string getDescription() const;
 
+        /*
+        * Edit location
+        * @param newLocation - The new location
+        */
+        void updateLocation(const std::string newLocation);
 
+        /*
+        * @return
+        *      title of banner.
+        */
+        std::string getLocation() const;
+
+        /*
+        * Edit location
+        * @param newLocation - The new location for the point
+        */
+        void updateUrgency(const int newUrgency);
+
+        /*
+        * @return
+        *      urgency
+        */
+        int getUrgency() const;
+
+        /*
+        * Mark task as complete
+        */
+        void markComplete();
+
+        /*
+        * Mark task as incomplete
+        */
+        void markIncomplete();
+
+        /*
+        * @return
+        *      true: task is complete || false: task is incomplete
+        */
+        bool getComplete() const;
 
         /*
         * Edit date
@@ -83,7 +121,7 @@ class Point {
         * @return
         *      String of Parsed Banner
         */
-        virtual std::string getBannerParsed() const = 0;
+        std::string getBannerParsed() const;
 
         /*
         * @return
@@ -133,9 +171,8 @@ class Point {
 
     protected:
         int m_year;
-        std::shared_ptr<Banner> m_bannerInPoint; // For polymorphic purposes
-        // TODO: Hopefully study and find way such that there's no m_banner in Event/Reminder/Task
-        //       only here
+        std::shared_ptr<Banner> m_banner;
+        bool m_complete = false;
 
         static const int EMPTY_ARG = -2;
         static const std::string::size_type DESCRIPTION_START_LENGTH = 40;

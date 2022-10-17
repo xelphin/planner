@@ -29,28 +29,28 @@ void Calendar::createDatabase() const
     data.close();
 }
 
-void Calendar::createNewBannerEvent(const std::string title, const std::string location, const std::string description,
+void Calendar::createNewBannerEvent(const std::string title, const std::string location, const std::string description, const int urgency,
     const int month, const int day, const int timeStart, const int timeEnd)
 {
-    std::shared_ptr<BannerEvent> newBanner = std::make_shared<BannerEvent>(title, location, description);
+    std::shared_ptr<Banner> newBanner = std::make_shared<Banner>(title, description, location, urgency);
     this -> addEvent(newBanner, month, day, timeStart, timeEnd);
 }
 
-void Calendar::createNewBannerTask(const std::string title, const int urgency, const std::string description,
+void Calendar::createNewBannerTask(const std::string title, const std::string location, const std::string description, const int urgency,
     const int month, const int day, const int deadline)
 {
-    std::shared_ptr<BannerTask> newBanner = std::make_shared<BannerTask>(title, urgency, description);
+    std::shared_ptr<Banner> newBanner = std::make_shared<Banner>(title, description, location, urgency);
     this -> addTask(newBanner, month, day, deadline);
 }
 
-void Calendar::createNewBannerReminder(const std::string title, const std::string location, const std::string description,
+void Calendar::createNewBannerReminder(const std::string title, const std::string location, const std::string description, const int urgency,
     const int month, const int day)
 {
-    std::shared_ptr<BannerReminder> newBanner = std::make_shared<BannerReminder>(title, location, description);
+    std::shared_ptr<Banner> newBanner = std::make_shared<Banner>(title, description, location, urgency);
     this -> addReminder(newBanner, month, day);
 }
 
-void Calendar::addEvent(std::shared_ptr<BannerEvent> banner, const int month, const int day,
+void Calendar::addEvent(std::shared_ptr<Banner> banner, const int month, const int day,
         const int timeStart, const int timeEnd)
 {
     std::shared_ptr<Event> newEvent = std::make_shared<Event>(std::move(banner), m_year, month, day,
@@ -60,7 +60,7 @@ void Calendar::addEvent(std::shared_ptr<BannerEvent> banner, const int month, co
     m_currPoint = newEvent;
 }
 
-void Calendar::addTask(std::shared_ptr<BannerTask> banner, const int month, const int day,
+void Calendar::addTask(std::shared_ptr<Banner> banner, const int month, const int day,
     const int deadline)
 {
     std::shared_ptr<Task> newTask = std::make_shared<Task>(std::move(banner), m_year, month, day,
@@ -70,7 +70,7 @@ void Calendar::addTask(std::shared_ptr<BannerTask> banner, const int month, cons
     m_currPoint = newTask;
 }
 
-void Calendar::addReminder(std::shared_ptr<BannerReminder> banner, const int month, const int day)
+void Calendar::addReminder(std::shared_ptr<Banner> banner, const int month, const int day)
 {
     std::shared_ptr<Reminder> newReminder = std::make_shared<Reminder>(std::move(banner), m_year, month, day);
     m_points.push_back(newReminder);
