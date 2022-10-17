@@ -10,13 +10,16 @@
 class Banner {
 
     public:
+
+        enum class TYPE {EVENT, TASK, REMINDER};
+
         /*
         * C'tor of Banner class
         *
         * @return
         *      A new instance of Banner.
         */
-        Banner(const std::string title, const std::string description, const std::string location, const int urgency);
+        Banner(const Banner::TYPE type, const std::string title, const std::string description, const std::string location, const int urgency);
 
         /*
         * Edit title

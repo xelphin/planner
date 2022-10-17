@@ -1,7 +1,7 @@
 #include "./Banner.h"
 
 
-Banner::Banner(const std::string title, const std::string description, const std::string location, const int urgency) :
+Banner::Banner(const Banner::TYPE type, const std::string title, const std::string description, const std::string location, const int urgency) :
     m_title(title),
     m_description(description)
 {

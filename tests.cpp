@@ -488,7 +488,7 @@ bool dateAll_operators()
 bool event_createEvent()
 {
     int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic", "Bring Cake", "",1));
+    std::shared_ptr<Banner> banner(new Banner(Banner::TYPE::EVENT,"Picnic", "Bring Cake", "",1));
     Event event1(banner, 2022, 7, 24, 600, 1200);
     Event event2(banner, 2022, 7, 24, 600, 1200);
     if(event1 == event2)
@@ -513,7 +513,7 @@ bool task_createTask()
 {
     
     int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake","",2));
+    std::shared_ptr<Banner> banner(new Banner(Banner::TYPE::TASK,"Picnic","Bring cake","",2));
     Task task1(banner, 2022, 7, 24, 600);
     Task task2(banner, 2022, 7, 24, 600);
     if(task1 == task2)
@@ -537,7 +537,7 @@ bool task_createTask()
 bool reminder_createReminder()
 {
     int count = 0;
-    std::shared_ptr<Banner> banner(new Banner("Picnic","Bring cake","Leslie Park",1));
+    std::shared_ptr<Banner> banner(new Banner(Banner::TYPE::REMINDER,"Picnic","Bring cake","Leslie Park",1));
     Reminder rem1(banner, 2022, 7, 24);
     Reminder rem2(banner, 2022, 7, 24);
     if(rem1 == rem2)
@@ -564,12 +564,12 @@ bool calendar_createCalendar()
     
     Calendar calendar;
     
-    std::shared_ptr<Banner> banner1(new Banner("Board Game Night", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla", "", 2));
+    std::shared_ptr<Banner> banner1(new Banner(Banner::TYPE::EVENT,"Board Game Night", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla", "", 2));
     calendar.addEvent(banner1, 3, 2, 600, 1200);
     calendar.addEvent(banner1, 3, 9, 600, 1200);
-    std::shared_ptr<Banner> banner2(new Banner("Picnic","Bring cake and wine","",2));
+    std::shared_ptr<Banner> banner2(new Banner(Banner::TYPE::TASK,"Picnic","Bring cake and wine","",2));
     calendar.addTask(banner2, 7, 26, 1200);
-    std::shared_ptr<Banner> banner3(new Banner("Anniversary","Bring cake","Leslie Park",2));
+    std::shared_ptr<Banner> banner3(new Banner(Banner::TYPE::REMINDER,"Anniversary","Bring cake","Leslie Park",2));
     calendar.addReminder(banner3, 7, 22);
     
     std::cout << calendar;
