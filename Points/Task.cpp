@@ -2,30 +2,12 @@
 
 Task::Task(std::shared_ptr<BannerTask> banner, const int year, const int month, const int day,
     const int deadline) :
-    Point(year),
+    Point(year, banner),
     m_date(std::make_unique<DateDeadline>(year, month, day, deadline)),
     m_banner(move(banner))
 {}
 
-void Task::updateTitle(const std::string newTitle)
-{
-    (*m_banner).updateTitle(newTitle);
-}
 
-std::string Task::getTitle() const
-{
-    return (*m_banner).getTitle();
-}
-
-void Task::updateDescription(const std::string newDescription)
-{
-    (*m_banner).updateDescription(newDescription);
-}
-
-std::string Task::getDescription() const
-{
-    return (*m_banner).getDescription();
-}
 
 void Task::updateDate(const int newMonth, const int newDay, const int newDeadline, const int arg2)
 {

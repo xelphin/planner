@@ -1,11 +1,34 @@
 #include "./Point.h"
 
 
-Point::Point(const int year) :
-    m_year(year)
+Point::Point(const int year, std::shared_ptr<Banner> banner) :
+    m_year(year),
+    m_bannerInPoint(move(banner))
 {
 
 }
+
+
+void Point::updateTitle(const std::string newTitle)
+{
+    (*m_bannerInPoint).updateTitle(newTitle);
+}
+
+std::string Point::getTitle() const
+{
+    return (*m_bannerInPoint).getTitle();
+}
+
+void Point::updateDescription(const std::string newDescription)
+{
+    (*m_bannerInPoint).updateDescription(newDescription);
+}
+
+std::string Point::getDescription() const
+{
+    return (*m_bannerInPoint).getDescription();
+}
+
 
 
 

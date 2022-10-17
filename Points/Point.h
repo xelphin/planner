@@ -19,31 +19,31 @@ class Point {
         * @return
         *      A new instance of Point.
         */
-        Point(const int year);
+        Point(const int year, std::shared_ptr<Banner> banner);
 
         /*
         * Edit title
         * @param newTitle - The new title for the point
         */
-       virtual void updateTitle(const std::string newTitle) = 0;
+       void updateTitle(const std::string newTitle);
 
         /*
         * @return
         *      Title of banner.
         */
-       virtual std::string getTitle() const = 0;
+       std::string getTitle() const;
 
         /*
         * Edit description
         * @param newDescription - The new description
         */
-       virtual void updateDescription(const std::string newDescription) = 0;
+       void updateDescription(const std::string newDescription);
 
         /*
         * @return
         *      Description of banner.
         */
-       virtual std::string getDescription() const = 0;
+       std::string getDescription() const;
 
         /*
         * Edit date
@@ -131,7 +131,9 @@ class Point {
 
     protected:
         int m_year;
-        
+        std::shared_ptr<Banner> m_bannerInPoint; // For polymorphic purposes
+        // TODO: Hopefully study and find way such that there's no m_banner in Event/Reminder/Task
+        //       only here
 
         static const int EMPTY_ARG = -2;
         static const std::string::size_type DESCRIPTION_START_LENGTH = 40;

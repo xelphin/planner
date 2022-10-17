@@ -2,30 +2,10 @@
 
 Event::Event(std::shared_ptr<BannerEvent> banner, const int year, const int month, const int day,
     const int timeStart, const int timeEnd) :
-    Point(year),
+    Point(year, banner),
     m_date(std::make_unique<DateRange>(year, month, day, timeStart, timeEnd)),
     m_banner(move(banner))
 {}
-
-void Event::updateTitle(const std::string newTitle)
-{
-    (*m_banner).updateTitle(newTitle);
-}
-
-std::string Event::getTitle() const
-{
-    return (*m_banner).getTitle();
-}
-
-void Event::updateDescription(const std::string newDescription)
-{
-    (*m_banner).updateDescription(newDescription);
-}
-
-std::string Event::getDescription() const
-{
-    return (*m_banner).getDescription();
-}
 
 void Event::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
 {

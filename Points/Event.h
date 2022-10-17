@@ -26,29 +26,6 @@ public:
     Event(std::shared_ptr<BannerEvent> banner, const int year, const int month, const int day,
         const int timeStart, const int timeEnd);
 
-    /*
-    * Edit title
-    * @param newTitle - The new title for the point
-    */
-    void updateTitle(const std::string newTitle) override;
-
-    /*
-    * @return
-    *      Title of banner.
-    */
-    std::string getTitle() const override;
-
-    /*
-    * Edit description
-    * @param newDescription - The new description
-    */
-    void updateDescription(const std::string newDescription) override;
-
-    /*
-    * @return
-    *      Description of banner.
-    */
-    std::string getDescription() const override;
 
     /*
     * Edit date
@@ -57,7 +34,8 @@ public:
     * @param newStart - The new timeStart for the point
     * @param newEnd - The new timeEnd for the point
     */
-    void updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd) override;
+    void updateDate(const int newMonth, const int newDay,
+                    const int newStart = Point::EMPTY_ARG, const int newEnd= Point::EMPTY_ARG) override;
 
     /*
     * Get the Date of the Point
