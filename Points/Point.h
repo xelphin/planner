@@ -45,6 +45,8 @@ class Point {
         */
        std::string getDescription() const;
 
+
+
         /*
         * Edit date
         * @param newMonth - The new month for the point

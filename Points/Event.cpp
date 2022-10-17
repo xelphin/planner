@@ -7,6 +7,7 @@ Event::Event(std::shared_ptr<BannerEvent> banner, const int year, const int mont
     m_banner(move(banner))
 {}
 
+
 void Event::updateDate(const int newMonth, const int newDay, const int newStart, const int newEnd)
 {
     if (newStart == Point::EMPTY_ARG || newEnd == Point::EMPTY_ARG)

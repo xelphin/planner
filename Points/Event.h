@@ -27,6 +27,7 @@ public:
         const int timeStart, const int timeEnd);
 
 
+
     /*
     * Edit date
     * @param newMonth - The new month for the point

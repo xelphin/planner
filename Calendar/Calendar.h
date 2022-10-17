@@ -41,28 +41,40 @@ public:
     Calendar();
 
     /*
-    * Add BannerEvent to Calendar
+    * Add new BannerEvent to Calendar
     * @param title - title of Banner (for Event)
     * @param location - location of Banner (for Event)
     * @param description - description of Banner (for Event)
+    * @param month - The month of the Event
+    * @param day - The day of the Event
+    * @param timeStart - The timeStart of the Event
+    * @param timeEnd - The timeEnd of the Event
     */
-   void addBannerEvent(const std::string title, const std::string location, const std::string description);
+   void createNewBannerEvent(const std::string title, const std::string location, const std::string description,
+    const int month, const int day, const int timeStart, const int timeEnd);
 
     /*
-    * Add BannerTask to Calendar
+    * Add new BannerTask to Calendar
     * @param title - title of Banner (for Event)
     * @param urgency - urgency of Banner (for Event)
     * @param description - description of Banner (for Event)
+    * @param month - The month of the Event
+    * @param day - The day of the Event
+    * @param deadline - The timeStart of the Event
     */
-   void addBannerTask(const std::string title, const int urgency, const std::string description);
+   void createNewBannerTask(const std::string title, const int urgency, const std::string description,
+    const int month, const int day, const int deadline);
 
     /*
-    * Add BannerReminder to Calendar
+    * Add new BannerReminder to Calendar
     * @param title - title of Banner (for Event)
     * @param location - location of Banner (for Event)
     * @param description - description of Banner (for Event)
+    * @param month - The month of the Event
+    * @param day - The day of the Event
     */
-   void addBannerReminder(const std::string title, const std::string location, const std::string description);
+   void createNewBannerReminder(const std::string title, const std::string location, const std::string description,
+    const int month, const int day);
 
     /*
     * Add Event to Calendar
@@ -94,19 +106,22 @@ public:
    void addReminder(std::shared_ptr<BannerReminder> banner, const int month, const int day);
 
 
+   std::shared_ptr<Point> getCurrentPoint(); // const???
+
+
     /*
     * Print Calendar.
     */
     void print(std::ostream& os) const;
 
     /*
-    * Compare two unique_ptr to Point
+    * Compare two shared_ptr to Point
     * @param ptr1 - first pointer
     * @param ptr2 - second pointer
     * @return
     *      true: ptr1 < ptr2 || false: !(ptr1 < ptr2)
     */
-    static bool pointCompare(const std::unique_ptr<Point>& ptr1, const std::unique_ptr<Point>& ptr2) {
+    static bool pointCompare(const std::shared_ptr<Point>& ptr1, const std::shared_ptr<Point>& ptr2) {
         return *ptr1 < *ptr2;
     }
 
@@ -124,8 +139,8 @@ private:
     std::string m_fileName = "database.txt";
     int m_year;
     int* m_daysInMonth;
-    std::list<std::unique_ptr<Point>> m_points;
-    std::vector<std::shared_ptr<Banner>> m_banners;
+    std::list<std::shared_ptr<Point>> m_points;
+    std::shared_ptr<Point> m_currPoint;
 
     /*
     * Create database.txt file
@@ -159,8 +174,8 @@ private:
     Because otherwise it is difficult to do actions like printing and interacting with the Calendar
     (A Banner can have multiple Points dispersed across a timeline)
 
-- Why do we need IDs?
-    When parsing a txt file into a Calendar, to know which Point has which Banner, we need to connect
-    through IDs
+- Why does Calendar not have a Banner shared_ptr vector/list?
+    Because I want that the moment no Points are pointing at the Banner that it will be erased,
+    if Calendar is pointing at it as well, it won't get erased
 
 */
