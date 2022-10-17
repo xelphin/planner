@@ -1,0 +1,60 @@
+===
+Calendar with m_points:
+
+    Collection of m_points
+    Each Point has an ID that matches the banner and a serial ID of which event it is from banner
+
+    Pro:
+    - Easier to organize Point in calendar because of Point dates
+
+    Q:
+    - How to select Point to edit banner?
+
+    Con:
+    - Parsing Banners into text file
+        Solution: format with Points and banner IDs
+            Problem: IDing Banners
+                Solution: Re-ID each time
+
+    TODO:
+    - Create Banner inheritance (Task has urgency and Event/Reminder have location)
+    - Calendar should also have collection of Banners
+    - Calendar should have option to create new Banner as well
+    - Depending on type of enum of Banner, i add different type of Point (should i just
+    use inheritance again?)
+    - Print Calendar (print Points)
+    - Add Complete quality to Task
+    - Parse Calendar to database.txt
+    - Parse database.txt to Calendar
+    - User Interface
+
+
+    Maybe also the Banners have a collection of Points its connected
+    to (QUESTION: will this cause weird behavior with pointers?)
+
+Q: Why then do we need Points? Why not just a Banner with collection of Dates?
+    - Because a Point is connected to both a Banner and a Date
+    - It's easier to organize all Point objects from all Banners rather then organize
+    Banner dates between different Banners (because each banner has various dates); for
+    the screen printing
+
+
+
+
+
+When wanting to edit a banner of a point you see on screen, you select the point and it brings you
+to a page of the banner where you can edit it and get rid of its repetitions
+(Should it directly remove from txt file too or wait for complete parsing of the program?)
+    - Means every event
+
+
+
+===
+Calendar with m_banners:
+
+    Collection of m_banners
+    Each banner has a collection of Points
+    Maybe different banner types with a collection of Points
+
+    Pro:
+        - Makes more sense that a Calendar has a collection of Banners because 

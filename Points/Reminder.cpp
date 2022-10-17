@@ -46,6 +46,11 @@ int Reminder::getDay() const
     return (*m_date).getDay();
 }
 
+std::string Reminder::getBannerParsed() const
+{
+    return (*m_banner).getBannerParsed();
+}
+
 void Reminder::updateLocation(const std::string newLocation)
 {
     (*m_banner).updateLocation(newLocation);

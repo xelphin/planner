@@ -49,6 +49,11 @@ int Task::getDay() const
     return (*m_date).getDay();
 }
 
+std::string Task::getBannerParsed() const
+{
+    return (*m_banner).getBannerParsed();
+}
+
 void Task::updateUrgency(const int newUrgency)
 {
     (*m_banner).updateUrgency(newUrgency);
@@ -58,7 +63,6 @@ int Task::getUrgency() const
 {
     return (*m_banner).getUrgency();
 }
-
 
 void Task::markComplete()
 {

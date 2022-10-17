@@ -31,6 +31,12 @@ class BannerReminder : public Banner {
         */
        std::string getLocation() const;
 
+        /*
+        * @return
+        *      BannerReminder in the format expected for database.txt
+        */
+       std::string getBannerParsed() const override;
+
         // D'tor
         ~BannerReminder() {}
 

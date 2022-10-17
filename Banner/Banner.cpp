@@ -5,7 +5,7 @@ Banner::Banner(const std::string title, const std::string description) :
     m_title(title),
     m_description(description)
 {
-
+    
 }
 
 void Banner::updateTitle(const std::string newTitle)

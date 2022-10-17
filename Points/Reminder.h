@@ -78,6 +78,13 @@ public:
     int getDay() const override;
 
     /*
+    * Get the Banner of the Point Parsed
+    * @return
+    *      String of Parsed Banner
+    */
+    std::string getBannerParsed() const override;
+
+    /*
     * Edit location
     * @param newLocation - The new location
     */

@@ -31,6 +31,12 @@ class BannerEvent : public Banner {
         */
        std::string getLocation() const;
 
+        /*
+        * @return
+        *      BannerEvent in the format expected for database.txt
+        */
+       std::string getBannerParsed() const override;
+
         // D'tor
         ~BannerEvent() {}
 

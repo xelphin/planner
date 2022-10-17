@@ -32,6 +32,7 @@ void run_all_tests() {
     run_test(reminder_createReminder, "reminder_createReminder");
     run_test(task_createTask, "task_createTask");
     run_test(calendar_createCalendar, "calendar_createCalendar");
+    run_test(calendar_parseCalendarToDatabase, "calendar_parseCalendarToDatabase");
     
 }
 
@@ -570,7 +571,24 @@ bool calendar_createCalendar()
     std::shared_ptr<BannerReminder> banner3(new BannerReminder("Anniversary","Leslie Park","Bring cake"));
     calendar.addReminder(banner3, 7, 22);
     
-    std::cout << calendar;
+    // std::cout << calendar;
+
+    return true;
+}
+
+bool calendar_parseCalendarToDatabase() {
+
+    Calendar calendar;
+    
+    std::shared_ptr<BannerEvent> banner1(new BannerEvent("Board Game Night", "", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"));
+    calendar.addEvent(banner1, 3, 2, 600, 1200);
+    calendar.addEvent(banner1, 3, 9, 600, 1200);
+    std::shared_ptr<BannerTask> banner2(new BannerTask("Picnic",2,"Bring cake"));
+    calendar.addTask(banner2, 7, 26, 1200);
+    std::shared_ptr<BannerReminder> banner3(new BannerReminder("Anniversary","Leslie Park","Bring cake"));
+    calendar.addReminder(banner3, 7, 22);
+
+    calendar.parseCalendarToDatabase();
 
     return true;
 }

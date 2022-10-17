@@ -1,7 +1,5 @@
 #include "./Calendar.h"
 
-
-
 Calendar::Calendar()
 {
     std::ifstream data;
@@ -16,6 +14,7 @@ Calendar::Calendar()
         } catch (...) {
             throw InvalidDatabaseFormat_Year(getMinYear(), getMaxYear(), m_year);
         }
+        // TODO: Read rest of Calendar and create it
     } else {
         m_year = askUserYear();
         Calendar::createDatabase();
@@ -26,7 +25,7 @@ Calendar::Calendar()
 void Calendar::createDatabase() const
 {
     std::ofstream data("database.txt");
-    data << m_year << "\n" << std::endl;
+    data << m_year << "\n";
     data.close();
 }
 
@@ -99,24 +98,6 @@ void Calendar::print(std::ostream& os) const
         printEmptyDayRanges(os, 0, amountDaysInMonth(m_year,12)+1, 12);
 }
 
-/*
-void Calendar::print(std::ostream& os) const
-{
-    // TODO: Check if empty and then dont do anything
-    int prevMonth = 0;
-    int prevDay = 0;
-    std::list<std::unique_ptr<Point>>::const_iterator it = m_points.begin();
-
-    for (int m = getMinMonth(); m < getMaxMonth(); m++) {
-        int currMonth = (*(*m_points.begin())).getMonth();
-        int currDay = (*(*m_points.begin())).getDay();
-        Calendar::printMonthTitles(os,m-1,m); // TODO: edit
-        if (m!=currMonth) {
-            printEmptyDayRanges(os, prevDay, amountDaysInMonth(m_year,m), m);
-        }
-    }
-}
-*/
 std::ostream& operator<<(std::ostream& os, const Calendar& toPrint)
 {
     toPrint.print(os);
@@ -138,3 +119,30 @@ void Calendar::printEmptyDayRanges(std::ostream& os, const int prev, const int c
         os << " (" << numToMonthName(month).substr(0,3) << " " << prev+1 <<
          " - " << curr-1 << ")" << std::endl << std::endl;
 }
+
+void Calendar::parseCalendarToDatabase() const
+{
+    std::vector<std::shared_ptr<Banner>>::const_iterator it_banner;
+    std::list<std::unique_ptr<Point>>::const_iterator it_point;
+    
+    std::ofstream data("database.txt");
+    data << m_year << "\n\n";
+    for (it_banner = m_banners.begin(); it_banner != m_banners.end(); ++it_banner){
+        // TODO: check why this doesn't run more than 0 times
+        data << (*(*(it_banner))).getBannerParsed() << "\n";
+        for(it_point = m_points.begin(); it_banner != m_banners.end(); ++it_banner) {
+            //
+        }
+
+        data << "\n";
+    }
+    data.close();
+}
+
+
+        // TODO properly, need to keep bannerID and pointID counter in Calendar and change
+        //      banner/point constructor to include that ID
+        //      create a point.getBannerID()
+        //      probably best to include exception for too many banners/points created
+        //      have point.addRepeat() which finds the banner and creates a point with it
+        //      have a m_currPoint which has the index of the current ID of point

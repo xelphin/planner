@@ -17,3 +17,15 @@ int BannerTask::getUrgency() const
 {
     return m_urgency;
 }
+
+std::string BannerTask::getBannerParsed() const
+{
+    std::string str = "[";
+    str += "\"" + this->getTitle() + "\"";
+    str += ",";
+    str += std::to_string(this->getUrgency());
+    str += ",";
+    str += "\"" + this->getDescription() + "\"";
+    str += "]";
+    return str;
+}

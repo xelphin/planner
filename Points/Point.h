@@ -77,6 +77,13 @@ class Point {
         virtual int getDay() const = 0;
 
         /*
+        * Get the Banner of the Point Parsed
+        * @return
+        *      String of Parsed Banner
+        */
+        virtual std::string getBannerParsed() const = 0;
+
+        /*
         * @return
         *      True: p1 == p2
         */
@@ -124,6 +131,7 @@ class Point {
 
     protected:
         int m_year;
+        
 
         static const int EMPTY_ARG = -2;
         static const std::string::size_type DESCRIPTION_START_LENGTH = 40;

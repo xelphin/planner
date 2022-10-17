@@ -18,3 +18,15 @@ std::string BannerReminder::getLocation() const
 {
     return m_location;
 }
+
+std::string BannerReminder::getBannerParsed() const
+{
+    std::string str = "[";
+    str += "\"" + this->getTitle() + "\"";
+    str += ",";
+    str += "\"" + this->getLocation() + "\"";
+    str += ",";
+    str += "\"" + this->getDescription() + "\"";
+    str += "]";
+    return str;
+}

@@ -18,3 +18,15 @@ std::string BannerEvent::getLocation() const
 {
     return m_location;
 }
+
+std::string BannerEvent::getBannerParsed() const
+{
+    std::string str = "[";
+    str += "\"" + this->getTitle() + "\"";
+    str += ",";
+    str += "\"" + this->getLocation() + "\"";
+    str += ",";
+    str += "\"" + this->getDescription() + "\"";
+    str += "]";
+    return str;
+}

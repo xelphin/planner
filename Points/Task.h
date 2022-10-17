@@ -106,6 +106,13 @@ public:
     int getDay() const override;
 
     /*
+    * Get the Banner of the Point Parsed
+    * @return
+    *      String of Parsed Banner
+    */
+    std::string getBannerParsed() const override;
+
+    /*
     * Print Reminder
     */
     std::ostream& print(std::ostream& os) const override;

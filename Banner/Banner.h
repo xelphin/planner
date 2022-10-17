@@ -42,6 +42,12 @@ class Banner {
         */
        std::string getDescription() const;
 
+        /*
+        * @return
+        *      Banner in the format expected for database.txt
+        */
+       virtual std::string getBannerParsed() const = 0;
+
         // D'tor
         virtual ~Banner() {}
 

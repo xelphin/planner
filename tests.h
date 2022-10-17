@@ -73,5 +73,6 @@ bool task_createTask();
 
 // CALENDAR
 bool calendar_createCalendar();
+bool calendar_parseCalendarToDatabase();
 
 #endif

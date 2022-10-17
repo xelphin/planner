@@ -112,6 +112,11 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Calendar& calendar);
 
+    /*
+    * Parse Calendar into database.txt
+    */
+   void parseCalendarToDatabase() const;
+
     Calendar(const Calendar& calendar) = delete;
     Calendar& operator=(const Calendar& calendar) = delete;
 
@@ -146,3 +151,16 @@ private:
 };
 
 #endif
+
+// Q&A :
+/*
+
+- Why are the Points not implemented as a private data in Banner?
+    Because otherwise it is difficult to do actions like printing and interacting with the Calendar
+    (A Banner can have multiple Points dispersed across a timeline)
+
+- Why do we need IDs?
+    When parsing a txt file into a Calendar, to know which Point has which Banner, we need to connect
+    through IDs
+
+*/

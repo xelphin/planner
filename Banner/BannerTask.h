@@ -31,6 +31,12 @@ class BannerTask : public Banner {
         */
        int getUrgency() const;
 
+        /*
+        * @return
+        *      BannerTask in the format expected for database.txt
+        */
+       std::string getBannerParsed() const override;
+
         // D'tor
         ~BannerTask() {}
 

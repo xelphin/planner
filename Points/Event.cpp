@@ -49,6 +49,11 @@ int Event::getDay() const
     return (*m_date).getDay();
 }
 
+std::string Event::getBannerParsed() const
+{
+    return (*m_banner).getBannerParsed();
+}
+
 void Event::updateLocation(const std::string newLocation)
 {
     (*m_banner).updateLocation(newLocation);
