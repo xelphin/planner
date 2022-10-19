@@ -587,7 +587,7 @@ bool calendar_getSelectedPoint()
     calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 2, 600, 1200);
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
         count++;
-    if (((*(calendar.getSelectedPoint())).getDay()) == 2)
+    if (( (*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 2)
         count++;
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 2, 600, 1200);
     ( *(calendar.getSelectedPoint()) ).updateTitle("Board Game Night with Wine");
@@ -597,7 +597,7 @@ bool calendar_getSelectedPoint()
         count++;
     if (((*(calendar.getSelectedPoint())).getDescription()).compare("Board games and wine night with Micheal and Lara") == 0)
         count++;
-    if (((*(calendar.getSelectedPoint())).getDay()) == 7)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 7)
         count++; 
     
 
@@ -631,30 +631,30 @@ bool calendar_selectPoint()
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 2, 600, 1200); // 2/3
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 8, 600, 1200); // 8/3
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 4, 600, 1200); // 4/3
-    if (((*(calendar.getSelectedPoint())).getDay()) == 4)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 4)
         count++;
     calendar.selectEarlierPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 2)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 2)
         count++;
     calendar.selectEarlierPoint();
     // std::cout << "selected: " << ((*(calendar.getSelectedPoint())).getDay()) << std::endl;
-    if (((*(calendar.getSelectedPoint())).getDay()) == 1)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 1)
         count++;
     calendar.selectEarlierPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 1)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 1)
         count++;
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 6, 600, 1200); // 6/3
     calendar.selectLaterPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 8)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 8)
         count++;
     calendar.selectEarlierPoint();
     calendar.selectEarlierPoint();
     calendar.selectEarlierPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 2)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 2)
         count++;
     calendar.selectLaterPoint();
     calendar.selectLaterPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 6)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 6)
         count++;
 
     return count == 8;    
@@ -668,31 +668,31 @@ bool calendar_selectPoint_mixedTypes()
     calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 20, 600, 1200); // 20/3
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
         count++;
-    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 600, 1200); // 10/3 : 10:00
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 720, 1200); // 10/3 : 12:00
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 300, 1200); // 10/3 : 05:00
     calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600); // 16/3
     calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 300); // 12/3
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 14, 300, 1200); // 14/3
-    if (((*(calendar.getSelectedPoint())).getDay()) == 14)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 14)
         count++; 
     calendar.selectLaterPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 16)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 16)
         count++;
     calendar.selectLaterPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 20)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 20)
         count++;
     calendar.selectEarlierPoint();
     calendar.selectLaterPoint();
     calendar.selectLaterPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 20)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 20)
         count++;
     calendar.selectEarlierPoint();
     calendar.selectEarlierPoint();
     calendar.selectEarlierPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 12)
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
         count++;
     calendar.selectEarlierPoint();
-    if (((*(calendar.getSelectedPoint())).getDay()) == 10)
+    if (( (*(*(calendar.getSelectedPoint())).getDate()).getTime()) == 720)
         count++;
 
     return count == 7;    

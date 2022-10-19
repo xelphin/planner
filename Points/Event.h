@@ -45,20 +45,6 @@ public:
     DateAbstract* getDate() const override;
 
     /*
-    * Get the Month of the Point
-    * @return
-    *      Month of the Point.
-    */
-    int getMonth() const override;
-
-    /*
-    * Get the Day of the Point
-    * @return
-    *      Day of the Point.
-    */
-    int getDay() const override;
-
-    /*
     * Print Event
     */
     std::ostream& print(std::ostream& os) const override;

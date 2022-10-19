@@ -103,20 +103,6 @@ class Point {
         virtual DateAbstract* getDate() const = 0;
 
         /*
-        * Get the Month of the Point
-        * @return
-        *      Month of the Point.
-        */
-        virtual int getMonth() const = 0;
-
-        /*
-        * Get the Day of the Point
-        * @return
-        *      Day of the Point.
-        */
-        virtual int getDay() const = 0;
-
-        /*
         * Get the Banner of the Point - Parsed
         * @return
         *      String of Parsed Banner
@@ -181,6 +167,7 @@ class Point {
         std::shared_ptr<Banner> m_banner;
         bool m_complete = false;
 
+        static const int IRRELEVANT_ARG = -1;
         static const int EMPTY_ARG = -2;
         static const std::string::size_type DESCRIPTION_START_LENGTH = 40;
 

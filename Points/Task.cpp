@@ -18,16 +18,6 @@ DateAbstract* Task::getDate() const
     return m_date.get();
 }
 
-int Task::getMonth() const
-{
-    return (*m_date).getMonth();
-}
-
-int Task::getDay() const
-{
-    return (*m_date).getDay();
-}
-
 std::ostream& Task::print(std::ostream& os) const
 {
     int day = (*(this->getDate())).getDay();

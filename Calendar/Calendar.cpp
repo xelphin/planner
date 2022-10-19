@@ -121,7 +121,7 @@ void Calendar::print(std::ostream& os) const
     int currDay = amountDaysInMonth(m_year,currMonth);
     for (it = m_points.begin(); it != m_points.end(); ++it){
         // MONTHS
-        currMonth = (*(*it)).getMonth();
+        currMonth = (*( (*(*it)).getDate() )).getMonth();
         if(currMonth != prevMonth) {
             if (prevMonth!=0)
                 printEmptyDayRanges(os, prevDay, amountDaysInMonth(m_year,prevMonth)+1, prevMonth);
@@ -130,7 +130,7 @@ void Calendar::print(std::ostream& os) const
             prevDay = 0;
         }
         // DAYS
-        currDay = (*(*it)).getDay();
+        currDay = (*( (*(*it)).getDate() )).getDay();
         printEmptyDayRanges(os, prevDay, currDay, currMonth);
         prevDay = currDay;
         // POINTS

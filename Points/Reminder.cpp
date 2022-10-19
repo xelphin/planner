@@ -15,16 +15,6 @@ DateAbstract* Reminder::getDate() const
     return m_date.get();
 }
 
-int Reminder::getMonth() const
-{
-    return (*m_date).getMonth();
-}
-
-int Reminder::getDay() const
-{
-    return (*m_date).getDay();
-}
-
 std::ostream& Reminder::print(std::ostream& os) const
 {
     int day = (*(this->getDate())).getDay();

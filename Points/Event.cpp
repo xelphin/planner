@@ -19,16 +19,6 @@ DateAbstract* Event::getDate() const
     return m_date.get();
 }
 
-int Event::getMonth() const
-{
-    return (*m_date).getMonth();
-}
-
-int Event::getDay() const
-{
-    return (*m_date).getDay();
-}
-
 std::ostream& Event::print(std::ostream& os) const
 {
     int day = (*(this->getDate())).getDay();
