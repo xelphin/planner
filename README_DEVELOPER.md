@@ -7,19 +7,28 @@ The data is saved in ```database.txt```. It is read by the program and a Calenda
 ```
 2022
 
-[0, "Remember Alice's Birthday on 11.18", "Edison Park", ""]
-[11, 15, ""]
-[11, 16, ""]
-[11, 17, ""]
+Reminder
+["Will Rain","","",-1, 11, 14]
+[11,15]
+[11,16]
 
-[1, "Buy gift for Alice", 2, "Buy daisies\n make accessorized headphones"]
-[11, 17, 1400, false, ""]
+Event
+["Board Game Night","","Board games and wine night with Micheal and Lara",-1, 3, 2, 600, 1200]
+[3, 9, 720, 1200]
+[3, 12, 720, 1200]
 
-[2, "Alice's Birthday", "Edison Park", "23 years old\nFairy themed"]
-[11, 18, 1000, 1300, ""]
+Task
+["Buy gift for Alice","","Buy daisies\n make accessorized headphones", 3, 11, 17, 1400, true]
+[11, 12, 300, false]
 
-[1, "Finish Art Assignment", 0, ""]
-[11, 17, true, ""]
+Reminder
+["Disco Party","Glass Hall","",-1, 11, 17]
+
+Task
+["Organize Bag","","Papers, food, notebooks...", 2, 10, 1, 1200, false]
+[10, 8, 1200, false]
+[10, 15, 1200, false]
+[10, 22, 1200, false]
 
 ```
 
@@ -27,29 +36,20 @@ The data is saved in ```database.txt```. It is read by the program and a Calenda
 
 At the start we have the year the calendar is set to
 
-#### Banner
+#### Banner (with a base Point)
 
 Banner - Reminder
-- [type, title, location, description]
+- [title, location, description, urgency, month, day]
 Banner - Task
-- [type, title, urgency, description]
+- [title, location, description, urgency, month, day, deadline, completed]
 Banner - Event
-- [type, title, location, description]
-
-TYPE:
-- 0: Reminder
-- 1: Task
-- 2: Event
+- [title, location, description, urgency, month, day, timeStart, timeEnd]
 
 #### Point
 
 Point - Reminder
-- [month, day, unique description]
+- [month, day]
 Point - Task
-- [month, day, deadline, completed, unique description]
+- [month, day, deadline, completed]d
 Point - Event
-- [month, day, timeStart, timeEnd unique description]
-
-
-
-
+- [month, day, timeStart, timeEnd]
