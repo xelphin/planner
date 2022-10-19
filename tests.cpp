@@ -32,7 +32,7 @@ void run_all_tests() {
     run_test(reminder_createReminder, "reminder_createReminder");
     run_test(task_createTask, "task_createTask");
     run_test(calendar_createCalendar, "calendar_createCalendar");
-    run_test(calendar_createNewBannerType, "calendar_createNewBannerType");
+    run_test(calendar_getCurrentPoint, "calendar_getCurrentPoint");
     run_test(calendar_parseCalendarToDatabase, "calendar_parseCalendarToDatabase");
     
 }
@@ -577,13 +577,45 @@ bool calendar_createCalendar()
     return true;
 }
 
-bool calendar_createNewBannerType()
+bool calendar_getCurrentPoint()
 {
+    int count = 0;
     Calendar calendar;
-    calendar.createNewBannerEvent("Board Game Night","Board games and wine night with Micheal and Lara","",1, 3, 2, 600, 1200);
-    // std::cout << (*calendar.getCurrentPoint()).getBannerParsed() << std::endl;
-    //calendar.addEvent( ( *(calendar.getCurrentPoint()) ).getBanner(), 3, 2, 600, 1200);
-    return true;
+
+    calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 2, 600, 1200);
+    if (((*(calendar.getCurrentPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    if (((*(calendar.getCurrentPoint())).getDay()) == 2)
+        count++;
+    calendar.addEvent( ( *(calendar.getCurrentPoint()) ).getBanner(), 3, 2, 600, 1200);
+    ( *(calendar.getCurrentPoint()) ).updateTitle("Board Game Night with Wine");
+    calendar.addEvent( ( *(calendar.getCurrentPoint()) ).getBanner(), 3, 10, 600, 1200);
+    calendar.addEvent( ( *(calendar.getCurrentPoint()) ).getBanner(), 3, 7, 600, 1200);
+    if (((*(calendar.getCurrentPoint())).getTitle()).compare("Board Game Night with Wine") == 0)
+        count++;
+    if (((*(calendar.getCurrentPoint())).getDescription()).compare("Board games and wine night with Micheal and Lara") == 0)
+        count++;
+    if (((*(calendar.getCurrentPoint())).getDay()) == 7)
+        count++; 
+    
+
+    calendar.createNewBannerTask("Finish Art Assignment","","Renaissance Inspired Portrait",1, 4, 2, 800);
+    ( *(calendar.getCurrentPoint()) ).updateTitle("Finish Renaissance Art Assignment");
+    calendar.addTask( ( *(calendar.getCurrentPoint()) ).getBanner(), 1, 7, 600);
+    if (((*(calendar.getCurrentPoint())).getTitle()).compare("Finish Renaissance Art Assignment") == 0)
+        count++;  
+
+    return count == 6;
+
+    // TODO:
+        // Make currPoint logic so that it works like an iterator
+        // Include edit, move/iterate and remove currPoint
+        // Update README_DEVELOPER and implement parse into txt
+        // Implement parse from txt to Calendar
+        // Implement Graphics
+        // (Notice when editing different Points not all editing options are available
+        //   depending on what Point it is -> this creates a "difference" of Banners)
+    
 }
 
 

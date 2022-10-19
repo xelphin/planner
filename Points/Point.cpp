@@ -69,6 +69,10 @@ std::string Point::getBannerParsed() const
     return (*m_banner).getBannerParsed();
 }
 
+std::shared_ptr<Banner> Point::getBanner()
+{
+  return m_banner;
+}
 
 bool operator==(const Point& p1, const Point& p2)
 {

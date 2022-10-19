@@ -2,6 +2,7 @@
 
 Calendar::Calendar()
 {
+    m_currPoint = *m_points.begin();
     std::ifstream data;
     data.open(m_fileName);
     std::string strYear;
@@ -53,34 +54,35 @@ void Calendar::createNewBannerReminder(const std::string title, const std::strin
 void Calendar::addEvent(std::shared_ptr<Banner> banner, const int month, const int day,
         const int timeStart, const int timeEnd)
 {
-    std::shared_ptr<Event> newEvent = std::make_shared<Event>(std::move(banner), m_year, month, day,
+    std::shared_ptr<Event> newElem = std::make_shared<Event>(std::move(banner), m_year, month, day,
      timeStart, timeEnd);
-    m_points.push_back(newEvent);
+    m_points.push_back(newElem);
+    m_currPoint = m_points.back();
     m_points.sort(pointCompare);
-    m_currPoint = newEvent;
+    
 }
 
 void Calendar::addTask(std::shared_ptr<Banner> banner, const int month, const int day,
     const int deadline)
 {
-    std::shared_ptr<Task> newTask = std::make_shared<Task>(std::move(banner), m_year, month, day,
+    std::shared_ptr<Task> newElem = std::make_shared<Task>(std::move(banner), m_year, month, day,
      deadline);
-    m_points.push_back(newTask);
+    m_points.push_back(newElem);
+    m_currPoint = m_points.back();
     m_points.sort(pointCompare);
-    m_currPoint = newTask;
 }
 
 void Calendar::addReminder(std::shared_ptr<Banner> banner, const int month, const int day)
 {
-    std::shared_ptr<Reminder> newReminder = std::make_shared<Reminder>(std::move(banner), m_year, month, day);
-    m_points.push_back(newReminder);
+    std::shared_ptr<Reminder> newElem = std::make_shared<Reminder>(std::move(banner), m_year, month, day);
+    m_points.push_back(newElem);
+    m_currPoint = m_points.back();
     m_points.sort(pointCompare);
-    m_currPoint = newReminder;
 }
 
 std::shared_ptr<Point> Calendar::getCurrentPoint()
 {
-    return m_currPoint;
+    return m_currPoint; 
 }
 
 void Calendar::print(std::ostream& os) const

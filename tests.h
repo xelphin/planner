@@ -70,7 +70,7 @@ bool task_createTask();
 
 // CALENDAR
 bool calendar_createCalendar();
-bool calendar_createNewBannerType();
+bool calendar_getCurrentPoint();
 bool calendar_parseCalendarToDatabase();
 
 #endif

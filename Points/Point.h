@@ -117,11 +117,18 @@ class Point {
         virtual int getDay() const = 0;
 
         /*
-        * Get the Banner of the Point Parsed
+        * Get the Banner of the Point - Parsed
         * @return
         *      String of Parsed Banner
         */
         std::string getBannerParsed() const;
+
+        /*
+        * Get the Banner of the Point - Pointer
+        * @return
+        *      String of Parsed Banner
+        */
+        std::shared_ptr<Banner> getBanner(); // const??
 
         /*
         * @return
