@@ -21,7 +21,7 @@ public:
      *      A new instance of Task.
     */
     Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
-             const int deadline);
+             const int deadline, const bool completed);
 
     
     /*

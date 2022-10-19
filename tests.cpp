@@ -517,8 +517,8 @@ bool task_createTask()
     
     int count = 0;
     std::shared_ptr<Banner> banner(new Banner(Banner::TYPE::TASK,"Picnic","Bring cake","",2));
-    Task task1(banner, 2022, 7, 24, 600);
-    Task task2(banner, 2022, 7, 24, 600);
+    Task task1(banner, 2022, 7, 24, 600, false);
+    Task task2(banner, 2022, 7, 24, 600, false);
     if(task1 == task2)
         count++;
     task1.updateDate(7,24,1200);
@@ -571,7 +571,7 @@ bool calendar_createCalendar()
     calendar.addEvent(banner1, 3, 2, 600, 1200);
     calendar.addEvent(banner1, 3, 9, 600, 1200);
     std::shared_ptr<Banner> banner2(new Banner(Banner::TYPE::TASK,"Picnic","Bring cake and wine","",2));
-    calendar.addTask(banner2, 7, 26, 1200);
+    calendar.addTask(banner2, 7, 26, 1200, false);
     std::shared_ptr<Banner> banner3(new Banner(Banner::TYPE::REMINDER,"Anniversary","Bring cake","Leslie Park",2));
     calendar.addReminder(banner3, 7, 22);
     
@@ -602,16 +602,15 @@ bool calendar_getSelectedPoint()
         count++; 
     
 
-    calendar.createNewBannerTask("Finish Art Assignment","","Renaissance Inspired Portrait",1, 4, 2, 800);
+    calendar.createNewBannerTask("Finish Art Assignment","","Renaissance Inspired Portrait",1, 4, 2, 800, false);
     ( *(calendar.getSelectedPoint()) ).updateTitle("Finish Renaissance Art Assignment");
-    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 1, 7, 600);
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 1, 7, 600, false);
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Finish Renaissance Art Assignment") == 0)
         count++;  
 
     return count == 6;
 
     // TODO:
-        // Include edit and remove currPoint
         // Update README_DEVELOPER and implement parse into txt
         // Implement parse from txt to Calendar
         // Implement Graphics
@@ -670,8 +669,8 @@ bool calendar_selectPoint_mixedTypes()
         count++;
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 720, 1200); // 10/3 : 12:00
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 300, 1200); // 10/3 : 05:00
-    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600); // 16/3
-    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 300); // 12/3
+    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600, false); // 16/3
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 300, false); // 12/3
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 14, 300, 1200); // 14/3
     if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 14)
         count++; 
@@ -708,8 +707,8 @@ bool calendar_removeSelectedPoint()
         count++;
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 9, 720, 1200); // 9/3 : 12:00
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 300, 1200); // 10/3 : 05:00
-    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600); // 16/3
-    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 300); // 12/3
+    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600, false); // 16/3
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 300, false); // 12/3
     calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 14, 300, 1200); // 14/3
     if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 14)
         count++;

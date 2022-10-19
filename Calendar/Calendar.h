@@ -60,7 +60,7 @@ public:
     * @param deadline - The timeStart of the Event
     */
    void createNewBannerTask(const std::string title, const std::string location, const std::string description, const int urgency,
-    const int month, const int day, const int deadline);
+    const int month, const int day, const int deadline, const bool completed);
 
     /*
     * Add new BannerReminder to Calendar
@@ -90,9 +90,10 @@ public:
     * @param month - The month of the Event
     * @param day - The day of the Event
     * @param deadline - The timeStart of the Event
+    * @param completed - Whether the Task has been completed or not (used in parsing from .txt file)
     */
    void addTask(std::shared_ptr<Banner> banner, const int month, const int day,
-        const int deadline);
+        const int deadline, const bool completed);
 
     /*
     * Add Reminder to Calendar

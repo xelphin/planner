@@ -38,10 +38,10 @@ void Calendar::createNewBannerEvent(const std::string title, const std::string l
 }
 
 void Calendar::createNewBannerTask(const std::string title, const std::string location, const std::string description, const int urgency,
-    const int month, const int day, const int deadline)
+    const int month, const int day, const int deadline, const bool completed)
 {
     std::shared_ptr<Banner> newBanner = std::make_shared<Banner>(Banner::TYPE::TASK, title, description, location, urgency);
-    this -> addTask(newBanner, month, day, deadline);
+    this -> addTask(newBanner, month, day, deadline, completed);
 }
 
 void Calendar::createNewBannerReminder(const std::string title, const std::string location, const std::string description, const int urgency,
@@ -63,10 +63,10 @@ void Calendar::addEvent(std::shared_ptr<Banner> banner, const int month, const i
 }
 
 void Calendar::addTask(std::shared_ptr<Banner> banner, const int month, const int day,
-    const int deadline)
+    const int deadline, const bool completed)
 {
     std::shared_ptr<Task> newElem = std::make_shared<Task>(std::move(banner), m_year, month, day,
-     deadline);
+     deadline, completed);
     m_points.push_back(newElem);
     m_selectedPoint = m_points.back();
     m_points.sort(pointCompare);

@@ -1,10 +1,12 @@
 #include "./Task.h"
 
 Task::Task(std::shared_ptr<Banner> banner, const int year, const int month, const int day,
-    const int deadline) :
+    const int deadline, const bool completed) :
     Point(year, banner),
     m_date(std::make_unique<DateDeadline>(year, month, day, deadline))
-{}
+{
+    m_complete = completed;
+}
 
 void Task::updateDate(const int newMonth, const int newDay, const int newDeadline, const int arg2)
 {
