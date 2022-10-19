@@ -70,7 +70,9 @@ bool task_createTask();
 
 // CALENDAR
 bool calendar_createCalendar();
-bool calendar_getCurrentPoint();
+bool calendar_getSelectedPoint();
+bool calendar_selectPoint();
+bool calendar_selectPoint_mixedTypes();
 bool calendar_parseCalendarToDatabase();
 
 #endif

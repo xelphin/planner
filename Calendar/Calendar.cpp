@@ -2,7 +2,7 @@
 
 Calendar::Calendar()
 {
-    m_currPoint = *m_points.begin();
+    m_selectedPoint = *m_points.begin();
     std::ifstream data;
     data.open(m_fileName);
     std::string strYear;
@@ -57,7 +57,7 @@ void Calendar::addEvent(std::shared_ptr<Banner> banner, const int month, const i
     std::shared_ptr<Event> newElem = std::make_shared<Event>(std::move(banner), m_year, month, day,
      timeStart, timeEnd);
     m_points.push_back(newElem);
-    m_currPoint = m_points.back();
+    m_selectedPoint = m_points.back();
     m_points.sort(pointCompare);
     
 }
@@ -68,7 +68,7 @@ void Calendar::addTask(std::shared_ptr<Banner> banner, const int month, const in
     std::shared_ptr<Task> newElem = std::make_shared<Task>(std::move(banner), m_year, month, day,
      deadline);
     m_points.push_back(newElem);
-    m_currPoint = m_points.back();
+    m_selectedPoint = m_points.back();
     m_points.sort(pointCompare);
 }
 
@@ -76,13 +76,40 @@ void Calendar::addReminder(std::shared_ptr<Banner> banner, const int month, cons
 {
     std::shared_ptr<Reminder> newElem = std::make_shared<Reminder>(std::move(banner), m_year, month, day);
     m_points.push_back(newElem);
-    m_currPoint = m_points.back();
+    m_selectedPoint = m_points.back();
     m_points.sort(pointCompare);
 }
 
-std::shared_ptr<Point> Calendar::getCurrentPoint()
+std::shared_ptr<Point> Calendar::getSelectedPoint() const
 {
-    return m_currPoint; 
+    return m_selectedPoint; 
+}
+
+void Calendar::selectEarlierPoint()
+{
+    std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    if (*it == m_selectedPoint) return;
+    it++;
+    for ( ; it != m_points.end(); it++) {
+        if ((*it) == m_selectedPoint) {
+            it--;
+            m_selectedPoint = *it;
+            break;
+        }
+    }
+}
+
+void Calendar::selectLaterPoint()
+{
+    std::list<std::shared_ptr<Point>>::const_iterator it;
+    for (it = m_points.begin(); it != m_points.end(); it++) {
+        if ((*it) == m_selectedPoint) {
+            it++;
+            if (it != m_points.end())
+                m_selectedPoint = *(it);
+            break;
+        }
+    }
 }
 
 void Calendar::print(std::ostream& os) const

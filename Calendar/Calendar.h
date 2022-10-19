@@ -102,9 +102,25 @@ public:
     */
    void addReminder(std::shared_ptr<Banner> banner, const int month, const int day);
 
+    /*
+    * Get current Point that is selected (by user)
+    *
+    * @return
+    *      shared_ptr to Point
+    */
+   std::shared_ptr<Point> getSelectedPoint() const; 
+    // NOTE: I know that instead of m_selectedPoint having an iterator type pointer is better
+    //       but I get leaks so I'm resorting to creating these not very economical functions
 
-   std::shared_ptr<Point> getCurrentPoint(); // const???
+    /*
+    * Move current Point (m_currPoint) to select (point to) the Point before (first earlier Point)
+    */
+    void selectEarlierPoint();
 
+    /*
+    * Move current Point (m_currPoint) to select (point to) the Point after (first later Point)
+    */
+    void selectLaterPoint();
 
     /*
     * Print Calendar.
@@ -137,7 +153,7 @@ private:
     int m_year;
     int* m_daysInMonth;
     std::list<std::shared_ptr<Point>> m_points;
-    std::shared_ptr<Point> m_currPoint;
+    std::shared_ptr<Point> m_selectedPoint;
 
     /*
     * Create database.txt file
