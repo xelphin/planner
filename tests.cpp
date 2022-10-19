@@ -35,6 +35,7 @@ void run_all_tests() {
     run_test(calendar_getSelectedPoint, "getSelectedPoint");
     run_test(calendar_selectPoint, "calendar_selectPoint");
     run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes");
+    run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint");
     run_test(calendar_parseCalendarToDatabase, "calendar_parseCalendarToDatabase");
     
 }
@@ -610,8 +611,7 @@ bool calendar_getSelectedPoint()
     return count == 6;
 
     // TODO:
-        // Make currPoint logic so that it works like an iterator
-        // Include edit, move/iterate and remove currPoint
+        // Include edit and remove currPoint
         // Update README_DEVELOPER and implement parse into txt
         // Implement parse from txt to Calendar
         // Implement Graphics
@@ -696,6 +696,62 @@ bool calendar_selectPoint_mixedTypes()
         count++;
 
     return count == 7;    
+}
+
+bool calendar_removeSelectedPoint()
+{
+    int count = 0;
+    Calendar calendar;
+
+    calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 20, 600, 1200); // 20/3
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 9, 720, 1200); // 9/3 : 12:00
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 10, 300, 1200); // 10/3 : 05:00
+    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600); // 16/3
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 300); // 12/3
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 14, 300, 1200); // 14/3
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 14)
+        count++;
+    
+    calendar.removeSelectedPoint(); // remove 14/3
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
+        count++;
+    calendar.selectLaterPoint();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 16)
+        count++;
+    calendar.selectLaterPoint();
+    calendar.removeSelectedPoint(); // remove 20/3
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 16)
+        count++;
+    calendar.selectEarlierPoint();
+    calendar.selectEarlierPoint();
+    calendar.selectEarlierPoint();
+    calendar.removeSelectedPoint(); // remove 9/3 
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 10)
+        count++;
+    calendar.selectEarlierPoint();
+    calendar.removeSelectedPoint(); // remove 10/3 
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
+        count++;
+    calendar.selectLaterPoint();
+    calendar.selectLaterPoint();
+    calendar.removeSelectedPoint(); // remove 16/3 
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
+        count++;
+    calendar.removeSelectedPoint(); // remove 12/3
+    try {
+        calendar.getSelectedPoint();
+    } catch (const NoSelectedPoint&) {
+        count++;
+    }
+    try {
+        calendar.removeSelectedPoint();
+    } catch (const AttemptToRemoveFromEmptyCalendar&) {
+        count++;
+    }
+        
+    return count == 10;    
 }
 
 bool calendar_parseCalendarToDatabase() {

@@ -82,19 +82,21 @@ void Calendar::addReminder(std::shared_ptr<Banner> banner, const int month, cons
 
 std::shared_ptr<Point> Calendar::getSelectedPoint() const
 {
+    if (m_selectedPoint == nullptr) throw NoSelectedPoint();
     return m_selectedPoint; 
 }
 
 void Calendar::selectEarlierPoint()
 {
     std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    if (m_points.empty()) return;
     if (*it == m_selectedPoint) return;
     it++;
     for ( ; it != m_points.end(); it++) {
         if ((*it) == m_selectedPoint) {
             it--;
             m_selectedPoint = *it;
-            break;
+            return;
         }
     }
 }
@@ -107,8 +109,35 @@ void Calendar::selectLaterPoint()
             it++;
             if (it != m_points.end())
                 m_selectedPoint = *(it);
-            break;
+            return;
         }
+    }
+}
+
+void Calendar::removeSelectedPoint()
+{
+    if (m_points.empty()) throw AttemptToRemoveFromEmptyCalendar();
+    if (!m_selectedPoint) throw NoSelectedPoint();
+    std::list<std::shared_ptr<Point>>::iterator it = m_points.begin();
+    while (it != m_points.end())
+    {
+        if (*it == m_selectedPoint) {
+            if (m_points.size() == 1) {
+                m_points.pop_front();   
+                m_selectedPoint = nullptr;
+                return;
+            }
+            if (it == m_points.begin()) {
+                m_points.pop_front();
+                m_selectedPoint = m_points.front();
+                return;
+            }
+            m_selectedPoint = *(--it);
+            it++;
+            m_points.erase(it);
+            return;
+        }
+        it++;
     }
 }
 

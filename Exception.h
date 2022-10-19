@@ -96,5 +96,19 @@ public:
     }
 };
 
+// CALENDAR EXCEPTIONS
+class NoSelectedPoint : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "No point is selected.";
+    }
+};
+class AttemptToRemoveFromEmptyCalendar : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Removing from an empty Calendar is an invalid action.";
+    }
+};
+
 
 #endif // EXCEPTION_H

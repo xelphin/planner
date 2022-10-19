@@ -73,6 +73,7 @@ bool calendar_createCalendar();
 bool calendar_getSelectedPoint();
 bool calendar_selectPoint();
 bool calendar_selectPoint_mixedTypes();
+bool calendar_removeSelectedPoint();
 bool calendar_parseCalendarToDatabase();
 
 #endif
