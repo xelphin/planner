@@ -132,4 +132,25 @@ void checkBecomesValidString(const std::string& str, const int length, int& i);
 */
 void checkOnlySpacesTillComma(const std::string& str, const int length, int& i);
 
+// Trimming String Functions (copy pasted from internet)
+std::string trim(const std::string &s);
+std::string rtrim(const std::string &s);
+std::string ltrim(const std::string &s);
+
+/*
+* Gets string array and iterator reference, extracts (nested) string from where iterator starts
+* Note!!! Use only after having checked array!!!!
+* @param str - string array
+* @param i - iterator pointing at opening " or space(s) and/or comma before opening "
+*/
+std::string extractString(std::string& str, int& i);
+
+/*
+* Gets string array and iterator reference, extracts (nested) string from where iterator starts
+* Note!!! Use only after having checked array!!!!
+* @param str - string array
+* @param i - iterator pointing at opening digit/minus or space(s) and/or comma before opening digit/minus
+*/
+int extractInt(std::string& str, int& i);
+
 #endif

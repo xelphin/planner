@@ -44,6 +44,7 @@ bool utilities_validDate();
 bool utilities_checkValidTime();
 bool utilities_checkValidTimeRange();
 bool utilities_countElemsInString();
+bool utilities_extract();
 
 // DATE
 bool date_createDate();

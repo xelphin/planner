@@ -20,6 +20,7 @@ void run_all_tests() {
     run_test(utilities_checkValidTime, "utilities_checkValidTime", success_string);
     run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange", success_string);
     run_test(utilities_countElemsInString, "utilities_countElemsInString", success_string);
+    run_test(utilities_extract, "utilities_extract", success_string);
     run_test(date_createDate, "date_createDate", success_string);
     run_test(date_updateDate, "date_updateDate", success_string);
     run_test(dateDeadline_createDate, "dateDeadline_createDate", success_string);
@@ -185,7 +186,13 @@ bool utilities_countElemsInString()
     } catch (const StringIsNotOfArrayFormat&) {
         count++;
     }
+    try {
+        countElemsInString("[233, \"hello \n, - ,5]");
+    } catch (const StringIsNotOfArrayFormat&) {
+        count++;
+    }
     count += countElemsInString("[233,\"cee m\", 654 ,5]") == 4;
+    count += countElemsInString("[233,\"cee m\", -654 ,5]") == 4;
     count += countElemsInString("[\"cee m\"]") == 1;
     count += countElemsInString("[\"cee m\" ]") == 1;
     count += countElemsInString("[ \"cee m\"]") == 1;
@@ -196,7 +203,35 @@ bool utilities_countElemsInString()
     count += countElemsInString("[\"Board Game Night\", \"\", \"Board games and wine night with Micheal and Lara\", 1, 3, 20, 600, 1200]") == 8;
 
 
-    return count == 16;
+    return count == 18;
+}
+
+bool utilities_extract()
+{
+    int count = 0;
+    std::string str1 = "[\"Board Game Night\", \"\"   , \"Board games and wine night with Micheal and Lara\", 1, 3, 20  ,600, 1200 ]";
+    count += countElemsInString(str1) == 8;
+
+    int i = 1;
+    // std::string title = extractString(str1,i);
+    // std::cout << "title: " << title << std::endl;
+    if ((extractString(str1,i)).compare("Board Game Night") == 0)
+        count++;
+    if ((extractString(str1,i)).compare("") == 0)
+        count++;
+    if ((extractString(str1,i)).compare("Board games and wine night with Micheal and Lara") == 0)
+        count++;
+    if ((extractInt(str1,i)) == 1)
+        count++;
+    if ((extractInt(str1,i)) == 3)
+        count++;
+    if ((extractInt(str1,i)) == 20)
+        count++;
+    if ((extractInt(str1,i)) == 600)
+        count++;
+    if ((extractInt(str1,i)) == 1200)
+        count++;
+    return count == 9;
 }
 
 bool date_createDate()

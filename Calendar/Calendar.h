@@ -182,6 +182,34 @@ private:
     * @param month - Month which the days belong
     */
     void printEmptyDayRanges(std::ostream& os, const int prev, const int curr, const int month) const;
+
+    /*
+    * Parses text file into calendar (called from constructor)
+    * @param file - database file where the first line has been already read
+    */
+    void parseTextFileToCalendar(std::ifstream& file);
+
+    /*
+    * Gets next line with text
+    * @param file - database file 
+    * @param line - line that is Point type
+    */
+    void getNextLineWithText(std::ifstream& file, std::string& line, int lineIndex);
+
+    /*
+    * Parses text into Point
+    * @param file - database file 
+    * @param line - line that is Point type
+    */
+    void parseTextToPoint(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
+    * Parses text into Event
+    * @param file - database file 
+    * @param line - line that is Point type
+    */
+    void parseTextToEvent(std::ifstream& file, std::string& line, int& lineIndex);
+
 };
 
 #endif

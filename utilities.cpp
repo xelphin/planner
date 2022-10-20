@@ -12,6 +12,7 @@
 #define ASCII_MIN_SYMBOL 32
 #define ASCII_MAX_SYMBOL 126
 #define ASCII_SPACE 32
+#define ASCII_MINUS 45
 
 int amountDaysInMonth(const int year, const int month)
 {
@@ -138,7 +139,6 @@ std::string minutesToTime(const int min)
 
 int countElemsInString(const std::string& str)
 {
-    std::cout << str << std::endl;
     // TODO: Spaces!!! - between commas is fine, not between numbers
     int length = str.length();
     // SPECIAL CASES
@@ -152,12 +152,20 @@ int countElemsInString(const std::string& str)
     int count = 1;
     bool elemAppeared = false;
     for (int i=1; i<length-1; i++) {
-        if (!(str[i] >= ASCII_ZERO && str[i] <= ASCII_NINE) && !(str[i] == ASCII_QUOTE) && !(str[i] == ASCII_SPACE) && !(str[i] == ASCII_COMMA))
+        if (!(str[i] >= ASCII_ZERO && str[i] <= ASCII_NINE) && !(str[i] == ASCII_QUOTE) &&
+            !(str[i] == ASCII_SPACE) && !(str[i] == ASCII_COMMA) && !(str[i] == ASCII_MINUS))
             throw InvalidCharacterInString(i, str[i]);
         if (str[i] == ASCII_SPACE)
             continue;
         if (str[i] >= ASCII_ZERO && str[i] <= ASCII_NINE) {
             elemAppeared = true;
+            checkBecomesValidNumber(str, length, i);
+        }
+        else if (str[i] == ASCII_MINUS && i != length-2) {
+            if (!(str[i+1] >= ASCII_ZERO && str[i+1] <= ASCII_NINE))
+                throw InvalidCharacterInString(i+1, str[i+1]);
+            elemAppeared = true;
+            i++;
             checkBecomesValidNumber(str, length, i);
         }
         else if (str[i] == ASCII_QUOTE) {
@@ -216,4 +224,59 @@ void checkOnlySpacesTillComma(const std::string& str, const int length, int& i)
     if (str[i] == ASCII_COMMA && i == length-2) // [...123 ,]
         throw MissingElemInArrayString();
     return;
+}
+
+
+std::string ltrim(const std::string &s)
+{
+    const std::string WHITESPACE = " \n\r\t\f\v";
+    size_t start = s.find_first_not_of(WHITESPACE);
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+ 
+std::string rtrim(const std::string &s)
+{
+    const std::string WHITESPACE = " \n\r\t\f\v";
+    size_t end = s.find_last_not_of(WHITESPACE);
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+ 
+std::string trim(const std::string &s) {
+    return rtrim(ltrim(s));
+}
+
+std::string extractString(std::string& str, int& i)
+{
+    while( (unsigned)i < str.length()-1 && str[i] != ASCII_QUOTE) {
+        if (str[i]<='9' && str[i]>='0')
+            throw InvalidPointFormat();
+        i++;
+    }
+    const int openingQuoteIndex = i;
+    i++;
+    while( (unsigned)i < str.length()-1 && !(str[i] == ASCII_QUOTE && str[i-1] != ASCII_BACKSLASH)) {
+        if (str[i] == ASCII_QUOTE)
+            std::cout << "Read \" " << std::endl;
+        i++;
+    }
+    const int closingQuoteIndex = i;
+    i++;
+    return str.substr(openingQuoteIndex+1, closingQuoteIndex-openingQuoteIndex-1);
+}
+
+int extractInt(std::string& str, int& i)
+{
+    while( (unsigned)i < str.length()-1 && str[i] != ASCII_MINUS && !(str[i] <= ASCII_NINE && str[i] >= ASCII_ZERO)) {
+        if (str[i] == ASCII_QUOTE)
+            throw InvalidPointFormat();
+        i++;
+    }
+    const int startIndex = i;
+    while( (unsigned)i < str.length()-1 && (str[i] == ASCII_MINUS || (str[i] <= ASCII_NINE && str[i] >= ASCII_ZERO))) {
+        i++;
+    }
+    const int endIndex = i;
+    // std::cout << "startIndex: " << startIndex << " endIndex:" << endIndex << std::endl;
+    // std::cout << "substr: " << str.substr(startIndex, endIndex-startIndex) << std::endl;
+    return stoi(str.substr(startIndex, endIndex-startIndex));
 }

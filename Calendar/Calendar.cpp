@@ -12,6 +12,7 @@ Calendar::Calendar()
             m_year = std::stoi(strYear);
             if (m_year<getMinYear() || m_year>getMaxYear())
                 throw;
+            // parseTextFileToCalendar(data);
         } catch (...) {
             throw InvalidDatabaseFormat_Year(getMinYear(), getMaxYear(), m_year);
         }
@@ -215,10 +216,53 @@ void Calendar::parseCalendarToDatabase() const
     data.close();
 }
 
+/*
+void Calendar::parseTextFileToCalendar(std::ifstream& file)
+{
+    int lineIndex = 1;
+    std::string line = "";
+    
+    while (getline(file, line))
+    {
+        getNextLineWithText(file, line, lineIndex);
+        
+        try {
+            parseTextToPoint(file, line, lineIndex);
+        } catch (const std::exception & e) {
+            std::cout << e.what() << std::endl;
+            break;
+        }  
+    }
+    
+}
 
-        // TODO properly, need to keep bannerID and pointID counter in Calendar and change
-        //      banner/point constructor to include that ID
-        //      create a point.getBannerID()
-        //      probably best to include exception for too many banners/points created
-        //      have point.addRepeat() which finds the banner and creates a point with it
-        //      have a m_currPoint which has the index of the current ID of point
+void Calendar::getNextLineWithText(std::ifstream& file, std::string& line, int lineIndex)
+{
+    while(getline(file, line)) {
+        lineIndex++;
+        bool whiteSpacesOnly = line.find_first_not_of(' ') == std::string::npos;
+        if (!whiteSpacesOnly)
+            break;
+    }
+    line = trim(line);
+}
+
+void Calendar::parseTextToPoint(std::ifstream& file, std::string& line, int& lineIndex)
+{
+    // std::cout << "comparing line: " << line << std::endl;
+    if (line.compare("Event") == 0) {
+        std::cout << "Parsing Event..." << std::endl;
+        parseTextToEvent(file, line, lineIndex);
+    }
+}
+
+void Calendar::parseTextToEvent(std::ifstream& file, std::string& line, int& lineIndex)
+{
+    getNextLineWithText(file, line, lineIndex);
+    int countElems = countElemsInString(line);
+    if (countElems != Event::FULL_AMOUNT_BANNER_WITH_BASE_DATE)
+        throw CorruptedFile_InvalidAmountOfElements(lineIndex, Event::FULL_AMOUNT_BANNER_WITH_BASE_DATE, countElems);
+    //int i = 1;
+
+}
+*/
