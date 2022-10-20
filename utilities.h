@@ -59,16 +59,6 @@ bool checkValidTime(const int minutes);
 */
 bool checkValidTimeRange(const int start, const int end);
 
-/*
-* Takes string that looks like int array and parses it into an int array
-*
-* @param arr - Array that we are modifying.
-* @param amount - Size of array we are modifying.
-* @param str - String formatted like int array.
-*/
-
-void parseStringToArray(int arr[], const int amount, const std::string str);
-
 void printArray(int arr[], const int amount);
 
 bool checkEquivalence(int arr1[], int arr2[], const int amount);
@@ -100,5 +90,46 @@ std::string numToMonthName(const int num);
 */
 std::string minutesToTime(const int min);
 
+/*
+* Count amount of elements in a string that represents an array of strings and ints
+*
+* @param str - String that is an array of strings and ints
+* @return
+*      Amount of elements in str (of mixed elements)
+*/
+int countElemsInString(const std::string& str);
+
+/*
+* Helper function to countElemsInString(), check that the number is framed correctly in the array
+*
+* @param str - String that is an array of strings and ints
+* @param length - Length of str
+* @param i - Index where the number is starting from
+*
+* Leave i at upcoming ',' index or at i = length-2
+*/
+void checkBecomesValidNumber(const std::string& str, const int length, int& i);
+
+/*
+* Helper function to countElemsInString(), check that the nested string is framed correctly in the string array
+*
+* @param str - String that is an array of strings and ints
+* @param length - Length of str
+* @param i - Index where the opening " is
+*
+* Leave i at upcoming ',' index or at i = length-2
+*/
+void checkBecomesValidString(const std::string& str, const int length, int& i);
+
+/*
+* Helper function to countElemsInString(), check from element till next , or end of array is only spaces
+*
+* @param str - String that is an array of strings and ints
+* @param length - Length of str
+* @param i - Index where the opening " is
+*
+* Leave i at upcoming ',' index or at i = length-2
+*/
+void checkOnlySpacesTillComma(const std::string& str, const int length, int& i);
 
 #endif

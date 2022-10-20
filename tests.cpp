@@ -14,37 +14,39 @@ void printSuccess ();
 #endif
 
 void run_all_tests() {
-    run_test(utilities_amountDaysInMonth, "utilities_amountDaysInMonth");
-    run_test(utilities_validDate, "utilities_validDate");
-    run_test(utilities_checkValidTime, "utilities_checkValidTime");
-    run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange");
-    run_test(utilities_checkParseStringToArray, "utilities_checkParseStringToArray");
-    run_test(date_createDate, "date_createDate");
-    run_test(date_updateDate, "date_updateDate");
-    run_test(dateDeadline_createDate, "dateDeadline_createDate");
-    run_test(dateDeadline_updateDate, "dateDeadline_updateDate");
-    run_test(dateDeadline_operators, "dateDeadline_operators");
-    run_test(dateRange_createDate, "dateRange_createDate");
-    run_test(dateRange_updateDate, "dateRange_updateDate");
-    run_test(dateRange_operators, "dateRange_operators");
-    run_test(dateAll_operators, "dateAll_operators");
-    run_test(event_createEvent, "event_createEvent");
-    run_test(reminder_createReminder, "reminder_createReminder");
-    run_test(task_createTask, "task_createTask");
-    run_test(calendar_createCalendar, "calendar_createCalendar");
-    run_test(calendar_getSelectedPoint, "getSelectedPoint");
-    run_test(calendar_selectPoint, "calendar_selectPoint");
-    run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes");
-    run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint");
-    run_test(calendar_parseCalendarToDatabase, "calendar_parseCalendarToDatabase");
-    
+    std::string success_string = "ALL TESTS SUCCEEDED";
+    run_test(utilities_amountDaysInMonth, "utilities_amountDaysInMonth", success_string);
+    run_test(utilities_validDate, "utilities_validDate", success_string);
+    run_test(utilities_checkValidTime, "utilities_checkValidTime", success_string);
+    run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange", success_string);
+    run_test(utilities_countElemsInString, "utilities_countElemsInString", success_string);
+    run_test(date_createDate, "date_createDate", success_string);
+    run_test(date_updateDate, "date_updateDate", success_string);
+    run_test(dateDeadline_createDate, "dateDeadline_createDate", success_string);
+    run_test(dateDeadline_updateDate, "dateDeadline_updateDate", success_string);
+    run_test(dateDeadline_operators, "dateDeadline_operators", success_string);
+    run_test(dateRange_createDate, "dateRange_createDate", success_string);
+    run_test(dateRange_updateDate, "dateRange_updateDate", success_string);
+    run_test(dateRange_operators, "dateRange_operators", success_string);
+    run_test(dateAll_operators, "dateAll_operators", success_string);
+    run_test(event_createEvent, "event_createEvent", success_string);
+    run_test(reminder_createReminder, "reminder_createReminder", success_string);
+    run_test(task_createTask, "task_createTask", success_string);
+    run_test(calendar_createCalendar, "calendar_createCalendar", success_string);
+    run_test(calendar_getSelectedPoint, "getSelectedPoint", success_string);
+    run_test(calendar_selectPoint, "calendar_selectPoint", success_string);
+    run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes", success_string);
+    run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint", success_string);
+    run_test(calendar_parseCalendarToDatabase, "calendar_parseCalendarToDatabase", success_string);
+    std::cout << success_string << std::endl;
 }
 
-void run_test(std::function<bool()> test, std::string test_name)
+void run_test(std::function<bool()> test, std::string test_name, std::string& success_string)
 {
     if(!test()){
         printFail();
         std::cout << std::endl;
+        success_string = "FAILED TEST: " + test_name; 
         return;
     }
     printSuccess();
@@ -145,98 +147,56 @@ bool utilities_checkValidTimeRange()
     return count == 8;
 }
 
-bool utilities_checkParseStringToArray()
+bool utilities_countElemsInString()
 {
     int count = 0;
-    
-    std::string str1 = "[1,2,3]";
-    int arr1[3] = {1,2,3};
-    int size = 3;
-    int* arr1Result = new int[size]();
-    parseStringToArray(arr1Result, size, str1);
-    if(checkEquivalence(arr1,arr1Result,size))
-        count++;
-    delete[] arr1Result;
-    
-    std::string str2 = "[23, 400, 2000,    21,1,3,11,  4]";
-    int arr2[8] = {23,400,2000,21,1,3,11,4};
-    size = 8;
-    int* arr2Result = new int[size]();
-    parseStringToArray(arr2Result, size, str2);
-    if(checkEquivalence(arr2,arr2Result,size))
-        count++;
-    delete[] arr2Result;
-    
-
-    size = 0;
-    int* arr3Result = new int[size]();
-    delete[] arr3Result;
-    /*
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1, 20000, 24]"); 
-    } catch (ArrayValueIsTooLarge&){
+        countElemsInString("[");
+    } catch (const StringIsNotOfArrayFormat&) {
         count++;
     }
-
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "1, 2000, 24]"); 
-    } catch (InvalidFormatOfRepetitionArray&){
+        countElemsInString("[23, 4, 5");
+    } catch (const StringIsNotOfArrayFormat&) {
         count++;
     }
-
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1, 2000,y24]"); 
-    } catch (InvalidFormatOfRepetitionArray&){
+        countElemsInString("[23, 4, ,5]");
+    } catch (const MissingElemInArrayString&) {
         count++;
     }
-
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1, 2000,24,33]"); 
-    } catch (TooManyValuesInString&){
+        countElemsInString("[233, 4, 65c4 ,5]");
+    } catch (const InvalidCharacterInString&) {
         count++;
     }
-
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1, 2000]"); 
-    } catch (TooLittleValuesInString&){
+        countElemsInString("[233, c, 654 ,5]");
+    } catch (const InvalidCharacterInString&) {
         count++;
     }
-
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1,, 2000, 30]"); 
-    } catch (InvalidFormatOfRepetitionArray&){
+        countElemsInString("[233, \"hello , 654 ,5]");
+    } catch (const StringIsNotOfArrayFormat&) {
         count++;
     }
-
     try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[,1, 2000, 30]"); 
-    } catch (InvalidFormatOfRepetitionArray&){
+        countElemsInString("[233, \"hello \n, 654 ,5]");
+    } catch (const StringIsNotOfArrayFormat&) {
         count++;
     }
+    count += countElemsInString("[233,\"cee m\", 654 ,5]") == 4;
+    count += countElemsInString("[\"cee m\"]") == 1;
+    count += countElemsInString("[\"cee m\" ]") == 1;
+    count += countElemsInString("[ \"cee m\"]") == 1;
+    count += countElemsInString("[ \"cee m\" ]") == 1;
+    count += countElemsInString("[ \"\" ]") == 1;
+    count += countElemsInString("[ \"\", 3, 435, \" hello\"   ]") == 4;
+    count += countElemsInString("[ 1]") == 1;
+    count += countElemsInString("[\"Board Game Night\", \"\", \"Board games and wine night with Micheal and Lara\", 1, 3, 20, 600, 1200]") == 8;
 
-    try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1,   , , 30]"); 
-    } catch (InvalidFormatOfRepetitionArray&){
-        count++;
-    }
 
-    try {
-        std::array<int, 3> arr4Result;
-        parseStringToArray(arr4Result, "[1, 2 , 30,]"); 
-    } catch (InvalidFormatOfRepetitionArray&){
-        count++;
-    }
-    */
-    
-    return count == 2;
+    return count == 16;
 }
 
 bool date_createDate()
@@ -575,7 +535,7 @@ bool calendar_createCalendar()
     std::shared_ptr<Banner> banner3(new Banner(Banner::TYPE::REMINDER,"Anniversary","Bring cake","Leslie Park",2));
     calendar.addReminder(banner3, 7, 22);
     
-    std::cout << calendar;
+    // std::cout << calendar;
 
     return true;
 }

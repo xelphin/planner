@@ -40,30 +40,48 @@ public:
     }
 };
 
-class InvalidFormatOfRepetitionArray : public std::exception {
+
+class StringIsNotOfArrayFormat : public std::exception {
 public:
     const char* what() const noexcept override {
-        return "The array format is incorrect.";
+        return "The string is not in the format of a proper array.";
     }
 };
 
-class ArrayValueIsTooLarge : public std::exception {
+class MissingElemInArrayString : public std::exception {
 public:
     const char* what() const noexcept override {
-        return "The value in the array is too large or written inappropriately.";
+        return "Missing element in array string.";
     }
 };
 
-class TooManyValuesInString : public std::exception {
+class InvalidCharacterAfterBackSlash : public std::exception {
 public:
     const char* what() const noexcept override {
-        return "There are too many values in the string. Larger array required.";
+        return "Invalid character after backslash, may only be: \", \\, n.";
     }
 };
-class TooLittleValuesInString : public std::exception {
+
+class InvalidCharacterInString : public std::exception {
+private:
+    int m_indexOfChar;
+    char m_invalidChar;
+    std::string* m_msg;
 public:
+    explicit InvalidCharacterInString(const int index, const char chr) : 
+        m_indexOfChar(index),
+        m_invalidChar(chr)
+    {
+        m_msg = new std::string(std::string("Invalid Character: ") 
+                    + std::to_string(m_invalidChar)
+                    + std::string(" found at index ") 
+                    + std::to_string(m_indexOfChar));
+    }
     const char* what() const noexcept override {
-        return "There are too little values in the string. Smaller array required.";
+        return (*m_msg).c_str();
+    }
+    ~InvalidCharacterInString() override {
+        delete m_msg;
     }
 };
 

@@ -4,6 +4,14 @@
 #define MAX_YEAR 3000
 #define MIN_MONTH 1
 #define MAX_MONTH 12
+#define ASCII_COMMA 44
+#define ASCII_ZERO 48
+#define ASCII_NINE 57
+#define ASCII_QUOTE 34
+#define ASCII_BACKSLASH 92
+#define ASCII_MIN_SYMBOL 32
+#define ASCII_MAX_SYMBOL 126
+#define ASCII_SPACE 32
 
 int amountDaysInMonth(const int year, const int month)
 {
@@ -40,50 +48,6 @@ bool checkValidTime(const int minutes)
 bool checkValidTimeRange(const int start, const int end)
 {
     return !(start>end || !checkValidTime(start) || !checkValidTime(end));
-}
-
-void parseStringToArray(int arr[], const int amount, const std::string str)
-{
-    int size = str.size();
-    bool needNumber = true;
-    if (size<2 || str[0]!='[' || str[size-1]!=']')
-        throw InvalidFormatOfRepetitionArray();
-    int arrIndex = 0;
-    for (std::string::size_type i = 1; i < str.size() - 1; i++) {
-        if ( (str[i]!=' ' && !(str[i]>'0' && str[i]<'9')) || (str[i] == str[i+1] && str[i]==',') )
-            throw InvalidFormatOfRepetitionArray();
-        if (arrIndex>=int(amount))
-            throw TooManyValuesInString();
-        if (str[i] == ' ') {
-            needNumber = true;
-            continue;
-        }
-        if(str[i] == ',') {
-            if(needNumber)
-                throw InvalidFormatOfRepetitionArray();
-            arrIndex++;
-            continue;
-        }
-        needNumber = false;
-        int strIndexAfterLast=i+1;
-        while(str[strIndexAfterLast]>='0' && str[strIndexAfterLast]<='9') 
-            strIndexAfterLast++;
-        
-        int numLength = strIndexAfterLast-i;
-        if(numLength > 4)
-            throw ArrayValueIsTooLarge();
-        
-        if(arrIndex>int(amount))
-            throw InvalidFormatOfRepetitionArray();
-
-        arr[arrIndex] = std::stoi(str.substr(i, numLength));
-
-        arrIndex++;
-        i = strIndexAfterLast;
-    }
-
-    if(arrIndex-1<int(amount)-1)
-        throw TooLittleValuesInString();
 }
 
 void printArray(int arr[], const int amount)
@@ -169,4 +133,87 @@ std::string minutesToTime(const int min)
     if (min%60 < 10)
         time += "0";
     return time;
+}
+
+
+int countElemsInString(const std::string& str)
+{
+    std::cout << str << std::endl;
+    // TODO: Spaces!!! - between commas is fine, not between numbers
+    int length = str.length();
+    // SPECIAL CASES
+    if (length<2)
+        throw StringIsNotOfArrayFormat();
+    if(str[0]!='[' || str[length-1]!=']')
+        throw StringIsNotOfArrayFormat();
+    if (length==2) // delete this
+        return 0;
+
+    int count = 1;
+    bool elemAppeared = false;
+    for (int i=1; i<length-1; i++) {
+        if (!(str[i] >= ASCII_ZERO && str[i] <= ASCII_NINE) && !(str[i] == ASCII_QUOTE) && !(str[i] == ASCII_SPACE) && !(str[i] == ASCII_COMMA))
+            throw InvalidCharacterInString(i, str[i]);
+        if (str[i] == ASCII_SPACE)
+            continue;
+        if (str[i] >= ASCII_ZERO && str[i] <= ASCII_NINE) {
+            elemAppeared = true;
+            checkBecomesValidNumber(str, length, i);
+        }
+        else if (str[i] == ASCII_QUOTE) {
+            elemAppeared = true;
+            checkBecomesValidString(str, length, i);
+        }
+        if (str[i] == ASCII_COMMA) { // after check valid, str[i] should be pointing at ',' (after spaces)
+            if (!elemAppeared)
+                throw MissingElemInArrayString();
+            elemAppeared = false;
+            count++;
+        }
+    }
+    // std::cout << "string: " + str + " has" << count << " elements" << std::endl;
+    return count;
+}
+
+void checkBecomesValidNumber(const std::string& str, const int length, int& i)
+{
+    for ( ; i<length-1; i++) {
+        if (str[i]==ASCII_SPACE) {
+            checkOnlySpacesTillComma(str, length, i);
+            return;
+        }
+        if (!(str[i] >= ASCII_ZERO && str[i] <= ASCII_NINE) && !(str[i] == ASCII_COMMA))
+            throw InvalidCharacterInString(i, str[i]);
+        if (str[i] == ASCII_COMMA) {
+            if (i==length-2) // case of: [... 123,]
+                throw MissingElemInArrayString();
+            return;
+        }
+    }
+}
+
+
+void checkBecomesValidString(const std::string& str, const int length, int& i)
+{
+    i++;
+    for ( ; i<length-1; i++) {
+        if (str[i] == ASCII_QUOTE && str[i-1] != ASCII_BACKSLASH) { 
+            i++;
+            checkOnlySpacesTillComma(str, length, i);
+            return;
+        }
+    }
+    throw StringIsNotOfArrayFormat();
+}
+
+void checkOnlySpacesTillComma(const std::string& str, const int length, int& i)
+{
+    while(str[i] != ASCII_COMMA && i < length-1) {
+        if (str[i] != ASCII_SPACE)
+            throw InvalidCharacterInString(i, str[i]);
+        i++;
+    }
+    if (str[i] == ASCII_COMMA && i == length-2) // [...123 ,]
+        throw MissingElemInArrayString();
+    return;
 }

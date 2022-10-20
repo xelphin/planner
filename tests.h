@@ -31,7 +31,7 @@
 void run_all_tests();
 
 // --UTILITIES
-void run_test(std::function<bool()> test, std::string test_name);
+void run_test(std::function<bool()> test, std::string test_name, std::string& success_string);
 bool compareFiles(const std::string &filename1, const std::string &filename2);
 void deleteTextFile(const std::string &filename);
 std::string readFileIntoString(const std::string& path);
@@ -43,7 +43,7 @@ bool utilities_amountDaysInMonth();
 bool utilities_validDate();
 bool utilities_checkValidTime();
 bool utilities_checkValidTimeRange();
-bool utilities_checkParseStringToArray();
+bool utilities_countElemsInString();
 
 // DATE
 bool date_createDate();
