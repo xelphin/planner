@@ -11,24 +11,29 @@ Reminder
 ["Will Rain","","",-1, 11, 14]
 [11,15]
 [11,16]
+-
 
 Event
 ["Board Game Night","","Board games and wine night with Micheal and Lara",-1, 3, 2, 600, 1200]
 [3, 9, 720, 1200]
 [3, 12, 720, 1200]
+-
 
 Task
 ["Buy gift for Alice","","Buy daisies\n make accessorized headphones", 3, 11, 17, 1400, true]
 [11, 12, 300, false]
+-
 
 Reminder
 ["Disco Party","Glass Hall","",-1, 11, 17]
+-
 
 Task
 ["Organize Bag","","Papers, food, notebooks...", 2, 10, 1, 1200, false]
 [10, 8, 1200, false]
 [10, 15, 1200, false]
 [10, 22, 1200, false]
+-
 
 ```
 

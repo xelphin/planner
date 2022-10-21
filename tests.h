@@ -32,6 +32,7 @@ void run_all_tests();
 
 // --UTILITIES
 void run_test(std::function<bool()> test, std::string test_name, std::string& success_string);
+void createTextFile(const std::string &filename, const std::string &input);
 bool compareFiles(const std::string &filename1, const std::string &filename2);
 void deleteTextFile(const std::string &filename);
 std::string readFileIntoString(const std::string& path);
@@ -75,6 +76,6 @@ bool calendar_getSelectedPoint();
 bool calendar_selectPoint();
 bool calendar_selectPoint_mixedTypes();
 bool calendar_removeSelectedPoint();
-bool calendar_parseCalendarToDatabase();
+bool calendar_parseTextToCalendar_parsingEvent();
 
 #endif

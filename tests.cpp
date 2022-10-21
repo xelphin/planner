@@ -38,7 +38,7 @@ void run_all_tests() {
     run_test(calendar_selectPoint, "calendar_selectPoint", success_string);
     run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes", success_string);
     run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint", success_string);
-    run_test(calendar_parseCalendarToDatabase, "calendar_parseCalendarToDatabase", success_string);
+    run_test(calendar_parseTextToCalendar_parsingEvent, "calendar_parseTextToCalendar_parsingEvent", success_string);
     std::cout << success_string << std::endl;
 }
 
@@ -52,6 +52,14 @@ void run_test(std::function<bool()> test, std::string test_name, std::string& su
     }
     printSuccess();
     std::cout << std::endl;
+}
+
+void createTextFile(const std::string &filename, const std::string &input)
+{
+    std::ofstream file(filename);
+    if(file){
+        file << input;
+    }
 }
 
 bool compareFiles(const std::string &filename1, const std::string &filename2)
@@ -748,19 +756,22 @@ bool calendar_removeSelectedPoint()
     return count == 10;    
 }
 
-bool calendar_parseCalendarToDatabase() {
 
-    Calendar calendar;
-    /*
-    std::shared_ptr<BannerEvent> banner1(new BannerEvent("Board Game Night", "", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"));
-    calendar.addEvent(banner1, 3, 2, 600, 1200);
-    calendar.addEvent(banner1, 3, 9, 600, 1200);
-    std::shared_ptr<BannerTask> banner2(new BannerTask("Picnic",2,"Bring cake"));
-    calendar.addTask(banner2, 7, 26, 1200);
-    std::shared_ptr<BannerReminder> banner3(new BannerReminder("Anniversary","Leslie Park","Bring cake"));
-    calendar.addReminder(banner3, 7, 22);
-
-    calendar.parseCalendarToDatabase();
-    */
-    return true;
+bool calendar_parseTextToCalendar_parsingEvent() {
+    Calendar calendar("test_files/database_parseTextToCalendar_parsingEvent.txt");
+    int count = 0;
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 9)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 2)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 2)
+        count++;
+    return count == 5;
 }

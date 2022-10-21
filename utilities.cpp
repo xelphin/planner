@@ -248,8 +248,11 @@ std::string trim(const std::string &s) {
 std::string extractString(std::string& str, int& i)
 {
     while( (unsigned)i < str.length()-1 && str[i] != ASCII_QUOTE) {
-        if (str[i]<='9' && str[i]>='0')
+        if (str[i]<='9' && str[i]>='0') {
+            std::cout << "Exception at index " << i << " received: " << str[i]
+            << " when expected a string" <<std::endl;
             throw InvalidPointFormat();
+        }
         i++;
     }
     const int openingQuoteIndex = i;
@@ -267,8 +270,11 @@ std::string extractString(std::string& str, int& i)
 int extractInt(std::string& str, int& i)
 {
     while( (unsigned)i < str.length()-1 && str[i] != ASCII_MINUS && !(str[i] <= ASCII_NINE && str[i] >= ASCII_ZERO)) {
-        if (str[i] == ASCII_QUOTE)
+        if (str[i] == ASCII_QUOTE) {
+            std::cout << "Exception at index " << i << " received: " << str[i]
+            << " when expected an int" <<std::endl;
             throw InvalidPointFormat();
+        }
         i++;
     }
     const int startIndex = i;

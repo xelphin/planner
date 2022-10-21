@@ -185,5 +185,11 @@ public:
     }
 };
 
+class CorruptedFile_InvalidFormat_NoDash : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Missing dash after ending of Point decleration.";
+    }
+};
 
 #endif // EXCEPTION_H

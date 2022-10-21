@@ -35,7 +35,7 @@ public:
     * @return
     *      A new instance of Calendar.
     */
-    Calendar();
+    Calendar(std::string databaseName = "database.txt");
 
     /*
     * Add new BannerEvent to Calendar
@@ -155,7 +155,7 @@ public:
     Calendar& operator=(const Calendar& calendar) = delete;
 
 private:
-    std::string m_fileName = "database.txt";
+    std::string m_fileName;
     int m_year;
     int* m_daysInMonth;
     std::list<std::shared_ptr<Point>> m_points;
@@ -193,6 +193,7 @@ private:
     * Gets next line with text
     * @param file - database file 
     * @param line - line that is Point type
+    * @param lineIndex - index of line in txt file
     */
     void getNextLineWithText(std::ifstream& file, std::string& line, int lineIndex);
 
@@ -200,6 +201,7 @@ private:
     * Parses text into Point
     * @param file - database file 
     * @param line - line that is Point type
+    * @param lineIndex - index of line in txt file
     */
     void parseTextToPoint(std::ifstream& file, std::string& line, int& lineIndex);
 
@@ -207,8 +209,33 @@ private:
     * Parses text into Event
     * @param file - database file 
     * @param line - line that is Point type
+    * @param lineIndex - index of line in txt file
     */
     void parseTextToEvent(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
+    * Parses text into Event repetitions
+    * ASSUMPTION: createNewBannerEvent() updates m_selectedPoint (was implemented this way)
+    * @param file - database file 
+    * @param line - line that is Point type
+    * @param lineIndex - index of line in txt file
+    */
+    void parseTextToEventRepetitions(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
+    * Extracts Point data from 'line' (generic)
+    * @param line - line that is Point type
+    * @param i - index of next extraction data variable
+    * @param title - title of Banner 
+    * @param location - location of Banner 
+    * @param description - description of Banner 
+    * @param urgency - urgency of Banner 
+    * @param month - The month of the Event
+    * @param day - The day of the Event
+    */
+    void extractPointData(std::string& line, int& i,
+     std::string& title, std::string& location, std::string& description, int& urgency,
+     int& month, int& day);
 
 };
 

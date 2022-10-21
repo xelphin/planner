@@ -1,6 +1,6 @@
 #include "./Calendar.h"
 
-Calendar::Calendar()
+Calendar::Calendar(std::string databaseName) : m_fileName(databaseName)
 {
     m_selectedPoint = *m_points.begin();
     std::ifstream data;
@@ -12,7 +12,7 @@ Calendar::Calendar()
             m_year = std::stoi(strYear);
             if (m_year<getMinYear() || m_year>getMaxYear())
                 throw;
-            // parseTextFileToCalendar(data);
+            parseTextFileToCalendar(data);
         } catch (...) {
             throw InvalidDatabaseFormat_Year(getMinYear(), getMaxYear(), m_year);
         }
@@ -26,7 +26,7 @@ Calendar::Calendar()
 
 void Calendar::createDatabase() const
 {
-    std::ofstream data("database.txt");
+    std::ofstream data(m_fileName);
     data << m_year << "\n";
     data.close();
 }
@@ -216,7 +216,7 @@ void Calendar::parseCalendarToDatabase() const
     data.close();
 }
 
-/*
+
 void Calendar::parseTextFileToCalendar(std::ifstream& file)
 {
     int lineIndex = 1;
@@ -224,8 +224,8 @@ void Calendar::parseTextFileToCalendar(std::ifstream& file)
     
     while (getline(file, line))
     {
-        getNextLineWithText(file, line, lineIndex);
-        
+        if (line.find_first_not_of(' ') == std::string::npos)
+            getNextLineWithText(file, line, lineIndex);
         try {
             parseTextToPoint(file, line, lineIndex);
         } catch (const std::exception & e) {
@@ -250,10 +250,18 @@ void Calendar::getNextLineWithText(std::ifstream& file, std::string& line, int l
 void Calendar::parseTextToPoint(std::ifstream& file, std::string& line, int& lineIndex)
 {
     // std::cout << "comparing line: " << line << std::endl;
+    if (line.find_first_not_of(' ') == std::string::npos)
+        getNextLineWithText(file, line, lineIndex);
     if (line.compare("Event") == 0) {
         std::cout << "Parsing Event..." << std::endl;
         parseTextToEvent(file, line, lineIndex);
+        getNextLineWithText(file, line, lineIndex);
+        parseTextToEventRepetitions(file, line, lineIndex);
     }
+    // TODO: Add Event, Reminder, Task and throw exception if none
+
+    if (line.compare("-") != 0)
+        throw CorruptedFile_InvalidFormat_NoDash();
 }
 
 void Calendar::parseTextToEvent(std::ifstream& file, std::string& line, int& lineIndex)
@@ -262,7 +270,48 @@ void Calendar::parseTextToEvent(std::ifstream& file, std::string& line, int& lin
     int countElems = countElemsInString(line);
     if (countElems != Event::FULL_AMOUNT_BANNER_WITH_BASE_DATE)
         throw CorruptedFile_InvalidAmountOfElements(lineIndex, Event::FULL_AMOUNT_BANNER_WITH_BASE_DATE, countElems);
-    //int i = 1;
+    
+    int i = 1;
 
+    std::string title, location, description;
+    int urgency, month, day, timeStart, timeEnd;
+    extractPointData(line, i, title, location, description, urgency, month, day);
+    timeStart =  extractInt(line, i);
+    timeEnd =  extractInt(line, i);
+
+    this->createNewBannerEvent(title, location, description, urgency, month, day, timeStart, timeEnd);
 }
-*/
+
+void Calendar::parseTextToEventRepetitions(std::ifstream& file, std::string& line, int& lineIndex)
+{
+    while(line[0] == '[') {
+        int countElems = countElemsInString(line);
+        if (countElems != Event::DATE_VARIABLE_AMOUNT)
+            throw CorruptedFile_InvalidAmountOfElements(lineIndex, Event::DATE_VARIABLE_AMOUNT, countElems);
+        int i = 1;
+        int month = extractInt(line, i);
+        int day = extractInt(line, i);
+        int timeStart = extractInt(line, i);
+        int timeEnd = extractInt(line, i);
+        this->addEvent( (*(this->getSelectedPoint())).getBanner(), month, day, timeStart, timeEnd);
+        getNextLineWithText(file, line, lineIndex);
+    }
+}
+
+void Calendar::extractPointData(std::string& line, int& i,
+    std::string& title, std::string& location, std::string& description, int& urgency,
+    int& month, int& day)
+{
+    title = extractString(line,i);
+    location = extractString(line,i);
+    description = extractString(line,i);
+    urgency = extractInt(line, i);
+    month = extractInt(line, i);
+    day = extractInt(line, i);
+}
+
+
+
+
+// TODO: in tests.cpp replace Calendar initialization (for those that call the empty c'tor)
+//       to call database_basic.txt inside test_files
