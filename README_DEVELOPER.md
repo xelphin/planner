@@ -20,8 +20,8 @@ Event
 -
 
 Task
-["Buy gift for Alice","","Buy daisies\n make accessorized headphones", 3, 11, 17, 1400, true]
-[11, 12, 300, false]
+["Buy gift for Alice","","Buy daisies\n make accessorized headphones", 3, 11, 17, 1400, 1]
+[11, 12, 300, 0]
 -
 
 Reminder
@@ -29,10 +29,10 @@ Reminder
 -
 
 Task
-["Organize Bag","","Papers, food, notebooks...", 2, 10, 1, 1200, false]
-[10, 8, 1200, false]
-[10, 15, 1200, false]
-[10, 22, 1200, false]
+["Organize Bag","","Papers, food, notebooks...", 2, 10, 1, 1200, 0]
+[10, 8, 1200, 0]
+[10, 15, 1200, 0]
+[10, 22, 1200, 0]
 -
 
 ```

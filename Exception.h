@@ -192,4 +192,11 @@ public:
     }
 };
 
+class CorruptedFile_InvalidData_CompletedInTask : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "The 'completed' data has to be either 1 or 0 .";
+    }
+};
+
 #endif // EXCEPTION_H

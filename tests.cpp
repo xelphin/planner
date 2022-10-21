@@ -40,6 +40,7 @@ void run_all_tests() {
     run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint", success_string);
     run_test(calendar_parseTextToCalendar_parsingEvent, "calendar_parseTextToCalendar_parsingEvent", success_string);
     run_test(calendar_parseTextToCalendar_parsingEvents, "calendar_parseTextToCalendar_parsingEvents", success_string);
+    run_test(calendar_parseTextToCalendar, "calendar_parseTextToCalendar", success_string);
     std::cout << success_string << std::endl;
 }
 
@@ -789,6 +790,26 @@ bool calendar_parseTextToCalendar_parsingEvents() {
         count++;
     calendar.selectEarlierPoint();
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Alice's Birthday") == 0)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    return count == 5;
+}
+
+bool calendar_parseTextToCalendar() {
+    Calendar calendar("test_files/database_parseTextToCalendar.txt");
+    int count = 0;
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Movie Night") == 0)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Movie Night") == 0)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Alice's Birthday - Make Cake") == 0)
         count++;
     calendar.selectEarlierPoint();
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)

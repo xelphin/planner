@@ -214,6 +214,14 @@ private:
     void parseTextToEvent(std::ifstream& file, std::string& line, int& lineIndex);
 
     /*
+    * Parses text into Task
+    * @param file - database file 
+    * @param line - line that is Point type
+    * @param lineIndex - index of line in txt file
+    */
+    void parseTextToTask(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
     * Parses text into Event repetitions
     * ASSUMPTION: createNewBannerEvent() updates m_selectedPoint (was implemented this way)
     * @param file - database file 
@@ -221,6 +229,15 @@ private:
     * @param lineIndex - index of line in txt file
     */
     void parseTextToEventRepetitions(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
+    * Parses text into Task repetitions
+    * ASSUMPTION: createNewBannerTask() updates m_selectedPoint (was implemented this way)
+    * @param file - database file 
+    * @param line - line that is Point type
+    * @param lineIndex - index of line in txt file
+    */
+    void parseTextToTaskRepetitions(std::ifstream& file, std::string& line, int& lineIndex);
 
     /*
     * Extracts Point data from 'line' (generic)

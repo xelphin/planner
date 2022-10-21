@@ -226,6 +226,7 @@ void Calendar::parseTextFileToCalendar(std::ifstream& file)
     {
         if (line.find_first_not_of(' ') == std::string::npos)
             getNextLineWithText(file, line, lineIndex);
+        trim(line);
         try {
             parseTextToPoint(file, line, lineIndex);
         } catch (const std::exception & e) {
@@ -257,10 +258,15 @@ void Calendar::parseTextToPoint(std::ifstream& file, std::string& line, int& lin
         parseTextToEvent(file, line, lineIndex);
         getNextLineWithText(file, line, lineIndex);
         parseTextToEventRepetitions(file, line, lineIndex);
+    } else if (line.compare("Task") == 0) {
+        std::cout << "Parsing Task..." << std::endl;
+        parseTextToTask(file, line, lineIndex);
+        getNextLineWithText(file, line, lineIndex);
+        parseTextToTaskRepetitions(file, line, lineIndex);
     }
     // TODO: Add Event, Reminder, Task and throw exception if none
 
-    if (line.compare("-") != 0)
+    if ((trim(line)).compare("-") != 0)
         throw CorruptedFile_InvalidFormat_NoDash();
 }
 
@@ -282,6 +288,25 @@ void Calendar::parseTextToEvent(std::ifstream& file, std::string& line, int& lin
     this->createNewBannerEvent(title, location, description, urgency, month, day, timeStart, timeEnd);
 }
 
+void Calendar::parseTextToTask(std::ifstream& file, std::string& line, int& lineIndex)
+{
+    getNextLineWithText(file, line, lineIndex);
+    int countElems = countElemsInString(line);
+    if (countElems != Task::FULL_AMOUNT_BANNER_WITH_BASE_DATE)
+        throw CorruptedFile_InvalidAmountOfElements(lineIndex, Task::FULL_AMOUNT_BANNER_WITH_BASE_DATE, countElems);
+    
+    int i = 1;
+
+    std::string title, location, description;
+    int urgency, month, day, deadline, completed;
+    extractPointData(line, i, title, location, description, urgency, month, day);
+    deadline =  extractInt(line, i);
+    completed =  extractInt(line, i);
+    if (completed != 0 && completed != 1)
+        throw CorruptedFile_InvalidData_CompletedInTask();
+    this->createNewBannerTask(title, location, description, urgency, month, day, deadline, completed);
+}
+
 void Calendar::parseTextToEventRepetitions(std::ifstream& file, std::string& line, int& lineIndex)
 {
     while(line[0] == '[') {
@@ -294,6 +319,24 @@ void Calendar::parseTextToEventRepetitions(std::ifstream& file, std::string& lin
         int timeStart = extractInt(line, i);
         int timeEnd = extractInt(line, i);
         this->addEvent( (*(this->getSelectedPoint())).getBanner(), month, day, timeStart, timeEnd);
+        getNextLineWithText(file, line, lineIndex);
+    }
+}
+
+void Calendar::parseTextToTaskRepetitions(std::ifstream& file, std::string& line, int& lineIndex)
+{
+    while(line[0] == '[') {
+        int countElems = countElemsInString(line);
+        if (countElems != Event::DATE_VARIABLE_AMOUNT)
+            throw CorruptedFile_InvalidAmountOfElements(lineIndex, Event::DATE_VARIABLE_AMOUNT, countElems);
+        int i = 1;
+        int month = extractInt(line, i);
+        int day = extractInt(line, i);
+        int deadline = extractInt(line, i);
+        int completed = extractInt(line, i);
+        if (completed != 0 && completed != 1)
+            throw CorruptedFile_InvalidData_CompletedInTask();
+        this->addTask( (*(this->getSelectedPoint())).getBanner(), month, day, deadline, completed);
         getNextLineWithText(file, line, lineIndex);
     }
 }
@@ -313,5 +356,4 @@ void Calendar::extractPointData(std::string& line, int& i,
 
 
 
-// TODO: in tests.cpp replace Calendar initialization (for those that call the empty c'tor)
-//       to call database_basic.txt inside test_files
+// TODO: Generify parsing functions as much as possible
