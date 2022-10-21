@@ -208,7 +208,7 @@ private:
     /*
     * Parses text into Event
     * @param file - database file 
-    * @param line - line that is Point type
+    * @param line - line that is Event banner + base date
     * @param lineIndex - index of line in txt file
     */
     void parseTextToEvent(std::ifstream& file, std::string& line, int& lineIndex);
@@ -216,16 +216,24 @@ private:
     /*
     * Parses text into Task
     * @param file - database file 
-    * @param line - line that is Point type
+    * @param line - line that is Task banner + base date
     * @param lineIndex - index of line in txt file
     */
     void parseTextToTask(std::ifstream& file, std::string& line, int& lineIndex);
 
     /*
+    * Parses text into Reminder
+    * @param file - database file 
+    * @param line - line that is Reminder banner + base date
+    * @param lineIndex - index of line in txt file
+    */
+    void parseTextToReminder(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
     * Parses text into Event repetitions
     * ASSUMPTION: createNewBannerEvent() updates m_selectedPoint (was implemented this way)
     * @param file - database file 
-    * @param line - line that is Point type
+    * @param line - line that is Event repetitions
     * @param lineIndex - index of line in txt file
     */
     void parseTextToEventRepetitions(std::ifstream& file, std::string& line, int& lineIndex);
@@ -234,10 +242,19 @@ private:
     * Parses text into Task repetitions
     * ASSUMPTION: createNewBannerTask() updates m_selectedPoint (was implemented this way)
     * @param file - database file 
-    * @param line - line that is Point type
+    * @param line - line that is Task repetitions
     * @param lineIndex - index of line in txt file
     */
     void parseTextToTaskRepetitions(std::ifstream& file, std::string& line, int& lineIndex);
+
+    /*
+    * Parses text into Reminder repetitions
+    * ASSUMPTION: createNewBannerReminder() updates m_selectedPoint (was implemented this way)
+    * @param file - database file 
+    * @param line - line that is Reminder repetitions
+    * @param lineIndex - index of line in txt file
+    */
+    void parseTextToReminderRepetitions(std::ifstream& file, std::string& line, int& lineIndex);
 
     /*
     * Extracts Point data from 'line' (generic)

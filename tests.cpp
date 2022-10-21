@@ -806,6 +806,12 @@ bool calendar_parseTextToCalendar() {
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
         count++;
     calendar.selectEarlierPoint();
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Will Rain") == 0)
+        count++;
+    calendar.selectEarlierPoint();
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Will Rain") == 0)
+        count++;
+    calendar.selectEarlierPoint();
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Movie Night") == 0)
         count++;
     calendar.selectEarlierPoint();
@@ -814,5 +820,5 @@ bool calendar_parseTextToCalendar() {
     calendar.selectEarlierPoint();
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
         count++;
-    return count == 5;
+    return count == 7;
 }

@@ -13,6 +13,10 @@
 
 class Reminder : public Point {
 public:
+
+    static const int DATE_VARIABLE_AMOUNT = 2;
+    static const int FULL_AMOUNT_BANNER_WITH_BASE_DATE = 6;
+
     /*
      * C'tor of Reminder class
      *
