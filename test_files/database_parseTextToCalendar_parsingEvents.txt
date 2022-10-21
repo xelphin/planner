@@ -1,0 +1,16 @@
+2020
+
+Event
+["Board Game Night","","Board games and wine night with Micheal and Lara",-1, 3, 2, 600, 1200]
+[3, 9, 720, 1200]
+[3, 12, 720, 1200]
+-
+
+Event
+["Alice's Birthday","","Bring Cake",-1, 3, 4, 600, 1200]
+-
+
+Event
+["Movie Night","","Bring popcorn",-1, 3, 5, 600, 1200]
+[3, 10, 720, 1200]
+-

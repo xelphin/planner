@@ -77,5 +77,6 @@ bool calendar_selectPoint();
 bool calendar_selectPoint_mixedTypes();
 bool calendar_removeSelectedPoint();
 bool calendar_parseTextToCalendar_parsingEvent();
+bool calendar_parseTextToCalendar_parsingEvents();
 
 #endif
