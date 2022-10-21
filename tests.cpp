@@ -567,9 +567,8 @@ bool reminder_createReminder()
 }
 
 bool calendar_createCalendar()
-{
-    
-    Calendar calendar;
+{ 
+    Calendar calendar("test_files/database_basic.txt");
     
     std::shared_ptr<Banner> banner1(new Banner(Banner::TYPE::EVENT,"Board Game Night", "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla", "", 2));
     calendar.addEvent(banner1, 3, 2, 600, 1200);
@@ -587,7 +586,7 @@ bool calendar_createCalendar()
 bool calendar_getSelectedPoint()
 {
     int count = 0;
-    Calendar calendar;
+    Calendar calendar("test_files/database_basic.txt");
 
     calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 2, 600, 1200);
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
@@ -626,7 +625,7 @@ bool calendar_getSelectedPoint()
 bool calendar_selectPoint()
 {
     int count = 0;
-    Calendar calendar;
+    Calendar calendar("test_files/database_basic.txt");
 
     calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 1, 600, 1200); // 1/3
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
@@ -666,7 +665,7 @@ bool calendar_selectPoint()
 bool calendar_selectPoint_mixedTypes()
 {
     int count = 0;
-    Calendar calendar;
+    Calendar calendar("test_files/database_basic.txt");
 
     calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 20, 600, 1200); // 20/3
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
@@ -704,7 +703,7 @@ bool calendar_selectPoint_mixedTypes()
 bool calendar_removeSelectedPoint()
 {
     int count = 0;
-    Calendar calendar;
+    Calendar calendar("test_files/database_basic.txt");
 
     calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 20, 600, 1200); // 20/3
     if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
