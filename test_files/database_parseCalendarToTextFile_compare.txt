@@ -17,4 +17,3 @@ Task
 ["Finish art assignemnt","","",2, 3, 5, 800, 1]
 [3, 12, 600, 1]
 -
-

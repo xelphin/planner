@@ -13,44 +13,47 @@ void printSuccess ();
 #define printSuccess() (std::cout<< test_name <<" SUCCESS."<<std::endl)
 #endif
 
-void run_all_tests() {
+bool run_all_tests() {
     std::string success_string = "ALL TESTS SUCCEEDED";
-    run_test(utilities_amountDaysInMonth, "utilities_amountDaysInMonth", success_string);
-    run_test(utilities_validDate, "utilities_validDate", success_string);
-    run_test(utilities_checkValidTime, "utilities_checkValidTime", success_string);
-    run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange", success_string);
-    run_test(utilities_countElemsInString, "utilities_countElemsInString", success_string);
-    run_test(utilities_extract, "utilities_extract", success_string);
-    run_test(date_createDate, "date_createDate", success_string);
-    run_test(date_updateDate, "date_updateDate", success_string);
-    run_test(dateDeadline_createDate, "dateDeadline_createDate", success_string);
-    run_test(dateDeadline_updateDate, "dateDeadline_updateDate", success_string);
-    run_test(dateDeadline_operators, "dateDeadline_operators", success_string);
-    run_test(dateRange_createDate, "dateRange_createDate", success_string);
-    run_test(dateRange_updateDate, "dateRange_updateDate", success_string);
-    run_test(dateRange_operators, "dateRange_operators", success_string);
-    run_test(dateAll_operators, "dateAll_operators", success_string);
-    run_test(event_createEvent, "event_createEvent", success_string);
-    run_test(reminder_createReminder, "reminder_createReminder", success_string);
-    run_test(task_createTask, "task_createTask", success_string);
-    run_test(calendar_createCalendar, "calendar_createCalendar", success_string);
-    run_test(calendar_getSelectedPoint, "getSelectedPoint", success_string);
-    run_test(calendar_selectPoint, "calendar_selectPoint", success_string);
-    run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes", success_string);
-    run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint", success_string);
-    run_test(calendar_parseTextToCalendar_parsingEvent, "calendar_parseTextToCalendar_parsingEvent", success_string);
-    run_test(calendar_parseTextToCalendar_parsingEvents, "calendar_parseTextToCalendar_parsingEvents", success_string);
-    run_test(calendar_parseTextToCalendar, "calendar_parseTextToCalendar", success_string);
-    run_test(calendar_parseCalendarToTextFile, "calendar_parseCalendarToTextFile", success_string);
+    bool success = true;
+    run_test(utilities_amountDaysInMonth, "utilities_amountDaysInMonth", success_string, success);
+    run_test(utilities_validDate, "utilities_validDate", success_string, success);
+    run_test(utilities_checkValidTime, "utilities_checkValidTime", success_string, success);
+    run_test(utilities_checkValidTimeRange, "utilities_checkValidTimeRange", success_string, success);
+    run_test(utilities_countElemsInString, "utilities_countElemsInString", success_string, success);
+    run_test(utilities_extract, "utilities_extract", success_string, success);
+    run_test(date_createDate, "date_createDate", success_string, success);
+    run_test(date_updateDate, "date_updateDate", success_string, success);
+    run_test(dateDeadline_createDate, "dateDeadline_createDate", success_string, success);
+    run_test(dateDeadline_updateDate, "dateDeadline_updateDate", success_string, success);
+    run_test(dateDeadline_operators, "dateDeadline_operators", success_string, success);
+    run_test(dateRange_createDate, "dateRange_createDate", success_string, success);
+    run_test(dateRange_updateDate, "dateRange_updateDate", success_string, success);
+    run_test(dateRange_operators, "dateRange_operators", success_string, success);
+    run_test(dateAll_operators, "dateAll_operators", success_string, success);
+    run_test(event_createEvent, "event_createEvent", success_string, success);
+    run_test(reminder_createReminder, "reminder_createReminder", success_string, success);
+    run_test(task_createTask, "task_createTask", success_string, success);
+    run_test(calendar_createCalendar, "calendar_createCalendar", success_string, success);
+    run_test(calendar_getSelectedPoint, "getSelectedPoint", success_string, success);
+    run_test(calendar_selectPoint, "calendar_selectPoint", success_string, success);
+    run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes", success_string, success);
+    run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint", success_string, success);
+    run_test(calendar_parseTextToCalendar_parsingEvent, "calendar_parseTextToCalendar_parsingEvent", success_string, success);
+    run_test(calendar_parseTextToCalendar_parsingEvents, "calendar_parseTextToCalendar_parsingEvents", success_string, success);
+    run_test(calendar_parseTextToCalendar, "calendar_parseTextToCalendar", success_string, success);
+    run_test(calendar_parseCalendarToTextFile, "calendar_parseCalendarToTextFile", success_string, success);
     std::cout << success_string << std::endl;
+    return success;
 }
 
-void run_test(std::function<bool()> test, std::string test_name, std::string& success_string)
+void run_test(std::function<bool()> test, std::string test_name, std::string& success_string, bool& success)
 {
     if(!test()){
         printFail();
         std::cout << std::endl;
-        success_string = "FAILED TEST: " + test_name; 
+        success_string = "FAILED TEST: " + test_name;
+        success = false;
         return;
     }
     printSuccess();
@@ -843,6 +846,9 @@ bool calendar_parseCalendarToTextFile()
     // PARSE
     std::string createPath = "test_files/database_parseCalendarToTextFile_created.txt";
     calendar.parseCalendarToTextFile(createPath);
+
+    // CHECK
+    Calendar calendar2(createPath);
 
     // COMPARE
     std::string comparePath = "test_files/database_parseCalendarToTextFile_compare.txt";

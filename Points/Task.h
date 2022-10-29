@@ -14,7 +14,7 @@
 class Task : public Point {
 public:
 
-    static const int DATE_VARIABLE_AMOUNT = 3;
+    static const int DATE_VARIABLE_AMOUNT = 4;
     static const int FULL_AMOUNT_BANNER_WITH_BASE_DATE = 8;
     /*
      * C'tor of Task class

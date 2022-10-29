@@ -28,10 +28,10 @@
 
 
 // --RUN TESTS
-void run_all_tests();
+bool run_all_tests();
 
 // --UTILITIES
-void run_test(std::function<bool()> test, std::string test_name, std::string& success_string);
+void run_test(std::function<bool()> test, std::string test_name, std::string& success_string, bool& success);
 void createTextFile(const std::string &filename, const std::string &input);
 bool compareFiles(const std::string &filename1, const std::string &filename2);
 void deleteTextFile(const std::string &filename);

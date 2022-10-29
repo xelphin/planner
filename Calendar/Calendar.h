@@ -197,7 +197,7 @@ private:
     * @param line - line that is Point type
     * @param lineIndex - index of line in txt file
     */
-    void getNextLineWithText(std::ifstream& file, std::string& line, int lineIndex);
+    void getNextLineWithText(std::ifstream& file, std::string& line, int& lineIndex);
 
     /*
     * Parses text into Point

@@ -210,7 +210,7 @@ void Calendar::parseCalendarToTextFile(const std::string& databaseName)
 
     // YEAR
     database << std::to_string(m_year) << "\n\n";
-    
+
     // BANNERS
     while (!m_points.empty())
 		Calendar::parseBannerToTextFile(database);
@@ -239,7 +239,9 @@ void Calendar::parseBannerToTextFile(std::ofstream& database)
             this->selectLaterPoint();
         }
     }
-    database << "-" << "\n\n";
+    database << "-";
+    if(!m_points.empty())
+        database << "\n\n";
 }
 
 
@@ -265,7 +267,7 @@ void Calendar::parseTextFileToCalendar(std::ifstream& file)
     
 }
 
-void Calendar::getNextLineWithText(std::ifstream& file, std::string& line, int lineIndex)
+void Calendar::getNextLineWithText(std::ifstream& file, std::string& line, int& lineIndex)
 {
     while(getline(file, line)) {
         lineIndex++;
@@ -278,7 +280,7 @@ void Calendar::getNextLineWithText(std::ifstream& file, std::string& line, int l
 
 void Calendar::parseTextToPoint(std::ifstream& file, std::string& line, int& lineIndex)
 {
-    if (line.find_first_not_of(' ') == std::string::npos)
+    if ((trim(line)).find_first_not_of('\n') == std::string::npos)
         getNextLineWithText(file, line, lineIndex);
 
     if (line.compare(Banner::typeToString(Banner::TYPE::EVENT)) == 0) {
