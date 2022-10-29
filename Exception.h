@@ -85,6 +85,14 @@ public:
     }
 };
 
+// BANNER EXCEPTIONS
+class InvalidBannerType : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Invalid Banner type.";
+    }
+};
+
 
 // DATABASE EXCEPTIONS
 class InvalidDatabaseFormat_Year : public std::exception {

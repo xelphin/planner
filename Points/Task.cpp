@@ -37,3 +37,21 @@ std::ostream& Task::print(std::ostream& os) const
     os << std::endl;
     return os;
 }
+
+std::string Task::parsePointToTextFull() const
+{
+    std::string baseText = Point::parsePointToTextFull();
+    std::string complete_str;
+    m_complete ? complete_str = "1" : complete_str = "0";
+    std::string fullText = baseText.substr(0, baseText.length() - 1) + ", " + complete_str + "]";
+    return fullText;
+}
+
+std::string Task::parsePointToText() const
+{
+    std::string baseText = Point::parsePointToText();
+    std::string complete_str;
+    m_complete ? complete_str = "1" : complete_str = "0"; // TODO: make helper function
+    std::string fullText = baseText.substr(0, baseText.length() - 1) + ", " + complete_str + "]";
+    return fullText;
+}

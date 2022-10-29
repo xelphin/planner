@@ -25,3 +25,12 @@ int DateDeadline::getEnd() const
 {
     return m_minutes;
 }
+
+std::string DateDeadline::parseToText() const
+{
+    std::string text = "[";
+    text += std::to_string(m_month) + ", ";
+    text += std::to_string(m_day) + ", ";
+    text += std::to_string(m_minutes) + "]";
+    return text;
+}

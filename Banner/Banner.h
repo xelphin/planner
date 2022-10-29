@@ -14,6 +14,14 @@ class Banner {
         enum class TYPE {EVENT, TASK, REMINDER};
 
         /*
+        * Turns Banner::TYPE as string
+        * @param type - type as enum
+        * @return
+        *   type as string
+        */
+        static std::string typeToString(Banner::TYPE type);
+
+        /*
         * C'tor of Banner class
         *
         * @return
@@ -75,11 +83,18 @@ class Banner {
         */
        std::string getBannerParsed() const;
 
+        /*
+        * @return
+        *      Banner type as text
+        */
+       std::string getBannerTypeString() const;
+
         // D'tor
         ~Banner() {}
 
 
     private:
+        TYPE m_type;
         std::string m_title;
         std::string m_description;
         std::string m_location;

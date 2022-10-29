@@ -42,6 +42,11 @@ public:
         os << this->m_year << "/" << this->m_month << "/" << this->m_day << " till: " << m_minutes << std::endl;
     }
 
+    /*
+    * Parse date to text
+    */
+    std::string parseToText() const override;
+
     ~DateDeadline() {}
 
 

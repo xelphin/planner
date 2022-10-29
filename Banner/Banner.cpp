@@ -2,8 +2,10 @@
 
 
 Banner::Banner(const Banner::TYPE type, const std::string title, const std::string description, const std::string location, const int urgency) :
+    m_type(type),
     m_title(title),
-    m_description(description)
+    m_description(description),
+    m_urgency(urgency)
 {
     
 }
@@ -70,9 +72,31 @@ std::string Banner::getBannerParsed() const
     str += ",";
     str += "\"" + this->getLocation() + "\"";
     str += ",";
-    str += "\"" + std::to_string(this->getUrgency()) + "\"";
-    str += ",";
     str += "\"" + this->getDescription() + "\"";
+    str += ",";
+    str +=  std::to_string(this->getUrgency());
     str += "]";
     return str;
+}
+
+std::string Banner::getBannerTypeString() const
+{
+    return Banner::typeToString(m_type);
+}
+
+std::string Banner::typeToString(Banner::TYPE type)
+{
+    switch(type) {
+        case Banner::TYPE::EVENT :
+            return "Event";
+            break;
+        case Banner::TYPE::REMINDER :
+            return "Reminder";
+            break;
+        case Banner::TYPE::TASK :
+            return "Task";
+            break;
+        default:
+            throw InvalidBannerType();
+    }
 }

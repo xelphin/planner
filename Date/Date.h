@@ -25,6 +25,11 @@ class Date : public DateAbstract{
             os << this->m_year << "/" << this->m_month << "/" << this->m_day << std::endl;
         }
 
+        /*
+        * Parse date to text
+        */
+       std::string parseToText() const override;
+
        ~Date() {}
 
 };

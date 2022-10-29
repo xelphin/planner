@@ -123,3 +123,19 @@ std::string Point::textStart(const std::string text, const std::string::size_typ
     return text;
   return text.substr(0,length-1) + "...";
 }
+
+std::string Point::parsePointToTextFull() const
+{
+  std::string fullText = "";
+  std::string bannerText = this->getBannerParsed();
+  std::string dateText = (*(this->getDate())).parseToText();
+  fullText += bannerText.substr(0, bannerText.length() - 1);
+  fullText += ", ";
+  fullText += dateText.substr(1, dateText.length() - 1);
+  return fullText;
+}
+
+std::string Point::parsePointToText() const
+{
+  return (*(this->getDate())).parseToText();
+}

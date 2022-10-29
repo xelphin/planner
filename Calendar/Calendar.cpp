@@ -115,6 +115,11 @@ void Calendar::selectLaterPoint()
     }
 }
 
+void Calendar::selectFirstPoint()
+{
+    m_selectedPoint = *(m_points.begin());
+}
+
 void Calendar::removeSelectedPoint()
 {
     if (m_points.empty()) throw AttemptToRemoveFromEmptyCalendar();
@@ -195,26 +200,49 @@ void Calendar::printEmptyDayRanges(std::ostream& os, const int prev, const int c
          " - " << curr-1 << ")" << std::endl << std::endl;
 }
 
-void Calendar::parseCalendarToDatabase() const
+void Calendar::parseCalendarToTextFile(const std::string& databaseName)
 {
-    std::vector<std::shared_ptr<Banner>>::const_iterator it_banner;
-    std::list<std::unique_ptr<Point>>::const_iterator it_point;
-    
-    std::ofstream data("database.txt");
-    data << m_year << "\n\n";
-    /*
-    for (it_banner = m_banners.begin(); it_banner != m_banners.end(); ++it_banner){
-        // TODO: check why this doesn't run more than 0 times
-        data << (*(*(it_banner))).getBannerParsed() << "\n";
-        for(it_point = m_points.begin(); it_banner != m_banners.end(); ++it_banner) {
-            //
-        }
+    std::ofstream database;
+    database.open(databaseName, std::ofstream::out);
+	if (!database) {
+		std::cout << "Issue in creating databse..." << std::endl;
+	}
 
-        data << "\n";
-    }
-    */
-    data.close();
+    // YEAR
+    database << std::to_string(m_year) << "\n\n";
+    
+    // BANNERS
+    while (!m_points.empty())
+		Calendar::parseBannerToTextFile(database);
+	
+    database.close();
 }
+
+void Calendar::parseBannerToTextFile(std::ofstream& database)
+{
+    // BANNER
+    selectFirstPoint();
+    std::shared_ptr<Point> anchorPoint = (this->getSelectedPoint());
+    std::shared_ptr<Banner> banner = (*anchorPoint).getBanner();
+    database << (*banner).getBannerTypeString() << "\n";
+    database << (*anchorPoint).parsePointToTextFull() << "\n";
+    this->removeSelectedPoint();
+    // POINTS
+    bool reachedLast = false;
+    while(!m_points.empty() && !reachedLast) {
+        if (this->getSelectedPoint() == (m_points.back()))
+            reachedLast = true;
+        if (banner == (*(this->getSelectedPoint())).getBanner()) {
+            database << (*(this->getSelectedPoint())).parsePointToText() << "\n";
+            this->removeSelectedPoint();
+        } else {
+            this->selectLaterPoint();
+        }
+    }
+    database << "-" << "\n\n";
+}
+
+
 
 
 void Calendar::parseTextFileToCalendar(std::ifstream& file)
@@ -253,17 +281,17 @@ void Calendar::parseTextToPoint(std::ifstream& file, std::string& line, int& lin
     if (line.find_first_not_of(' ') == std::string::npos)
         getNextLineWithText(file, line, lineIndex);
 
-    if (line.compare("Event") == 0) {
+    if (line.compare(Banner::typeToString(Banner::TYPE::EVENT)) == 0) {
         std::cout << "Parsing Event..." << std::endl;
         parseTextToEvent(file, line, lineIndex);
         getNextLineWithText(file, line, lineIndex);
         parseTextToEventRepetitions(file, line, lineIndex);
-    } else if (line.compare("Task") == 0) {
+    } else if (line.compare(Banner::typeToString(Banner::TYPE::TASK)) == 0) {
         std::cout << "Parsing Task..." << std::endl;
         parseTextToTask(file, line, lineIndex);
         getNextLineWithText(file, line, lineIndex);
         parseTextToTaskRepetitions(file, line, lineIndex);
-    } else if (line.compare("Reminder") == 0) {
+    } else if (line.compare(Banner::typeToString(Banner::TYPE::REMINDER)) == 0) {
         std::cout << "Parsing Reminder..." << std::endl;
         parseTextToReminder(file, line, lineIndex);
         getNextLineWithText(file, line, lineIndex);

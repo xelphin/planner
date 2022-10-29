@@ -41,6 +41,7 @@ void run_all_tests() {
     run_test(calendar_parseTextToCalendar_parsingEvent, "calendar_parseTextToCalendar_parsingEvent", success_string);
     run_test(calendar_parseTextToCalendar_parsingEvents, "calendar_parseTextToCalendar_parsingEvents", success_string);
     run_test(calendar_parseTextToCalendar, "calendar_parseTextToCalendar", success_string);
+    run_test(calendar_parseCalendarToTextFile, "calendar_parseCalendarToTextFile", success_string);
     std::cout << success_string << std::endl;
 }
 
@@ -822,3 +823,30 @@ bool calendar_parseTextToCalendar() {
         count++;
     return count == 7;
 }
+
+bool calendar_parseCalendarToTextFile()
+{
+    Calendar calendar("test_files/database_basic.txt");
+
+    calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",-1, 3, 5, 600, 1200); // 5/3
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 2, 600, 1200); // 2/3
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 8, 600, 1200); // 8/3
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 4, 600, 1200); // 4/3
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 6, 600, 1200); // 6/3
+
+    calendar.createNewBannerReminder("Remember to buy cake","","Carrot cake", -1,3,1); // 1/3
+    calendar.addReminder( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 3); // 3/3
+
+    calendar.createNewBannerTask("Finish art assignemnt","","",2, 3, 5, 800, 1); // 5/3
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 3, 12, 600, 1); // 12/3
+
+    // PARSE
+    std::string createPath = "test_files/database_parseCalendarToTextFile_created.txt";
+    calendar.parseCalendarToTextFile(createPath);
+
+    // COMPARE
+    std::string comparePath = "test_files/database_parseCalendarToTextFile_compare.txt";
+    return compareFiles(createPath, comparePath);    
+}
+
+// TODO: Make that a banner of type Task can only accept .addTask() and likewise for the other types

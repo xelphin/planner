@@ -43,6 +43,11 @@ public:
         << " from : " << m_start << " till: "<< m_end << std::endl;
     }
 
+    /*
+    * Parse date to text
+    */
+    std::string parseToText() const override;
+
     ~DateRange() {}
 
 private:

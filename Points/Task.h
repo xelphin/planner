@@ -51,6 +51,16 @@ public:
     */
     std::ostream& print(std::ostream& os) const override;
 
+    /*
+    * Parse point fully with banner, date and other unique date
+    */
+    std::string parsePointToTextFull() const override;
+
+    /*
+    * Parse point fully with date and other unique date
+    */
+    std::string parsePointToText() const override;
+
     ~Task() {}
 
 private:

@@ -79,5 +79,6 @@ bool calendar_removeSelectedPoint();
 bool calendar_parseTextToCalendar_parsingEvent();
 bool calendar_parseTextToCalendar_parsingEvents();
 bool calendar_parseTextToCalendar();
+bool calendar_parseCalendarToTextFile();
 
 #endif

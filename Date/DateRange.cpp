@@ -27,3 +27,13 @@ int DateRange::getEnd() const
 {
     return m_end;
 }
+
+std::string DateRange::parseToText() const
+{
+    std::string text = "[";
+    text += std::to_string(m_month) + ", ";
+    text += std::to_string(m_day) + ", ";
+    text += std::to_string(m_start) + ", ";
+    text += std::to_string(m_end) + "]";
+    return text;
+}

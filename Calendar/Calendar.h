@@ -147,9 +147,11 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Calendar& calendar);
 
     /*
-    * Parse Calendar into database.txt
+    * Parse Calendar into database
+    * -> Saves (parses) Calendar data into dabase file
+    * -> Cleans Calendar data in memory (exit)
     */
-   void parseCalendarToDatabase() const;
+   void parseCalendarToTextFile(const std::string& databaseName);
 
     Calendar(const Calendar& calendar) = delete;
     Calendar& operator=(const Calendar& calendar) = delete;
@@ -270,6 +272,17 @@ private:
     void extractPointData(std::string& line, int& i,
      std::string& title, std::string& location, std::string& description, int& urgency,
      int& month, int& day);
+
+    /*
+    * Removes Banner and all its assigned Points from Calendar and puts it in the 'database'
+    * @param database - txt file where the Banner + its assigned Points are parsed into
+    */
+    void parseBannerToTextFile(std::ofstream& database);
+
+    /*
+    * Move current Point (m_currPoint) to select (point to) the first Point (earliest)
+    */
+    void selectFirstPoint();
 
 };
 

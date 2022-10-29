@@ -159,6 +159,16 @@ class Point {
 
        friend std::ostream& operator<<(std::ostream& os, const Point& toPrint);
 
+        /*
+        * Parse point fully with banner, date and other unique date
+        */
+       virtual std::string parsePointToTextFull() const;
+
+        /*
+        * Parse point fully with date and other unique date
+        */
+       virtual std::string parsePointToText() const;
+
         // D'tor
         virtual ~Point() {}
 
