@@ -50,6 +50,7 @@ public:
     * Print Reminder
     */
     std::ostream& print(std::ostream& os) const override;
+    std::string printToString() const override;
 
     /*
     * Parse point fully with banner, date and other unique date

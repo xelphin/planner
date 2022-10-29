@@ -149,33 +149,41 @@ void Calendar::removeSelectedPoint()
 
 void Calendar::print(std::ostream& os) const
 {
-    std::list<std::shared_ptr<Point>>::const_iterator it;
-    int prevMonth = 0;
-    int prevDay = 0;
-    int currMonth = getMaxMonth();
-    int currDay = amountDaysInMonth(m_year,currMonth);
-    for (it = m_points.begin(); it != m_points.end(); ++it){
-        // MONTHS
-        currMonth = (*( (*(*it)).getDate() )).getMonth();
-        if(currMonth != prevMonth) {
-            if (prevMonth!=0)
-                printEmptyDayRanges(os, prevDay, amountDaysInMonth(m_year,prevMonth)+1, prevMonth);
-            printMonthTitles(os, prevMonth, currMonth);
-            prevMonth = currMonth;
-            prevDay = 0;
-        }
-        // DAYS
-        currDay = (*( (*(*it)).getDate() )).getDay();
-        printEmptyDayRanges(os, prevDay, currDay, currMonth);
-        prevDay = currDay;
-        // POINTS
-        os << *(*it);
+    std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    for (int m = 0; m<12; m++){
+        os << printMonth_withIt(m,it);
     }
-    // REST OF THE MONTHS
-    printEmptyDayRanges(os, prevDay, amountDaysInMonth(m_year,currMonth)+1, currMonth);
-    printMonthTitles(os, prevMonth, getMaxMonth());
-    if(prevMonth!=12)
-        printEmptyDayRanges(os, 0, amountDaysInMonth(m_year,12)+1, 12);
+}
+
+std::string Calendar::printMonth(const int month) const
+{
+    std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    return Calendar::printMonth_withIt(month, it);
+}
+
+std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_ptr<Point>>::const_iterator& it) const
+{
+    // month == 0 <--> January
+    int prevDay = 0;
+    int currDay = 0;
+    std::string text = "";
+    text +=  "=== " + numToMonthName(month+1) + " ===\n\n" ;
+    
+    for ( ; it != m_points.end(); it++){
+        int currMonth = (*( (*(*it)).getDate() )).getMonth();
+        if ( currMonth !=  month) {
+            // No points in left in month
+            break;
+        }
+        // Points inside of month
+        currDay = (*( (*(*it)).getDate() )).getDay();
+        text += printEmptyDayRanges(prevDay, currDay, currMonth);
+        prevDay = currDay;
+        text += (*(*it)).printToString();
+        // TODO: add <-
+    }
+    text += printEmptyDayRanges(currDay, amountDaysInMonth(m_year,month+1)+1, month);
+    return text;
 }
 
 std::ostream& operator<<(std::ostream& os, const Calendar& toPrint)
@@ -184,20 +192,24 @@ std::ostream& operator<<(std::ostream& os, const Calendar& toPrint)
     return os;
 }
 
-void Calendar::printMonthTitles(std::ostream& os, const int prev, const int curr) const
+std::string Calendar::printMonthTitles(const int prev, const int curr) const
 {
+    std::string text = "";
     for(int m = prev; m<curr; m++) {
-        os << "=== "<< numToMonthName(m+1) << " ===" << std::endl << std::endl;
+        text +=  "=== " + numToMonthName(m+1) + " ===\n\n" ;
         if (m+1!=curr)
-            printEmptyDayRanges(os, 0, amountDaysInMonth(m_year,m+1)+1, m+1);
+            text += printEmptyDayRanges(0, amountDaysInMonth(m_year,m+1)+1, m+1);
     }
+    return text;
 }
 
-void Calendar::printEmptyDayRanges(std::ostream& os, const int prev, const int curr, const int month) const
+std::string Calendar::printEmptyDayRanges(const int prev, const int curr, const int month) const
 {
+    std::string text = "";
     if(prev+1 < curr-1)
-        os << " (" << numToMonthName(month).substr(0,3) << " " << prev+1 <<
-         " - " << curr-1 << ")" << std::endl << std::endl;
+        text += " (" + numToMonthName(month+1).substr(0,3) + " " + std::to_string(prev+1) +
+         " - " + std::to_string(curr-1) + ")\n\n";
+    return text;
 }
 
 void Calendar::parseCalendarToTextFile(const std::string& databaseName)

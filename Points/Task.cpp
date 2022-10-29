@@ -22,20 +22,27 @@ DateAbstract* Task::getDate() const
 
 std::ostream& Task::print(std::ostream& os) const
 {
+    os << this -> printToString();
+    return os;
+}
+
+std::string Task::printToString() const
+{
+    std::string text = "";
     int day = (*(this->getDate())).getDay();
     int deadline = (*(this->getDate())).getTime();
-    os << " " << day;
-    this->addSpaceAfterDay(day) == true ? os << " " : os << "";
+    text += " " + std::to_string(day);
+    this->addSpaceAfterDay(day) == true ? text += " " : text += "";
     if(!(this->getComplete())) {
-        os << "  ◻  ";
+        text += "  ◻  ";
     } else {
-        os << "  ☑  ";
+        text += "  ☑  ";
     }
-    os << this->getTitle();
-    os << " : " << minutesToTime(deadline) << std::endl;
-    os << "        " << this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) << std::endl;
-    os << std::endl;
-    return os;
+    text += this->getTitle();
+    text += " : " + minutesToTime(deadline) + "\n";
+    text += "        " + this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) + "\n";
+    text += "\n";
+    return text;
 }
 
 std::string Task::parsePointToTextFull() const

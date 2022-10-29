@@ -134,6 +134,13 @@ public:
     void print(std::ostream& os) const;
 
     /*
+    * Print Month.
+    */
+    std::string printMonth(const int month) const;
+    // TODO: make private (_withIt)
+    std::string printMonth_withIt(const int month, std::list<std::shared_ptr<Point>>::const_iterator& it) const;
+
+    /*
     * Compare two shared_ptr to Point
     * @param ptr1 - first pointer
     * @param ptr2 - second pointer
@@ -174,7 +181,7 @@ private:
     * @param prev - (NOT printed) previous month
     * @param curr - current month
     */
-    void printMonthTitles(std::ostream& os, const int prev, const int curr) const;
+    std::string printMonthTitles(const int prev, const int curr) const;
 
     /*
     * Print month titles (not including) prev until (not including) curr
@@ -183,7 +190,7 @@ private:
     * @param curr - (NOT printed) current day
     * @param month - Month which the days belong
     */
-    void printEmptyDayRanges(std::ostream& os, const int prev, const int curr, const int month) const;
+    std::string printEmptyDayRanges(const int prev, const int curr, const int month) const;
 
     /*
     * Parses text file into calendar (called from constructor)

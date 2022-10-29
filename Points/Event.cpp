@@ -21,14 +21,21 @@ DateAbstract* Event::getDate() const
 
 std::ostream& Event::print(std::ostream& os) const
 {
+    os << this ->printToString();
+    return os;
+}
+
+std::string Event::printToString() const
+{
+    std::string text = "";
     int day = (*(this->getDate())).getDay();
     int start = (*(this->getDate())).getTime();
     int end = (*(this->getDate())).getEnd();
-    os << " " << day;
-    this->addSpaceAfterDay(day) == true ? os << " " : os << "";
-    os << "  ◉  " << this->getTitle();
-    os << " : " << minutesToTime(start) << " - " << minutesToTime(end) << std::endl;
-    os << "        " << this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) << std::endl;
-    os << std::endl;
-    return os;
+    text += " " + std::to_string(day);
+    this->addSpaceAfterDay(day) == true ? text += " " : text += "";
+    text += "  ◉  " + this->getTitle();
+    text += " : " + minutesToTime(start) + " - " + minutesToTime(end) + "\n";
+    text += "        " + this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) + "\n";
+    text += "\n";
+    return text;
 }

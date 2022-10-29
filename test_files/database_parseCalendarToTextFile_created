@@ -1,0 +1,20 @@
+2022
+
+Reminder
+["Remember to buy cake","","Carrot cake",-1, 3, 1]
+[3, 3]
+-
+
+Event
+["Board Game Night","","Board games and wine night with Micheal and Lara",-1, 3, 2, 600, 1200]
+[3, 4, 600, 1200]
+[3, 5, 600, 1200]
+[3, 6, 600, 1200]
+[3, 8, 600, 1200]
+-
+
+Task
+["Finish art assignemnt","","",2, 3, 5, 800, 1]
+[3, 12, 600, 1]
+-
+
