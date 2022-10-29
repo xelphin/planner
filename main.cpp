@@ -15,6 +15,23 @@
 #include <iostream>
 
 int main() {
-    run_all_tests();
+    if(!run_all_tests()) {
+        std::cout << "Files have been corrupted" << std::endl;
+        return 0;
+    }
+    system("clear");
+
+    std::cout << "Creating Calendar:" << std::endl;
+    Calendar calendar("database.txt");
+    std::cout << "Done." << std::endl;
+
+    std::string myString = "";
+    do {
+        std::cout << "Press ENTER to continue" << std::endl;
+        std::getline(std::cin, myString);
+    } while (myString.length() != 0);
+    system("clear");
+    std::cout << calendar << std::endl;
+
     return 0;
 }
