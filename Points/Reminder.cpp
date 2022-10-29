@@ -17,17 +17,18 @@ DateAbstract* Reminder::getDate() const
 
 std::ostream& Reminder::print(std::ostream& os) const
 {
-    os << this -> printToString();
+    os << this -> printToString(false);
     return os;
 }
 
-std::string Reminder::printToString() const
+std::string Reminder::printToString(const bool withArrow) const
 {
     std::string text = "";
     int day = (*(this->getDate())).getDay();
     text += " " + std::to_string(day);
     this->addSpaceAfterDay(day) == true ? text += " " : text += "";
-    text += "  ❕ " + this->getTitle() + "\n";
+    text += "  ❕ " + this->getTitle();
+    withArrow ? text += "   <-\n" : text += "\n";
     text += "        " + this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) + "\n";
     text += "\n";
     return text;

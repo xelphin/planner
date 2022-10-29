@@ -120,6 +120,21 @@ void Calendar::selectFirstPoint()
     m_selectedPoint = *(m_points.begin());
 }
 
+void Calendar::selectFirstPointAfterDate(const int month, const int day)
+{
+    std::list<std::shared_ptr<Point>>::const_iterator it;
+    for (it = m_points.begin(); it != m_points.end(); it++) {
+        int currMonth = (*( (*(*it)).getDate() )).getMonth();
+        int currDay = (*( (*(*it)).getDate() )).getDay();
+        if (currMonth < month || (currMonth == month && currDay < day)) {
+            m_selectedPoint = *(it);
+        } else {
+            break;
+        }
+    }
+    this->selectLaterPoint();
+}
+
 void Calendar::removeSelectedPoint()
 {
     if (m_points.empty()) throw AttemptToRemoveFromEmptyCalendar();
@@ -158,16 +173,34 @@ void Calendar::print(std::ostream& os) const
 std::string Calendar::printMonth(const int month) const
 {
     std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    for ( ; it != m_points.end() && (*( (*(*it)).getDate() )).getMonth() < month; it++) {}
     return Calendar::printMonth_withIt(month, it);
 }
 
-std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_ptr<Point>>::const_iterator& it) const
+std::string Calendar::printMonthSimplified() const
+{
+    std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    int monthOfPrevPoint = 0;
+    for ( ; it != m_points.end() && (*(*it)) != (*m_selectedPoint); it++) {
+        monthOfPrevPoint = (*( (*(*it)).getDate() )).getMonth();
+    }
+    int monthOfCurrPoint = (*( (*(*it)).getDate() )).getMonth();
+    int dayPreviousInSameMonth = (monthOfPrevPoint == monthOfCurrPoint)*((*( (*(*it)).getDate() )).getDay());
+
+    return Calendar::printMonth_withIt((*( (*(*it)).getDate() )).getMonth(), it, true, dayPreviousInSameMonth);
+}
+
+std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_ptr<Point>>::const_iterator& it,
+ const bool simplified, const int dayPreviousInSameMonth ) const
 {
     // month == 0 <--> January
-    int prevDay = 0;
+    int pointCount = 0;
+    int prevDay = dayPreviousInSameMonth;
     int currDay = 0;
     std::string text = "";
-    text +=  "=== " + numToMonthName(month+1) + " ===\n\n" ;
+    text +=  "=== " + numToMonthName(month+1) + " ===\n" ;
+    (simplified && dayPreviousInSameMonth!=0) ? text += "[...]\n" : text += "\n";
+    bool withArrow = false;
     
     for ( ; it != m_points.end(); it++){
         int currMonth = (*( (*(*it)).getDate() )).getMonth();
@@ -175,12 +208,19 @@ std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_p
             // No points in left in month
             break;
         }
-        // Points inside of month
+        // Point inside of month
+        pointCount++;
+        if(simplified && pointCount > 5) {
+            text += "[...]\n"; 
+            break; // TODO: change from 10 to something flexible depending on screen size of cmd
+        }
         currDay = (*( (*(*it)).getDate() )).getDay();
         text += printEmptyDayRanges(prevDay, currDay, currMonth);
         prevDay = currDay;
-        text += (*(*it)).printToString();
-        // TODO: add <-
+        ((*it) == m_selectedPoint) ? withArrow = true : withArrow = false;
+        text += (*(*it)).printToString(withArrow);
+        
+
     }
     text += printEmptyDayRanges(currDay, amountDaysInMonth(m_year,month+1)+1, month);
     return text;

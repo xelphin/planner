@@ -21,11 +21,11 @@ DateAbstract* Event::getDate() const
 
 std::ostream& Event::print(std::ostream& os) const
 {
-    os << this ->printToString();
+    os << this ->printToString(false);
     return os;
 }
 
-std::string Event::printToString() const
+std::string Event::printToString(const bool withArrow) const
 {
     std::string text = "";
     int day = (*(this->getDate())).getDay();
@@ -34,7 +34,8 @@ std::string Event::printToString() const
     text += " " + std::to_string(day);
     this->addSpaceAfterDay(day) == true ? text += " " : text += "";
     text += "  ◉  " + this->getTitle();
-    text += " : " + minutesToTime(start) + " - " + minutesToTime(end) + "\n";
+    text += " : " + minutesToTime(start) + " - " + minutesToTime(end);
+    withArrow ? text += "   <-\n" : text += "\n";
     text += "        " + this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) + "\n";
     text += "\n";
     return text;

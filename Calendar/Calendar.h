@@ -124,6 +124,12 @@ public:
     void selectLaterPoint();
 
     /*
+    * Move current Point (m_currPoint) to select (point to) the Point from or after 
+    * the month/day arguments
+    */
+    void selectFirstPointAfterDate(const int month, const int day);
+
+    /*
     * Remove currently selected Point
     */
     void removeSelectedPoint();
@@ -137,8 +143,27 @@ public:
     * Print Month.
     */
     std::string printMonth(const int month) const;
-    // TODO: make private (_withIt)
-    std::string printMonth_withIt(const int month, std::list<std::shared_ptr<Point>>::const_iterator& it) const;
+
+    /*
+    * Print Month Simplified (from m_selectedPoint onwards).
+    * A version where less relevant data is shown with [...]
+    */
+    std::string printMonthSimplified() const;
+
+    // TODO: make private
+    /*
+    * Print the month
+    * @param month - month to print
+    * @param it - starting iterator over m_points (point to Point inside of requested month or inside of later month)
+    * @param simplified - whether the print should be displayed in a simplified version or not
+    * @param dayPreviousInSameMonth - 0: no previous day in same month || irrelevant (because not simplified)
+    *                                 int>0: day of previous Point in same month
+    * (previous Point: point that appears before m_selectedPoint) 
+    * @return
+    *      month as string
+    */
+    std::string printMonth_withIt(const int month, std::list<std::shared_ptr<Point>>::const_iterator& it,
+     const bool simplified= false, const int dayPreviousInSameMonth = 0) const;
 
     /*
     * Compare two shared_ptr to Point

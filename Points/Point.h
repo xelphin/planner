@@ -156,7 +156,7 @@ class Point {
         * Print Point
         */
        virtual std::ostream& print(std::ostream& os) const = 0 ;
-       virtual std::string printToString() const = 0 ;
+       virtual std::string printToString(const bool withArrow) const = 0 ;
 
        friend std::ostream& operator<<(std::ostream& os, const Point& toPrint);
 

@@ -49,7 +49,7 @@ public:
     * Print Event
     */
     std::ostream& print(std::ostream& os) const override;
-    std::string printToString() const override;
+    std::string printToString(const bool withArrow) const override;
 
     ~Event() {}
 

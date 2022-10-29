@@ -22,11 +22,11 @@ DateAbstract* Task::getDate() const
 
 std::ostream& Task::print(std::ostream& os) const
 {
-    os << this -> printToString();
+    os << this -> printToString(false);
     return os;
 }
 
-std::string Task::printToString() const
+std::string Task::printToString(const bool withArrow) const
 {
     std::string text = "";
     int day = (*(this->getDate())).getDay();
@@ -39,7 +39,8 @@ std::string Task::printToString() const
         text += "  ☑  ";
     }
     text += this->getTitle();
-    text += " : " + minutesToTime(deadline) + "\n";
+    text += " : " + minutesToTime(deadline);
+    withArrow ? text += "   <-\n" : text += "\n";
     text += "        " + this->textStart(this->getDescription(), DESCRIPTION_START_LENGTH) + "\n";
     text += "\n";
     return text;
