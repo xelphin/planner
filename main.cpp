@@ -37,7 +37,7 @@ int main() {
     struct tm *aTime = localtime(&theTime);
     int day = aTime->tm_mday;
     int month = aTime->tm_mon; // 0 <--> January
-    calendar.selectFirstPointAfterDate(3, 6); // TODO: Test
+    calendar.selectFirstPointFromDate(3, 5); // TODO: Test
     //
     // std::cout << calendar << std::endl;
     //

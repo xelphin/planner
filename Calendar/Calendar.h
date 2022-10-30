@@ -127,7 +127,7 @@ public:
     * Move current Point (m_currPoint) to select (point to) the Point from or after 
     * the month/day arguments
     */
-    void selectFirstPointAfterDate(const int month, const int day);
+    void selectFirstPointFromDate(const int month, const int day);
 
     /*
     * Remove currently selected Point

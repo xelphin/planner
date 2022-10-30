@@ -120,7 +120,7 @@ void Calendar::selectFirstPoint()
     m_selectedPoint = *(m_points.begin());
 }
 
-void Calendar::selectFirstPointAfterDate(const int month, const int day)
+void Calendar::selectFirstPointFromDate(const int month, const int day)
 {
     std::list<std::shared_ptr<Point>>::const_iterator it;
     for (it = m_points.begin(); it != m_points.end(); it++) {
@@ -132,7 +132,7 @@ void Calendar::selectFirstPointAfterDate(const int month, const int day)
             break;
         }
     }
-    this->selectLaterPoint();
+    m_selectedPoint = *(it);
 }
 
 void Calendar::removeSelectedPoint()
@@ -182,6 +182,8 @@ std::string Calendar::printMonthSimplified() const
     std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
     int monthOfPrevPoint = 0;
     for ( ; it != m_points.end() && (*(*it)) != (*m_selectedPoint); it++) {
+            std::cout << "Prev point: " << (*( (*(*it)).getDate() )).getDay() << "/"
+            << (*( (*(*it)).getDate() )).getMonth() << std::endl;
         monthOfPrevPoint = (*( (*(*it)).getDate() )).getMonth();
     }
     int monthOfCurrPoint = (*( (*(*it)).getDate() )).getMonth();
@@ -201,6 +203,7 @@ std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_p
     text +=  "=== " + numToMonthName(month+1) + " ===\n" ;
     (simplified && dayPreviousInSameMonth!=0) ? text += "[...]\n" : text += "\n";
     bool withArrow = false;
+    const int simplified_maxPoints = 5; // TODO: make dependent on cmd size instead
     
     for ( ; it != m_points.end(); it++){
         int currMonth = (*( (*(*it)).getDate() )).getMonth();
@@ -209,8 +212,8 @@ std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_p
             break;
         }
         // Point inside of month
-        pointCount++;
-        if(simplified && pointCount > 5) {
+        simplified ? pointCount++ : pointCount+=0;
+        if(simplified && pointCount > simplified_maxPoints) {
             text += "[...]\n"; 
             break; // TODO: change from 10 to something flexible depending on screen size of cmd
         }
@@ -222,7 +225,7 @@ std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_p
         
 
     }
-    text += printEmptyDayRanges(currDay, amountDaysInMonth(m_year,month+1)+1, month);
+    pointCount > simplified_maxPoints ? text +="" : text += printEmptyDayRanges(currDay, amountDaysInMonth(m_year,month+1)+1, month);
     return text;
 }
 
@@ -295,9 +298,6 @@ void Calendar::parseBannerToTextFile(std::ofstream& database)
     if(!m_points.empty())
         database << "\n\n";
 }
-
-
-
 
 void Calendar::parseTextFileToCalendar(std::ifstream& file)
 {
