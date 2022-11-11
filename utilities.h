@@ -153,4 +153,11 @@ std::string extractString(std::string& str, int& i);
 */
 int extractInt(std::string& str, int& i);
 
+/*
+* Get the current (real-time) month and date
+* @param month - reference to month
+* @param day - reference to day
+*/
+void getCurrMonthDay(int& month, int& day);
+
 #endif

@@ -102,6 +102,16 @@ void Calendar::selectEarlierPoint()
     }
 }
 
+void Calendar::selectEarlierPointFromAPreviousMonth()
+{
+    int initialPointMonth = ((*((*(this->getSelectedPoint())).getDate())).getMonth());
+
+    while(*(m_points.begin()) != m_selectedPoint 
+    && initialPointMonth == ((*((*(this->getSelectedPoint())).getDate())).getMonth())) {
+        this->selectEarlierPoint();
+    }
+}
+
 void Calendar::selectLaterPoint()
 {
     std::list<std::shared_ptr<Point>>::const_iterator it;
@@ -115,6 +125,16 @@ void Calendar::selectLaterPoint()
     }
 }
 
+void Calendar::selectLaterPointFromAnUpcomingMonth()
+{
+    int initialPointMonth = ((*((*(this->getSelectedPoint())).getDate())).getMonth());
+
+    while((m_points.back()) != m_selectedPoint 
+    && initialPointMonth == ((*((*(this->getSelectedPoint())).getDate())).getMonth())) {
+        this->selectLaterPoint();
+    }
+}
+
 void Calendar::selectFirstPoint()
 {
     m_selectedPoint = *(m_points.begin());
@@ -122,17 +142,17 @@ void Calendar::selectFirstPoint()
 
 void Calendar::selectFirstPointFromDate(const int month, const int day)
 {
-    std::list<std::shared_ptr<Point>>::const_iterator it;
-    for (it = m_points.begin(); it != m_points.end(); it++) {
+    std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    for ( ; it != m_points.end(); it++) {
         int currMonth = (*( (*(*it)).getDate() )).getMonth();
         int currDay = (*( (*(*it)).getDate() )).getDay();
-        if (currMonth < month || (currMonth == month && currDay < day)) {
-            m_selectedPoint = *(it);
-        } else {
-            break;
-        }
+        m_selectedPoint = *(it);
+        if (currMonth < month || (currMonth == month && currDay < day))
+            continue;
+        break;
     }
-    m_selectedPoint = *(it);
+    //std::cout << "Selected point: " << (*( (*(*it)).getDate() )).getDay() << "/"
+    //    << (*( (*(*it)).getDate() )).getMonth() << std::endl; // BUG: because reached m_points.end()
 }
 
 void Calendar::removeSelectedPoint()
@@ -182,8 +202,6 @@ std::string Calendar::printMonthSimplified() const
     std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
     int monthOfPrevPoint = 0;
     for ( ; it != m_points.end() && (*(*it)) != (*m_selectedPoint); it++) {
-            std::cout << "Prev point: " << (*( (*(*it)).getDate() )).getDay() << "/"
-            << (*( (*(*it)).getDate() )).getMonth() << std::endl;
         monthOfPrevPoint = (*( (*(*it)).getDate() )).getMonth();
     }
     int monthOfCurrPoint = (*( (*(*it)).getDate() )).getMonth();

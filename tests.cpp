@@ -38,6 +38,8 @@ bool run_all_tests() {
     run_test(calendar_getSelectedPoint, "getSelectedPoint", success_string, success);
     run_test(calendar_selectPoint, "calendar_selectPoint", success_string, success);
     run_test(calendar_selectPoint_mixedTypes, "calendar_selectPoint_mixedTypes", success_string, success);
+    run_test(calendar_selectEarlierPointFromAPreviousMonth, "calendar_selectEarlierPointFromAPreviousMonth", success_string, success);
+    run_test(calendar_selectLaterPointFromAnUpcomingMonth, "calendar_selectLaterPointFromAnUpcomingMonth", success_string, success);
     run_test(calendar_removeSelectedPoint, "calendar_removeSelectedPoint", success_string, success);
     run_test(calendar_parseTextToCalendar_parsingEvent, "calendar_parseTextToCalendar_parsingEvent", success_string, success);
     run_test(calendar_parseTextToCalendar_parsingEvents, "calendar_parseTextToCalendar_parsingEvents", success_string, success);
@@ -703,6 +705,67 @@ bool calendar_selectPoint_mixedTypes()
         count++;
 
     return count == 7;    
+}
+
+bool calendar_selectEarlierPointFromAPreviousMonth()
+{
+    int count = 0;
+    Calendar calendar("test_files/database_basic.txt");
+
+    calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 20, 600, 1200); // 20/3
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 2, 10, 720, 1200); // 10/2 : 12:00
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 5, 11, 300, 1200); // 11/5 : 05:00
+    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600, false); // 16/3
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 5, 12, 300, false); // 12/5
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 5, 14, 300, 1200); // 14/5
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 14)
+        count++; 
+
+    calendar.selectEarlierPointFromAPreviousMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 20)
+        count++; 
+    calendar.selectEarlierPointFromAPreviousMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 10)
+        count++; 
+    calendar.selectEarlierPointFromAPreviousMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 10)
+        count++; 
+
+    return count == 5;    
+}
+
+bool calendar_selectLaterPointFromAnUpcomingMonth()
+{
+    int count = 0;
+    Calendar calendar("test_files/database_basic.txt");
+
+    calendar.createNewBannerEvent("Board Game Night","","Board games and wine night with Micheal and Lara",1, 3, 20, 600, 1200); // 20/3
+    if (((*(calendar.getSelectedPoint())).getTitle()).compare("Board Game Night") == 0)
+        count++;
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 2, 15, 720, 1200); // 15/2 : 12:00
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 5, 11, 300, 1200); // 11/5 : 05:00
+    calendar.createNewBannerTask("Finish Art Assignment","","",1, 3, 16, 600, false); // 16/3
+    calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), 5, 12, 300, false); // 12/5
+    calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), 2, 14, 300, 1200); // 14/2
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 14)
+        count++; 
+
+    calendar.selectLaterPointFromAnUpcomingMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 16)
+        count++; 
+    calendar.selectLaterPointFromAnUpcomingMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 11)
+        count++; 
+    calendar.selectLaterPointFromAnUpcomingMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
+        count++; 
+    calendar.selectLaterPointFromAnUpcomingMonth();
+    if (((*((*(calendar.getSelectedPoint())).getDate())).getDay()) == 12)
+        count++; 
+
+    return count == 6;    
 }
 
 bool calendar_removeSelectedPoint()

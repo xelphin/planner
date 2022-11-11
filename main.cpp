@@ -1,5 +1,7 @@
 #include "./tests.h"
 #include "./utilities.h"
+#include "./graphic_utilities/graphic_prints.h"
+#include "./graphic_utilities/graphic_controls.h"
 #include "./Exception.h"
 #include "./Date/DateAbstract.h"
 #include "./Date/Date.h"
@@ -26,24 +28,33 @@ int main() {
     Calendar calendar("database.txt");
     std::cout << "Done." << std::endl;
 
-    std::string myString = "";
-    do {
-        std::cout << "Press ENTER to continue" << std::endl;
-        std::getline(std::cin, myString);
-    } while (myString.length() != 0);
-    system("clear");
+    graphics::action_pressEnterToContinue();
     // START
-    time_t theTime = time(NULL);
-    struct tm *aTime = localtime(&theTime);
-    int day = aTime->tm_mday;
-    int month = aTime->tm_mon; // 0 <--> January
-    calendar.selectFirstPointFromDate(3, 5); // TODO: Test
-    //
-    // std::cout << calendar << std::endl;
-    //
+    int day=1;
+    int month=0;
+    getCurrMonthDay(month,day);
+    calendar.selectFirstPointFromDate(month, day);
 
-    std::cout << "\n day" << day << " month: "<< month << std::endl;
-    std::cout << calendar.printMonthSimplified();
+
+    // TODO:  graphic_selections
+    // controls calendar selections (includes: Calendar, graphic_prints)
+    // call it from here
+    // std::cout << calendar.printMonthSimplified();
+    char action = 'x';
+    std::string userInput = "";
+    bool readAction = false;
+    do {
+        std::cout << calendar.printMonthSimplified();
+        std::cin >> userInput;
+        userInput = trim(userInput);
+        if (userInput.empty()) break;
+
+        action = userInput[0];
+        readAction = graphics::select_Point(calendar, action);
+        system("clear");
+    }
+    while (readAction);
+    std::cout << "DONE" << std::endl;
 
     return 0;
 }

@@ -119,9 +119,21 @@ public:
     void selectEarlierPoint();
 
     /*
+    * Move current Point (m_currPoint) to select (point to) the Point before (first earlier Point)
+    * from a previous month (if it exists)
+    */
+    void selectEarlierPointFromAPreviousMonth();
+
+    /*
     * Move current Point (m_currPoint) to select (point to) the Point after (first later Point)
     */
     void selectLaterPoint();
+
+    /*
+    * Move current Point (m_currPoint) to select (point to) the Point after (first later Point)
+    * from an upcoming month (if it exists)
+    */
+    void selectLaterPointFromAnUpcomingMonth();
 
     /*
     * Move current Point (m_currPoint) to select (point to) the Point from or after 

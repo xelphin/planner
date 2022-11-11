@@ -286,3 +286,11 @@ int extractInt(std::string& str, int& i)
     // std::cout << "substr: " << str.substr(startIndex, endIndex-startIndex) << std::endl;
     return stoi(str.substr(startIndex, endIndex-startIndex));
 }
+
+void getCurrMonthDay(int& month, int& day)
+{
+    time_t theTime = time(NULL);
+    struct tm *aTime = localtime(&theTime);
+    day = aTime->tm_mday;
+    month = aTime->tm_mon; // 0 <--> January
+}

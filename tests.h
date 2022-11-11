@@ -75,6 +75,8 @@ bool calendar_createCalendar();
 bool calendar_getSelectedPoint();
 bool calendar_selectPoint();
 bool calendar_selectPoint_mixedTypes();
+bool calendar_selectEarlierPointFromAPreviousMonth();
+bool calendar_selectLaterPointFromAnUpcomingMonth();
 bool calendar_removeSelectedPoint();
 bool calendar_parseTextToCalendar_parsingEvent();
 bool calendar_parseTextToCalendar_parsingEvents();
