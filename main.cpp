@@ -40,20 +40,7 @@ int main() {
     // controls calendar selections (includes: Calendar, graphic_prints)
     // call it from here
     // std::cout << calendar.printMonthSimplified();
-    char action = 'x';
-    std::string userInput = "";
-    bool readAction = false;
-    do {
-        std::cout << calendar.printMonthSimplified();
-        std::cin >> userInput;
-        userInput = trim(userInput);
-        if (userInput.empty()) break;
-
-        action = userInput[0];
-        readAction = graphics::select_Point(calendar, action);
-        system("clear");
-    }
-    while (readAction);
+    graphics::idleReadAction(calendar);
     std::cout << "DONE" << std::endl;
 
     return 0;

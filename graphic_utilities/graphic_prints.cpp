@@ -9,7 +9,7 @@ std::string graphics::decorativeBar()
     std::string text = "";
     for(int i=0; i<LENGTH_OF_BAR; i++)
         text += "=";
-    return text += "\n";
+    return text;
 }
 
 void graphics::action_pressEnterToContinue()
@@ -33,12 +33,14 @@ std::string graphics::spaces(const int amount)
 std::string graphics::calendarTitle()
 {
     std::string text = "";
+    int amountSpaces = LENGTH_OF_BAR - 4 - 8;
 
     text += graphics::decorativeBar();
-
-    int amountSpaces = LENGTH_OF_BAR - 4 - 8;
-    text += "==" +  graphics::spaces(amountSpaces) + "CALENDAR"+  graphics::spaces(amountSpaces) + "==";
-
+    text += "==";
+    text += graphics::spaces(amountSpaces);
+    text +="CALENDAR";
+    text += graphics::spaces(amountSpaces);
+    text += "==";
     text +=  graphics::decorativeBar();
 
     return text;

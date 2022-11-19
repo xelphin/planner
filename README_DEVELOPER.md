@@ -59,3 +59,10 @@ Point - Task
 Point - Event
 - [month, day, timeStart, timeEnd]
 
+### RUN with checks
+
+make
+valgrind --leak-check=full ./Planner 
+
+#### clean
+make clean

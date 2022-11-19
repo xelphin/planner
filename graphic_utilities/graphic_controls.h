@@ -6,6 +6,7 @@
 #include <cmath>
 #include <array>
 #include "../Calendar/Calendar.h"
+#include "./graphic_prints.h"
 
 namespace graphics {
 
@@ -16,6 +17,11 @@ namespace graphics {
     * @param direction - 'a', 'd' , 'w', 's'
     */
     graphics::DIRECTION characterToDirection(const char& direction);
+
+    /*
+    * Waits idly for action and then when received redirects to act accordingly
+    */
+    void idleReadAction(Calendar& calendar);
 
     /*
     * Select closest Point that is in requested direction
