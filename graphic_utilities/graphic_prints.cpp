@@ -50,8 +50,8 @@ std::string graphics::actionBar()
 {
     std::string text = "";
 
-    text += "Move:   w      Edit: e    Add: a    Remove: r    Save and Exit: x      \n";
-    text += "      a s d                                                            \n";
+    text += "Move:   w      Edit: e    Create: c    Remove: r    Save and Exit: x      \n";
+    text += "      a s d                                                               \n";
 
     return text;
 }

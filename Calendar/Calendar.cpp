@@ -104,6 +104,7 @@ void Calendar::selectEarlierPoint()
 
 void Calendar::selectEarlierPointFromAPreviousMonth()
 {
+    if (m_points.empty()) return;
     int initialPointMonth = ((*((*(this->getSelectedPoint())).getDate())).getMonth());
 
     while(*(m_points.begin()) != m_selectedPoint 
@@ -127,6 +128,7 @@ void Calendar::selectLaterPoint()
 
 void Calendar::selectLaterPointFromAnUpcomingMonth()
 {
+    if (m_points.empty()) return;
     int initialPointMonth = ((*((*(this->getSelectedPoint())).getDate())).getMonth());
 
     while((m_points.back()) != m_selectedPoint 
@@ -200,9 +202,13 @@ std::string Calendar::printMonth(const int month) const
 std::string Calendar::printMonthSimplified() const
 {
     std::list<std::shared_ptr<Point>>::const_iterator it = m_points.begin();
+    // PRINT MONTH
     int monthOfPrevPoint = 0;
     for ( ; it != m_points.end() && (*(*it)) != (*m_selectedPoint); it++) {
         monthOfPrevPoint = (*( (*(*it)).getDate() )).getMonth();
+    }
+    if (*it == nullptr) {
+        return "No ocassions have been recorded yet.\n Press 'c' and ENTER to create a new occassion.\n";
     }
     int monthOfCurrPoint = (*( (*(*it)).getDate() )).getMonth();
     int dayPreviousInSameMonth = (monthOfPrevPoint == monthOfCurrPoint)*((*( (*(*it)).getDate() )).getDay());
