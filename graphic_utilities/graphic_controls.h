@@ -7,16 +7,21 @@
 #include <array>
 #include "../Calendar/Calendar.h"
 #include "./graphic_prints.h"
+#include "./graphic_bannerCreator.h"
+
+// TODO: Most likely turn all of graphic_ into one class. 
+// ALTHOUGH, it's kinda like my 'main' is the class and graphics are its function because graphics is so high.
+// So, unsure of which way to go
 
 namespace graphics {
 
-    enum class DIRECTION {L,R,U,D, NONE};
+    enum class ACTION {L,R,U,D, NONE, EDIT, CREATE, REMOVE, SAVE_AND_EXIT};
 
     /*
-    * Translate from direction character to enum
-    * @param direction - 'a', 'd' , 'w', 's'
+    * Translate from action character to enum
+    * @param action - 'a', 'd' , 'w', 's', 'e', 'c', 'r', 'x'
     */
-    graphics::DIRECTION characterToDirection(const char& direction);
+    graphics::ACTION characterToAction(const char& direction);
 
     /*
     * Waits idly for action and then when received redirects to act accordingly
@@ -29,7 +34,7 @@ namespace graphics {
     * @param direction - 'a', 'd' , 'w', 's'
     * @return: true: valid direction | false: invalud direction
     */
-    bool select_Point(Calendar& calendar, const char& direction);
+    bool apllyAction(Calendar& calendar, const char& direction);
 }
 
 

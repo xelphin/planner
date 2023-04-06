@@ -1,8 +1,6 @@
 #include "./graphic_prints.h"
 
 #define LENGTH_OF_BAR 28
-#define REMOVE 'r'
-#define EDIT 'e'
 
 std::string graphics::decorativeBar()
 {   

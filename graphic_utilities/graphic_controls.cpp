@@ -2,19 +2,27 @@
 
 
 
-graphics::DIRECTION graphics::characterToDirection(const char& direction)
+graphics::ACTION graphics::characterToAction(const char& direction)
 {   
     switch (direction) {
         case('a'):
-            return graphics::DIRECTION::L;
+            return graphics::ACTION::L;
         case('d'):
-            return graphics::DIRECTION::R;
+            return graphics::ACTION::R;
         case('w'):
-            return graphics::DIRECTION::U;
+            return graphics::ACTION::U;
         case('s'):
-            return graphics::DIRECTION::D;
+            return graphics::ACTION::D;
+        case('e'):
+            return graphics::ACTION::EDIT;
+        case('c'):
+            return graphics::ACTION::CREATE;
+        case('r'):
+            return graphics::ACTION::REMOVE;
+        case('x'):
+            return graphics::ACTION::SAVE_AND_EXIT;
         default:
-            return graphics::DIRECTION::NONE;
+            return graphics::ACTION::NONE;
     }
 }
 
@@ -36,7 +44,9 @@ void graphics::idleReadAction(Calendar& calendar)
         if (userInput.empty()) break;
 
         action = userInput[0];
-        readAction = graphics::select_Point(calendar, action);
+
+        // APPLY ACTION
+        readAction = graphics::apllyAction(calendar, action);
         // TODO: prints and more action availablity
         // TODO: Point creation and editing
         system("clear");
@@ -45,22 +55,22 @@ void graphics::idleReadAction(Calendar& calendar)
     while (readAction);
 }
 
-bool graphics::select_Point(Calendar& calendar, const char& direction)
+bool graphics::apllyAction(Calendar& calendar, const char& direction)
 {
-    graphics::DIRECTION action = graphics::characterToDirection(direction);
-    if (action == graphics::DIRECTION::NONE) return false;
+    graphics::ACTION action = graphics::characterToAction(direction);
+    if (action == graphics::ACTION::NONE) return false;
 
     switch (action) {
-        case(graphics::DIRECTION::U):
+        case(graphics::ACTION::U):
             calendar.selectEarlierPoint();
             break;
-        case(graphics::DIRECTION::D):
+        case(graphics::ACTION::D):
             calendar.selectLaterPoint();
             break;
-        case(graphics::DIRECTION::L):
+        case(graphics::ACTION::L):
             calendar.selectEarlierPointFromAPreviousMonth();
             break;
-        case(graphics::DIRECTION::R):
+        case(graphics::ACTION::R):
             calendar.selectLaterPointFromAnUpcomingMonth();
             break;
         default:

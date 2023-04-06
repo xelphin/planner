@@ -1,6 +1,7 @@
 #include "./tests.h"
 #include "./utilities.h"
 #include "./graphic_utilities/graphic_prints.h"
+#include "./graphic_utilities/graphic_bannerCreator.h"
 #include "./graphic_utilities/graphic_controls.h"
 #include "./Exception.h"
 #include "./Date/DateAbstract.h"
@@ -32,7 +33,7 @@ int main() {
     // PRESS ENTER TO CLEAR SCREEN
     graphics::action_pressEnterToContinue();
 
-    // START
+    // INIT GRAPHICS
     // Get current day/month
     int day=1;
     int month=0;
@@ -41,11 +42,11 @@ int main() {
     calendar.selectFirstPointFromDate(month, day);
 
 
-    // TODO:  graphic_selections
-    // controls calendar selections (includes: Calendar, graphic_prints)
-    // call it from here
-    // std::cout << calendar.printMonthSimplified();
+    // START
     graphics::idleReadAction(calendar);
+    // TODO:  Finish all actions
+
+    // CLOSE
     std::cout << "DONE" << std::endl;
 
     return 0;
