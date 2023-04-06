@@ -2,9 +2,9 @@
 
 
 
-graphics::ACTION graphics::characterToAction(const char& direction)
+graphics::ACTION graphics::characterToAction(const char& action)
 {   
-    switch (direction) {
+    switch (action) {
         case('a'):
             return graphics::ACTION::L;
         case('d'):
@@ -55,9 +55,9 @@ void graphics::idleReadAction(Calendar& calendar)
     while (readAction);
 }
 
-bool graphics::apllyAction(Calendar& calendar, const char& direction)
+bool graphics::apllyAction(Calendar& calendar, const char& action_char)
 {
-    graphics::ACTION action = graphics::characterToAction(direction);
+    graphics::ACTION action = graphics::characterToAction(action_char);
     if (action == graphics::ACTION::NONE) return false;
 
     switch (action) {
@@ -72,6 +72,9 @@ bool graphics::apllyAction(Calendar& calendar, const char& direction)
             break;
         case(graphics::ACTION::R):
             calendar.selectLaterPointFromAnUpcomingMonth();
+            break;
+        case(graphics::ACTION::CREATE):
+            graphics_banner::mainBannerCreationProcess(calendar);
             break;
         default:
             return false;

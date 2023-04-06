@@ -21,7 +21,7 @@ namespace graphics {
     * Translate from action character to enum
     * @param action - 'a', 'd' , 'w', 's', 'e', 'c', 'r', 'x'
     */
-    graphics::ACTION characterToAction(const char& direction);
+    graphics::ACTION characterToAction(const char& action);
 
     /*
     * Waits idly for action and then when received redirects to act accordingly
@@ -29,12 +29,12 @@ namespace graphics {
     void idleReadAction(Calendar& calendar);
 
     /*
-    * Select closest Point that is in requested direction
+    * Select closest Point that is in requested action
     * @param calendar - reference to Calendar
-    * @param direction - 'a', 'd' , 'w', 's'
-    * @return: true: valid direction | false: invalud direction
+    * @param action - 'a', 'd' , 'w', 's'
+    * @return: true: valid action | false: invalud action
     */
-    bool apllyAction(Calendar& calendar, const char& direction);
+    bool apllyAction(Calendar& calendar, const char& action_char);
 }
 
 
