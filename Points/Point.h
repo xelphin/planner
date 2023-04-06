@@ -10,6 +10,21 @@
 #include "../Date/DateAbstract.h"
 #include "../Banner/Banner.h"
 
+/**
+ * WHAT
+ * The various instances of a Banner are represented using Points.
+ * Each type of Point (Event, Reminder, Task) has a different type of Date.
+ * 
+ * WHY DO YOU NEED VARIOUS INSTANCES OF A BANNER?
+ * Each instance represents a different time and possible variation to a Banner.
+ * For example, a Volleyball class can be represented as a Banner. But if it repeats each week
+ * then you'll need various Points of it at each date. 
+ * 
+ * NOTICE
+ * Each Point has a shared_ptr to its Banner. Meaning each instance can update the Banner,
+ * which will apply for all Points who use that Banner.
+*/
+
 class Point {
 
     public:

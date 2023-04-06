@@ -35,7 +35,7 @@ public:
     */
     int getEnd() const;
 
-     /*
+    /*
     * Prints to os the date
     */
     void print(std::ostream& os) const {

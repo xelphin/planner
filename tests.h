@@ -26,6 +26,19 @@
 #include "./Banner/Banner.h"
 #include "./Calendar/Calendar.h"
 
+// ABOUT
+/*
+    WHAT
+    Test files used to check functionality of code.
+
+    WHY
+    Project uses test driven development. 
+
+    HOW
+    Test functions are commonly formatted in the following way:
+    "bool class_classMethod()".
+    To check the various class methods.
+*/
 
 // --RUN TESTS
 bool run_all_tests();

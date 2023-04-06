@@ -24,10 +24,13 @@ void graphics::idleReadAction(Calendar& calendar)
     std::string userInput = "";
     bool readAction = false;
     do {
+        // PRINT ACTION BAR
         std::cout << graphics::calendarTitle() << std::endl;
         std::cout << graphics::actionBar() << std::endl;
+        // PRINT CALENDAR
         std::cout << calendar.printMonthSimplified();
         
+        // GET INPUT
         std::cin >> userInput;
         userInput = trim(userInput);
         if (userInput.empty()) break;

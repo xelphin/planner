@@ -24,15 +24,20 @@ int main() {
     }
     system("clear");
 
+    // SYSTEM INITIALIZATION PRINTS
     std::cout << "Creating Calendar:" << std::endl;
     Calendar calendar("database.txt");
     std::cout << "Done." << std::endl;
 
+    // PRESS ENTER TO CLEAR SCREEN
     graphics::action_pressEnterToContinue();
+
     // START
+    // Get current day/month
     int day=1;
     int month=0;
     getCurrMonthDay(month,day);
+    // Go to Point closest to current day/month
     calendar.selectFirstPointFromDate(month, day);
 
 

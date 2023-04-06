@@ -110,7 +110,7 @@ public:
     *      shared_ptr to Point
     */
    std::shared_ptr<Point> getSelectedPoint() const; 
-    // NOTE: I know that instead of m_selectedPoint having an iterator type thing is better
+    // NOTE: I know that instead of m_selectedPoint, having an iterator type thing is better
     //       but I get leaks so I'm resorting to creating these not very economical functions
 
     /*

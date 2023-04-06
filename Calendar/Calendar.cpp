@@ -93,7 +93,7 @@ void Calendar::selectEarlierPoint()
     if (m_points.empty()) return;
     if (*it == m_selectedPoint) return;
     it++;
-    for ( ; it != m_points.end(); it++) {
+    for ( ; it != m_points.end(); it++) { // TODO: Not economical, see if can be improved
         if ((*it) == m_selectedPoint) {
             it--;
             m_selectedPoint = *it;

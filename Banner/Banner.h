@@ -7,6 +7,15 @@
 #include <list>
 #include "../Exception.h"
 
+/**
+ * WHAT
+ * A Banner represents the shared data of its various Points. 
+ * It is a representation of an occassion, an example is a Volleyball game.
+ * It will hold the title, description, location...
+ * The Points of it will represent the actual instances in the Calendar of it,
+ * for example, if it repeats every week, then there will be a Point for each week.
+*/
+
 class Banner {
 
     public:

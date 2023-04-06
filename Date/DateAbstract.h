@@ -6,6 +6,18 @@
 #include "../Exception.h"
 #include "../utilities.h"
 
+/**
+ * 
+ * WHAT
+ * Abstract class for the different types of dates (Date [normal], DateDeadline and DateRange)
+ * 
+ * IMPORTANT
+ * The parseToText() method parses the date class into a text format.
+ * The text format is saved in the database.txt file.
+ * This way, when project initializes, it parses the text into the proper date class and enters it into the Calendar.
+ *
+*/
+
 class DateAbstract {
 
     public:
