@@ -81,6 +81,18 @@ std::string graphics::pointOptions()
     return "e - Event | t - Task | r -Reminder | x - return\n\n";
 }
 
+std::string graphics::bannerCompletion(const bool success)
+{
+    std::string text = "";
+    if (success) {
+        text += "You have completed the process successfully\nPress any key to return to calendar.\n";
+    } else {
+        text += "The process was left uncompleted\nStopping Proccess\nPress any key to return to calendar.\n";
+    }
+
+    return text; 
+}
+
 std::string graphics::invalidPointSelection()
 {
     std::string text = "";
@@ -88,6 +100,44 @@ std::string graphics::invalidPointSelection()
     text += "You have selected an invalid type. Please select one of the following:\n";
     text +=  graphics::pointOptions();
     text += "And press ENTER\n";
+
+    return text;
+}
+
+std::string graphics::pointCreatorString()
+{
+    std::string text = "";
+    int amountSpaces = LENGTH_OF_BAR - 4 - 13;
+
+    text += graphics::decorativeBar();
+    text += "==";
+    text += graphics::spaces(amountSpaces);
+    text +="POINT CREATOR";
+    text += graphics::spaces(amountSpaces);
+    text += "==";
+    text += graphics::decorativeBar();
+
+    return text;
+}
+
+std::string graphics::promptPointTitle(const std::string pointType)
+{
+    std::string text = "";
+
+    text += "Please write the title for your ";
+    text +=  pointType;
+    text += "\n";
+
+    return text;
+}
+
+std::string graphics::promptPointDescription(const std::string pointType)
+{
+    std::string text = "";
+
+    text += "Please write the description for your ";
+    text +=  pointType;
+    text += "\n";
 
     return text;
 }
