@@ -41,8 +41,9 @@ namespace graphics_banner {
     * @param checkFunc - checks input is valid
     * @param str - reference to string to fill
     * @param type - type of Banner
+    * @param canBeEmpty - If true, then an empty string will be represented by the user as 'n'
     */
-   void idleReadString(Calendar& calendar, std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&), std::string& str, const std::string type);
+   void idleReadString(Calendar& calendar, std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&), std::string& str, const std::string type, const bool canBeEmpty);
 
     /*
     * Calls on Banner creation after being given type
@@ -63,6 +64,14 @@ namespace graphics_banner {
     bool validText(const std::string str, std::string& err);
 
     /*
+    * Checks that the string is not empty
+    * @param str - string
+    * @param err - reference to enter into it reason for error
+    * @return: the string is not empty
+    */
+    bool isNotEmpty(const std::string str, std::string& err);
+
+    /*
     * Checks that the string starts with a letter
     * @param str - string
     * @param err - reference to enter into it reason for error
@@ -77,6 +86,14 @@ namespace graphics_banner {
     * @return: has only letters and numbers
     */
     bool hasOnlyLettersAndNumbers(const std::string str, std::string& err);
+
+    /*
+    * Checks that the string has number between 1-5 (or is letter 'n')
+    * @param str - string
+    * @param err - reference to enter into it reason for error
+    * @return: has number between 1-5 (or is letter 'n')
+    */
+    bool isNumberInRangeUrgency(const std::string str, std::string& err);
 }
 
 

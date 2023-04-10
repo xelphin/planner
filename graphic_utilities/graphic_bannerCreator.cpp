@@ -73,49 +73,82 @@ bool graphics_banner::mainBannerCreationProcess(Calendar& calendar, Banner::TYPE
     std::string b_title = "";
     std::string b_description = "";
     std::string b_location = "";
-    std::string b_urgency;
+    std::string b_urgencyStr = "";
+    //int b_urgency = -1;
     // Title
-    graphics_banner::idleReadString(calendar, &graphics::promptPointTitle, &graphics_banner::validText, b_title, b_type);
+    graphics_banner::idleReadString(calendar, &graphics::promptPointTitle, &graphics_banner::validText, b_title, b_type, false);
     // Description
-    graphics_banner::idleReadString(calendar, &graphics::promptPointDescription, &graphics_banner::validText, b_description, b_type);
+    graphics_banner::idleReadString(calendar, &graphics::promptPointDescription, &graphics_banner::validText, b_description, b_type, true);
+    // Location
+    graphics_banner::idleReadString(calendar, &graphics::promptPointLocation, &graphics_banner::validText, b_location, b_type, true);
+    // Urgency
+    graphics_banner::idleReadString(calendar, &graphics::promptPointUrgency, &graphics_banner::isNumberInRangeUrgency, b_urgencyStr, b_type, true);
+    if (b_urgencyStr.empty()) b_urgencyStr = "-1";
+    //b_urgency = stoi(b_urgencyStr);
+    // Get Date Inputs TODO
+
+    // Finished Successfully
     return true;
 }
 
-void graphics_banner::idleReadString(Calendar& calendar, std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&), std::string& str, const std::string type)
+void graphics_banner::idleReadString(Calendar& calendar, std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&),
+ std::string& str, const std::string type, const bool canBeEmpty)
 {
 
     std::string userInput = "";
+    std::string err = "";
     bool goodInput = true;
+    int count = 0;
     do {
         // PRINT ACTION BAR
         std::cout << graphics::calendarTitle() << std::endl;
         std::cout << graphics::pointCreatorString() << std::endl;
-        std::string invalidError = "";
-        if (!goodInput) {
-            std::cout << "The input is invalid because "<< invalidError << std::endl;
+        
+        if (!goodInput && err != "") {
+            std::cout << "The input is invalid because "<< err << std::endl;
         }
         std::cout << printFunc(type) << std::endl;
         
         // GET INPUT
-        std::cin >> userInput;
+        std::getline(std::cin, userInput);
         userInput = trim(userInput);
 
         // APPLY ACTION
-        goodInput = checkFunc(userInput, invalidError);
+        goodInput = checkFunc(userInput, err);
+        count++;
         system("clear");
 
     }
     while (!goodInput);
-    str = userInput;
+
+    if (canBeEmpty && userInput == "n") {
+        str = "";
+    } else {
+        str = userInput;
+    }
+    
 }
 
 // CHECKS
+
 bool graphics_banner::validText(const std::string str, std::string& err)
 {
-    if (graphics_banner::startsWithLetter(str,err) && graphics_banner::hasOnlyLettersAndNumbers(str,err)){
-        return true;
+    if (!graphics_banner::isNotEmpty(str,err)) return false;
+    if (graphics_banner::startsWithLetter(str,err) ){
+        if (graphics_banner::hasOnlyLettersAndNumbers(str,err)) {
+            return true;
+        }
     }
     return false;
+}
+
+bool graphics_banner::isNotEmpty(const std::string str, std::string& err)
+{
+    if (str.empty()) {
+        err = "";
+        return false;
+    }
+    return true;
 }
 
 bool graphics_banner::startsWithLetter(const std::string str, std::string& err)
@@ -129,14 +162,26 @@ bool graphics_banner::startsWithLetter(const std::string str, std::string& err)
 
 bool graphics_banner::hasOnlyLettersAndNumbers(const std::string str, std::string& err)
 {
-
-    for(std::string::size_type i=0; i<str.length(); i++) {
-        if (!isalpha(str[i]) && !isdigit(str[i])) {
-            err = " there's a non letter/digit at index "+ std::to_string(i);
-            err += " which is the character " + (str[i]);
-            err += "\n";
+    int N = str.length();
+    for(int i=0; i<N; i++) {
+        if (!isalpha(str[i]) && !isdigit(str[i]) && !isspace(str[i])) {
+            err = " there's a non letter/digit/space inside of: "+ str +"\n";
             return false;
         }
     }
     return true;
+}
+
+bool graphics_banner::isNumberInRangeUrgency(const std::string str, std::string& err)
+{
+    if (str.length() > 1) {
+        err = " you wrote an input larger than size of one, when the options were 1 to 5 and 'n'\n";
+        return false;
+    }
+        
+    if(str[0] == 'n' || str[0] == '1' || str[0] == '2' || str[0] == '3' || str[0] == '4' || str[0] == '5') {
+        return true;
+    }
+    err = " you didn't select a number from 1 to 5 or 'n'\n";
+    return false;
 }

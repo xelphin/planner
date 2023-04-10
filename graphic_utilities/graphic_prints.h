@@ -76,6 +76,17 @@ namespace graphics {
     */
     std::string promptPointDescription(const std::string pointType);
 
+    /*
+    * Returns string asking to enter location
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+    std::string promptPointLocation(const std::string pointType);
+
+    /*
+    * Returns string asking to enter urgency
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+    std::string promptPointUrgency(const std::string pointType);
 
 }
 

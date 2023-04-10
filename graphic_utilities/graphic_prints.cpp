@@ -87,7 +87,7 @@ std::string graphics::bannerCompletion(const bool success)
     if (success) {
         text += "You have completed the process successfully\nPress any key to return to calendar.\n";
     } else {
-        text += "The process was left uncompleted\nStopping Proccess\nPress any key to return to calendar.\n";
+        text += "The process was left uncompleted\nStopping Proccess\nPress any letter and then press ENTER to return.\n";
     }
 
     return text; 
@@ -99,7 +99,7 @@ std::string graphics::invalidPointSelection()
 
     text += "You have selected an invalid type. Please select one of the following:\n";
     text +=  graphics::pointOptions();
-    text += "And press ENTER\n";
+    text += "Press ENTER\n";
 
     return text;
 }
@@ -137,9 +137,31 @@ std::string graphics::promptPointDescription(const std::string pointType)
 
     text += "Please write the description for your ";
     text +=  pointType;
-    text += "\n";
+    text += "\n If it's not important simply write 'n'\n";
 
     return text;
+}
+
+std::string graphics::promptPointLocation(const std::string pointType)
+{
+    std::string text = "";
+
+    text += "Please write the location for your ";
+    text +=  pointType;
+    text += "\n If it's not important simply write 'n'\n";
+
+    return text;  
+}
+
+std::string graphics::promptPointUrgency(const std::string pointType)
+{
+    std::string text = "";
+
+    text += "Please write the urgency of your ";
+    text +=  pointType;
+    text += ". It should be between 1-5; 5 being the most urgent.\n If it's not important simply write 'n'\n";
+
+    return text;  
 }
 
 // TODO: Add to makefile
