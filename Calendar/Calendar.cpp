@@ -24,6 +24,11 @@ Calendar::Calendar(std::string databaseName) : m_fileName(databaseName)
     data.close();
 }
 
+int Calendar::getYear() const
+{
+    return this->m_year;
+}
+
 void Calendar::createDatabase() const
 {
     std::ofstream data(m_fileName);

@@ -38,6 +38,14 @@ public:
     Calendar(std::string databaseName = "database.txt");
 
     /*
+    * C'tor of Calendar class
+    *
+    * @return
+    *      A new instance of Calendar.
+    */
+    int getYear() const;
+
+    /*
     * Add new BannerEvent to Calendar
     * @param title - title of Banner (for Event)
     * @param location - location of Banner (for Event)

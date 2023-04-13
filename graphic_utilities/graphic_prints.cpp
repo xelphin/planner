@@ -164,4 +164,27 @@ std::string graphics::promptPointUrgency(const std::string pointType)
     return text;  
 }
 
+std::string graphics::promptPointMonthDay()
+{
+    std::string text = "";
+
+    text += "Please write the month and day\n";
+    text += "The should be between 1-12.\n[1] January, [2] February, ..., [12] December\n";
+    text += "You should write it as '<month>/<day>'\n";
+    text += "Example: March 12th is: '3/12'\n";
+
+    return text;
+}
+
+std::string graphics::promptPointTime(const std::string pointType)
+{
+    std::string text = "";
+
+    text += "Please write the time for your ";
+    text +=  pointType;
+    text += ".\n It should be written in the format of '<hour>:<minutes>'. Examples: 04:30, 18:00, 23:04.\n";
+
+    return text;  
+}
+
 // TODO: Add to makefile

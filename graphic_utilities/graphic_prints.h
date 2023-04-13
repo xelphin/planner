@@ -88,6 +88,18 @@ namespace graphics {
     */
     std::string promptPointUrgency(const std::string pointType);
 
+    /*
+    * Returns string asking to enter month/day
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+    std::string promptPointMonthDay();
+
+    /*
+    * Returns string asking to enter time
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+    std::string promptPointTime(const std::string pointType);
+
 }
 
 
