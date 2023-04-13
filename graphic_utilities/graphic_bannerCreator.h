@@ -138,6 +138,13 @@ namespace graphics_banner {
     * @return: is a valid time
     */
     bool isValidTime(const std::string str, std::string& err);
+
+    /*
+    * Converts time string into int of minutes
+    * @param str - valid time string
+    * @return: the amount of minutes that the time represents
+    */
+    int timeToMinutes(const std::string time);
 }
 
 

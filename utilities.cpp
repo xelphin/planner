@@ -294,3 +294,4 @@ void getCurrMonthDay(int& month, int& day)
     day = aTime->tm_mday;
     month = aTime->tm_mon; // 0 <--> January
 }
+

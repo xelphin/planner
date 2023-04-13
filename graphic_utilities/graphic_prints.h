@@ -97,8 +97,28 @@ namespace graphics {
     /*
     * Returns string asking to enter time
     * @param pointType - Type of point: Event, Reminder or Task
+    * @param type - Type of time: time start, time end, deadline
     */
-    std::string promptPointTime(const std::string pointType);
+    enum class TIME_TYPE {TIMESTART, TIMEEND, DEADLINE};
+    std::string promptPointTime(const std::string pointType, const graphics::TIME_TYPE type);
+
+    /*
+    * Returns string asking to enter time start
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+   std::string promptTimeStart(const std::string pointType);
+
+    /*
+    * Returns string asking to enter time end
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+   std::string promptTimeEnd(const std::string pointType);
+
+    /*
+    * Returns string asking to enter deadline
+    * @param pointType - Type of point: Event, Reminder or Task
+    */
+   std::string promptDeadline(const std::string pointType);
 
 }
 

@@ -91,8 +91,11 @@ bool graphics_banner::mainBannerCreationProcess(Calendar& calendar, Banner::TYPE
     graphics_banner::idleReadString(calendar, &graphics::promptPointUrgency, &graphics_banner::isNumberInRangeUrgency, b_urgencyStr, b_type, true);
     if (b_urgencyStr.empty()) b_urgencyStr = "-1";
     //b_urgency = stoi(b_urgencyStr);
-    // Get Date Inputs TODO
+    // Get Date Inputs 
     graphics_banner::getDateInputs(calendar, type, p_month, p_day, p_timeStart, p_timeEnd, p_deadline);
+    // Create Point
+    // TODO
+
     // Finished Successfully
     return true;
 }
@@ -106,10 +109,30 @@ bool graphics_banner::getDateInputs(Calendar& calendar, Banner::TYPE type, int& 
     graphics_banner::getDate(year, month, day);
 
     // Get timeStart/timeEnd/deadline depending on type
-    //std::string timeStart_str = "00:00";
-    //graphics_banner::idleReadString(calendar, &graphics::promptPointTime, &graphics_banner::isValidTime, timeStart_str, typeString, false);
-    
-    
+    std::string time_str = "00:00";
+    std::string timeStart_str = "00:00";
+    if (type == Banner::TYPE::EVENT) {
+
+        graphics_banner::idleReadString(calendar, &graphics::promptTimeStart, &graphics_banner::isValidTime, timeStart_str, typeString, false);
+        timeStart = graphics_banner::timeToMinutes(timeStart_str);
+        timeEnd = 0;
+        bool askedForTimeEnd = false;
+        do {
+            if (askedForTimeEnd) {
+                std::cout << "Your time end needs to be equal or bigger than the time start."<< std::endl;
+                std::cout << "Your time start value is: "<< timeStart_str << std::endl;
+            }
+            graphics_banner::idleReadString(calendar, &graphics::promptTimeEnd, &graphics_banner::isValidTime, time_str, typeString, false);
+            timeEnd = graphics_banner::timeToMinutes(time_str);
+            askedForTimeEnd = true;
+        } while (timeStart>timeEnd);
+
+    } else if (type == Banner::TYPE::TASK) {
+
+        graphics_banner::idleReadString(calendar, &graphics::promptDeadline, &graphics_banner::isValidTime, time_str, typeString, false);
+        deadline = graphics_banner::timeToMinutes(time_str);
+
+    }
 
     return true;
 }
@@ -117,6 +140,8 @@ bool graphics_banner::getDateInputs(Calendar& calendar, Banner::TYPE type, int& 
 void graphics_banner::idleReadString(Calendar& calendar, std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&),
  std::string& str, const std::string type, const bool canBeEmpty)
 {
+    // TODO: turn from void into bool, when user enters 'x' then exits Point creation process.
+    // Or maybe instead just do a throw and have mainPointCreationProcess() catch it
 
     std::string userInput = "";
     std::string err = "";
@@ -327,6 +352,17 @@ bool graphics_banner::isValidMonthDayFormat(const int year,const std::string use
     day = stoi(userInput.substr(slashIndex+1, N - slashIndex));
     return true;
 
+}
+
+int graphics_banner::timeToMinutes(const std::string time)
+{
+    std::string tmp;
+    if (!graphics_banner::isValidTime(time, tmp)) {
+        return 0;
+    }
+    int hour = stoi(time.substr(0, 2));
+    int minutes = stoi(time.substr(3, 2));
+    return (hour*60) + minutes;
 }
 
 

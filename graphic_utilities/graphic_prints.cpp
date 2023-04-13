@@ -176,15 +176,42 @@ std::string graphics::promptPointMonthDay()
     return text;
 }
 
-std::string graphics::promptPointTime(const std::string pointType)
+std::string graphics::promptPointTime(const std::string pointType, const graphics::TIME_TYPE type)
 {
+    std::string typeName;
+    switch (type) {
+        case(graphics::TIME_TYPE::TIMESTART):
+            typeName = "time start";
+            break;
+        case(graphics::TIME_TYPE::TIMEEND):
+            typeName = "time end";
+            break;
+        case(graphics::TIME_TYPE::DEADLINE):
+            typeName = "deadline";
+            break;
+    }
     std::string text = "";
 
-    text += "Please write the time for your ";
+    text += "Please write the "+ typeName +" for your ";
     text +=  pointType;
     text += ".\n It should be written in the format of '<hour>:<minutes>'. Examples: 04:30, 18:00, 23:04.\n";
 
     return text;  
+}
+
+std::string graphics::promptTimeStart(const std::string pointType)
+{
+    return promptPointTime(pointType,graphics::TIME_TYPE::TIMESTART);
+}
+
+std::string graphics::promptTimeEnd(const std::string pointType)
+{
+    return promptPointTime(pointType,graphics::TIME_TYPE::TIMEEND);
+}
+
+std::string graphics::promptDeadline(const std::string pointType)
+{
+    return promptPointTime(pointType,graphics::TIME_TYPE::DEADLINE);
 }
 
 // TODO: Add to makefile
