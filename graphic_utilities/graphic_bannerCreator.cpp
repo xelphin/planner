@@ -99,7 +99,7 @@ bool graphics_banner::bannerInitializer(Calendar& calendar, Banner::TYPE type)
     // CREATE BANNER
     switch (type) {
         case(Banner::TYPE::EVENT):
-            calendar.createNewBannerEvent(b_title,b_location,b_description, b_urgency, p_month, p_day, p_timeStart, p_timeEnd);
+            calendar.createNewBannerEvent(b_title, b_location, b_description, b_urgency, p_month, p_day, p_timeStart, p_timeEnd);
             break;
         case(Banner::TYPE::REMINDER):
             calendar.createNewBannerReminder(b_title,b_location,b_description, b_urgency, p_month, p_day);
