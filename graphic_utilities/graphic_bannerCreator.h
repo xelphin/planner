@@ -43,7 +43,7 @@ namespace graphics_banner
      * @param type - Banner Type
      * @return: true: successfully created Banner | false: process incomplete
      */
-    bool bannerAttributesCollector(Calendar &calendar, Banner::TYPE type);
+    bool bannerInitializer(Calendar &calendar, Banner::TYPE type);
 
     /*
      * Starts Banner creation after being given type
