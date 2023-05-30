@@ -74,7 +74,7 @@ bool graphics::apllyAction(Calendar& calendar, const char& action_char)
             calendar.selectLaterPointFromAnUpcomingMonth();
             break;
         case(graphics::ACTION::CREATE):
-            graphics_banner::mainPointCreationProcess(calendar);
+            graphics_banner::mainBannerCreation(calendar);
             break;
         default:
             return false;
