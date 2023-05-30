@@ -82,13 +82,13 @@ bool graphics_banner::mainBannerCreationProcess(Calendar& calendar, Banner::TYPE
     int p_deadline = 0;
     
     // Title
-    graphics_banner::idleReadString(calendar, &graphics::promptPointTitle, &graphics_banner::validText, b_title, b_type, false);
+    graphics_banner::idleReadString(calendar, &graphics::promptPointTitle, &graphics_checks::validText, b_title, b_type, false);
     // Description
-    graphics_banner::idleReadString(calendar, &graphics::promptPointDescription, &graphics_banner::validText, b_description, b_type, true);
+    graphics_banner::idleReadString(calendar, &graphics::promptPointDescription, &graphics_checks::validText, b_description, b_type, true);
     // Location
-    graphics_banner::idleReadString(calendar, &graphics::promptPointLocation, &graphics_banner::validText, b_location, b_type, true);
+    graphics_banner::idleReadString(calendar, &graphics::promptPointLocation, &graphics_checks::validText, b_location, b_type, true);
     // Urgency
-    graphics_banner::idleReadString(calendar, &graphics::promptPointUrgency, &graphics_banner::isNumberInRangeUrgency, b_urgencyStr, b_type, true);
+    graphics_banner::idleReadString(calendar, &graphics::promptPointUrgency, &graphics_checks::isNumberInRangeUrgency, b_urgencyStr, b_type, true);
     if (b_urgencyStr.empty()) b_urgencyStr = "-1";
     //b_urgency = stoi(b_urgencyStr);
     // Get Date Inputs 
@@ -109,30 +109,7 @@ bool graphics_banner::getDateInputs(Calendar& calendar, Banner::TYPE type, int& 
     graphics_banner::getDate(year, month, day);
 
     // Get timeStart/timeEnd/deadline depending on type
-    std::string time_str = "00:00";
-    std::string timeStart_str = "00:00";
-    if (type == Banner::TYPE::EVENT) {
-
-        graphics_banner::idleReadString(calendar, &graphics::promptTimeStart, &graphics_banner::isValidTime, timeStart_str, typeString, false);
-        timeStart = graphics_banner::timeToMinutes(timeStart_str);
-        timeEnd = 0;
-        bool askedForTimeEnd = false;
-        do {
-            if (askedForTimeEnd) {
-                std::cout << "Your time end needs to be equal or bigger than the time start."<< std::endl;
-                std::cout << "Your time start value is: "<< timeStart_str << std::endl;
-            }
-            graphics_banner::idleReadString(calendar, &graphics::promptTimeEnd, &graphics_banner::isValidTime, time_str, typeString, false);
-            timeEnd = graphics_banner::timeToMinutes(time_str);
-            askedForTimeEnd = true;
-        } while (timeStart>timeEnd);
-
-    } else if (type == Banner::TYPE::TASK) {
-
-        graphics_banner::idleReadString(calendar, &graphics::promptDeadline, &graphics_banner::isValidTime, time_str, typeString, false);
-        deadline = graphics_banner::timeToMinutes(time_str);
-
-    }
+    graphics_banner::getTime(calendar, type, timeStart, timeEnd, deadline);
 
     return true;
 }
@@ -177,101 +154,6 @@ void graphics_banner::idleReadString(Calendar& calendar, std::string (*printFunc
     
 }
 
-
-
-
-
-// CHECKS
-
-bool graphics_banner::validText(const std::string str, std::string& err)
-{
-    if (!graphics_banner::isNotEmpty(str,err)) return false;
-    if (graphics_banner::startsWithLetter(str,err) ){
-        if (graphics_banner::hasOnlyLettersAndNumbers(str,err)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool graphics_banner::isNotEmpty(const std::string str, std::string& err)
-{
-    if (str.empty()) {
-        err = "";
-        return false;
-    }
-    return true;
-}
-
-bool graphics_banner::startsWithLetter(const std::string str, std::string& err)
-{
-    if (isalpha(str[0]) == false){
-        err = " it doesn't start with a letter.\n";
-        return false;
-    }
-    return true;
-}
-
-bool graphics_banner::hasOnlyLettersAndNumbers(const std::string str, std::string& err)
-{
-    int N = str.length();
-    for(int i=0; i<N; i++) {
-        if (!isalpha(str[i]) && !isdigit(str[i]) && !isspace(str[i])) {
-            err = " there's a non letter/digit/space inside of: "+ str +"\n";
-            return false;
-        }
-    }
-    return true;
-}
-
-bool graphics_banner::isNumberInRangeUrgency(const std::string str, std::string& err)
-{
-    if (str.length() > 1) {
-        err = " you wrote an input larger than size of one, when the options were 1 to 5 and 'n'\n";
-        return false;
-    }
-        
-    if(str[0] == 'n' || str[0] == '1' || str[0] == '2' || str[0] == '3' || str[0] == '4' || str[0] == '5') {
-        return true;
-    }
-    err = " you didn't select a number from 1 to 5 or 'n'\n";
-    return false;
-}
-
-bool graphics_banner::isNumber(const std::string str, std::string& err)
-{
-    int N = str.length();
-    for( int i = 0; i < N; i++ ) {
-      if( !isdigit( str[i] )) {
-        err = "is not a number.";
-        return false;
-      }
-    }
-    return true;
-}
-
-bool graphics_banner::isValidTime(const std::string str, std::string& err)
-{
-    // CHECK FORMAT
-    int N = str.length();
-    if (N != 5) {
-        err = "the time should be represented by 5 characters. Example: 04:32. You haven't put 5 characters.";
-        return false;  
-    }
-    // CHECK VALID HOUR
-    int hour = stoi(str.substr(0, 2));
-    int minutes = stoi(str.substr(3, 2));
-    if (hour>23 || hour < 0) {
-        err = "the hour is not between 00 and 23.";
-        return false; 
-    }
-    if (minutes>59 || minutes < 0) {
-        err = "the hour is not between 00 and 59.";
-        return false; 
-    }
-    return true;
-}
-
 void graphics_banner::getDate(const int year, int& month, int& day)
 {
 
@@ -294,7 +176,7 @@ void graphics_banner::getDate(const int year, int& month, int& day)
         userInput = trim(userInput);
 
         // GET DATE
-        goodInput = graphics_banner::isValidMonthDayFormat(year, userInput, err, month, day);
+        goodInput = graphics_checks::isValidMonthDayFormat(year, userInput, err, month, day);
         count++;
         system("clear");
 
@@ -303,67 +185,36 @@ void graphics_banner::getDate(const int year, int& month, int& day)
     
 }
 
-
-bool graphics_banner::isValidMonthDayFormat(const int year,const std::string userInput, std::string& err, int& month, int& day)
+void graphics_banner::getTime(Calendar& calendar, Banner::TYPE type, int& timeStart, int& timeEnd, int& deadline)
 {
+    std::string typeString = Banner::typeToString(type);
+    std::string time_str = "00:00";
+    std::string timeStart_str = "00:00";
+    if (type == Banner::TYPE::EVENT) {
 
-    bool passedSlash = false;
-    int slashIndex = 0;
+        graphics_banner::idleReadString(calendar, &graphics::promptTimeStart, &graphics_checks::isValidTime, timeStart_str, typeString, false);
+        timeStart = graphics_checks::timeToMinutes(timeStart_str);
+        timeEnd = 0;
+        bool askedForTimeEnd = false;
+        do {
+            if (askedForTimeEnd) {
+                std::cout << "Your time end needs to be equal or bigger than the time start."<< std::endl;
+                std::cout << "Your time start value is: "<< timeStart_str << std::endl;
+            }
+            graphics_banner::idleReadString(calendar, &graphics::promptTimeEnd, &graphics_checks::isValidTime, time_str, typeString, false);
+            timeEnd = graphics_checks::timeToMinutes(time_str);
+            askedForTimeEnd = true;
+        } while (timeStart>timeEnd);
 
+    } else if (type == Banner::TYPE::TASK) {
 
-    // CHECK CORRECT FORMAT
-    int N = userInput.length();
-    if (N<3) {
-        err = "is not long enough. Has to have at least three characters. '<month>/<day>'.";
-        return false;
-    }
-    for( int i = 0; i < N; i++ ) {
-        if( userInput[i] == '/' && passedSlash == true) {
-            err = "is not in correct format. You can only have one slash";
-            return false;
-        } else if (userInput[i] == '/') {
-            passedSlash = true;
-            slashIndex = i;
-        } else if (!isdigit( userInput[i] )) {
-            err = "has non-digit and non-slash character";
-            return false;
-        }
-    }
-    if(userInput[0] == '/') {
-        err = "there is no month number before the '/'";
-        return false;
-    }
-    if(userInput[N-1] == '/') {
-        err = "there is no day number after the '/'";
-        return false;
-    }
-    if (passedSlash == false) {
-        err = "is wrong format. No slash present.";
-        return false;
-    }
+        graphics_banner::idleReadString(calendar, &graphics::promptDeadline, &graphics_checks::isValidTime, time_str, typeString, false);
+        deadline = graphics_checks::timeToMinutes(time_str);
 
-    // CHECK CORRECT DATE
-    if (!validDate(year, stoi(userInput.substr(0, slashIndex)), stoi(userInput.substr(slashIndex+1, N - slashIndex)))) {
-        err = "the date is not logical. There is no such combination for the month/day.";
-        return false;
-    } 
-    // Correct format and data
-    month = stoi(userInput.substr(0, slashIndex));
-    day = stoi(userInput.substr(slashIndex+1, N - slashIndex));
-    return true;
-
+    }
 }
 
-int graphics_banner::timeToMinutes(const std::string time)
-{
-    std::string tmp;
-    if (!graphics_banner::isValidTime(time, tmp)) {
-        return 0;
-    }
-    int hour = stoi(time.substr(0, 2));
-    int minutes = stoi(time.substr(3, 2));
-    return (hour*60) + minutes;
-}
+
 
 
 

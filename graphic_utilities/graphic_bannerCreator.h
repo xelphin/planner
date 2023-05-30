@@ -9,6 +9,7 @@
 #include "../Banner/Banner.h"
 #include "../utilities.h"
 #include "./graphic_prints.h"
+#include "./graphic_checks.h"
 
 namespace graphics_banner {
 
@@ -72,79 +73,16 @@ namespace graphics_banner {
     */
     void getDate(const int year, int& month, int& day);
 
-    // CHECK FUNCTIONS
-
     /*
-    * Checks that the string is a valid text
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: the string is a valid text
+    * Waits idly for user input of time, different prompts for different Point types.
+    * @param calendar - reference to Calendar
+    * @param type - Banner Type
+    * @param timeStart - timeStart of Point (for Event type)
+    * @param timeEnd - timeEnd of Point (for Event type)
+    * @param deadline - deadline of Point (for Task type)
     */
-    bool validText(const std::string str, std::string& err);
+   void getTime(Calendar& calendar, Banner::TYPE type, int& timeStart, int& timeEnd, int& deadline);
 
-    /*
-    * Checks that the string is not empty
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: the string is not empty
-    */
-    bool isNotEmpty(const std::string str, std::string& err);
-
-    /*
-    * Checks that the string starts with a letter
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: string starts with a letter
-    */
-    bool startsWithLetter(const std::string str, std::string& err);
-
-    /*
-    * Checks that the string has only letters and numbers
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: has only letters and numbers
-    */
-    bool hasOnlyLettersAndNumbers(const std::string str, std::string& err);
-
-    /*
-    * Checks that the string has number between 1-5 (or is letter 'n')
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: has number between 1-5 (or is letter 'n')
-    */
-    bool isNumberInRangeUrgency(const std::string str, std::string& err);
-
-    /*
-    * Checks that the string is a number
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: is a number
-    */
-    bool isNumber(const std::string str, std::string& err);
-
-    /*
-    * Checks that the string is a valid month/day format
-    * @param calendar - year of calendar
-    * @param userInput - string
-    * @param err - reference to enter into it reason for error
-    * @return: is a valid month/day format
-    */
-    bool isValidMonthDayFormat(const int year,const std::string userInput, std::string& err, int& month, int& day);
-
-    /*
-    * Checks that the string is a valid time
-    * @param str - string
-    * @param err - reference to enter into it reason for error
-    * @return: is a valid time
-    */
-    bool isValidTime(const std::string str, std::string& err);
-
-    /*
-    * Converts time string into int of minutes
-    * @param str - valid time string
-    * @return: the amount of minutes that the time represents
-    */
-    int timeToMinutes(const std::string time);
 }
 
 
