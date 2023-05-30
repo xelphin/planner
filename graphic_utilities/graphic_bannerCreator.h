@@ -46,7 +46,7 @@ namespace graphics_banner {
 
     /*
     * Fills date inputs depending on types
-    * @param calendar - reference to Calendar
+    * @param year - year in Calendar
     * @param type - Banner Type
     * @param month - Month of Point
     * @param day - Day of Point
@@ -54,7 +54,7 @@ namespace graphics_banner {
     * @param timeEnd - timeEnd of Point (for Event type)
     * @param deadline - deadline of Point (for Task type)
     */
-    bool getDateInputs(Calendar& calendar, Banner::TYPE type, int& month, int& day, int& timeStart, int& timeEnd, int& deadline);
+    bool getDateInputs(const int year, Banner::TYPE type, int& month, int& day, int& timeStart, int& timeEnd, int& deadline);
 
     /*
     * Waits idly for user input of string.
@@ -64,7 +64,7 @@ namespace graphics_banner {
     * @param type - type of Banner
     * @param canBeEmpty - If true, then an empty string will be represented by the user as 'n'
     */
-   void idleReadString(Calendar& calendar, std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&), std::string& str, const std::string type, const bool canBeEmpty);
+   void idleReadString(std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&), std::string& str, const std::string type, const bool canBeEmpty);
 
     /*
     * Waits idly for user input of date.
@@ -81,7 +81,7 @@ namespace graphics_banner {
     * @param timeEnd - timeEnd of Point (for Event type)
     * @param deadline - deadline of Point (for Task type)
     */
-   void getTime(Calendar& calendar, Banner::TYPE type, int& timeStart, int& timeEnd, int& deadline);
+   void getTime(Banner::TYPE type, int& timeStart, int& timeEnd, int& deadline);
 
 }
 
