@@ -25,6 +25,31 @@
  * which will apply for all Points who use that Banner.
 */
 
+namespace pointsInfo {
+    enum class TYPE
+    {
+        EVENT,
+        REMINDER,
+        TASK,
+        INVALID
+    };
+
+    enum class EDIT
+    {
+        REPETITION,
+        TITLE,
+        DESCRIPTION,
+        LOCATION,
+        URGENCY,
+        MONTH_DAY,
+        TIME_START,
+        TIME_END,
+        DEADLINE,
+        COMPLETE,
+        OUT_OF_RANGE
+    };
+};
+
 class Point {
 
     public:
@@ -168,11 +193,21 @@ class Point {
        bool operator>=(const Point& other) const;
 
 
-       /*
+        /*
         * Print Point's info in editing format
         * (editing format: format used by graphic_bannerEdit)
+        * @param maxAvailable - The max available index for editing
+        * @param pointType - The max available index for editing
         */
-       virtual std::string printInfo_editingFormat() const;
+       virtual std::string printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& pointType) const;
+
+
+        /*
+        * Get Attribute that matches index in printInfo_editingFormat()
+        * (editing format: format used by graphic_bannerEdit)
+        * @param index - Index selected from printInfo_editingFormat()
+        */
+       virtual pointsInfo::EDIT getAttribute_editingFormat(const int index) const;
 
         /*
         * Print Point

@@ -124,10 +124,11 @@ std::string Point::textStart(const std::string text, const std::string::size_typ
   return text.substr(0,length-1) + "...";
 }
 
-std::string Point::printInfo_editingFormat() const
+std::string Point::printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& pointType) const
 {
   std::string text ="";
   
+  text += "[0] [Add Repeatitions] \n";
   text += "[1] Title: " + m_banner->getTitle() + "\n";
   text += "[2] Description: " + m_banner->getDescription() + "\n";
   text += "[3] Location: " + m_banner->getLocation() + "\n";
@@ -135,7 +136,30 @@ std::string Point::printInfo_editingFormat() const
   text += "[4] Urgency: " + urgency + "\n";
   text += "[5] Month/Day: " + std::to_string(  (*(this->getDate())).getMonth()  ) + "/" + std::to_string(  (*(this->getDate())).getDay()  ) + "\n";
 
+  maxAvailable = 5;
+  pointType = pointsInfo::TYPE::INVALID;
   return text;
+}
+
+pointsInfo::EDIT Point::getAttribute_editingFormat(const int index) const
+{
+    switch (index)
+    {
+    case (0):
+        return pointsInfo::EDIT::REPETITION;
+    case (1):
+        return pointsInfo::EDIT::TITLE;
+    case (2):
+        return pointsInfo::EDIT::DESCRIPTION;
+    case (3):
+        return pointsInfo::EDIT::LOCATION;
+    case (4):
+        return pointsInfo::EDIT::URGENCY;
+    case (5):
+        return pointsInfo::EDIT::MONTH_DAY;
+    default:
+        return pointsInfo::EDIT::OUT_OF_RANGE;
+    }
 }
 
 std::string Point::parsePointToTextFull() const

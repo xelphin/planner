@@ -120,6 +120,22 @@ std::string graphics::pointCreatorString()
     return text;
 }
 
+std::string graphics::pointEditorString()
+{
+    std::string text = "";
+    int amountSpaces = LENGTH_OF_BAR - 4 - 13;
+
+    text += graphics::decorativeBar();
+    text += "==";
+    text += graphics::spaces(amountSpaces);
+    text +="POINT EDITOR";
+    text += graphics::spaces(amountSpaces);
+    text += "==";
+    text += graphics::decorativeBar();
+
+    return text;
+}
+
 std::string graphics::promptPointTitle(const std::string pointType)
 {
     std::string text = "";
@@ -223,6 +239,15 @@ std::string graphics::promptRepetitions()
     text += "The month should be between 1-12.\n[1] January, [2] February, ..., [12] December\n";
     text += "You should write it as '<month>/<day>'\n";
     text += "Example: March 12th is: '3/12'\n";
+    return text;
+}
+
+std::string graphics::promptIndexOfAttribute(const int maxIndex)
+{
+    std::string text = "";
+
+    text += "Please select an index for one of the attribute below, so between 0 and "+ std::to_string(maxIndex) +"\n";
+
     return text;
 }
 

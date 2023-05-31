@@ -20,16 +20,36 @@ DateAbstract* Task::getDate() const
     return m_date.get();
 }
 
-std::string Task::printInfo_editingFormat() const 
+std::string Task::printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& pointType) const 
 {
   std::string text ="";
-  text += Point::printInfo_editingFormat();
+  text += Point::printInfo_editingFormat(maxAvailable, pointType);
 
   text += "[6] Deadline: " + minutesToTime( (*(this->getDate())).getTime() ) + "\n";
   std::string completed = this->getComplete() == true ? "true" : "false";
   text += "[7] Completed: " + completed + "\n";
 
+  maxAvailable = 7;
+  pointType = pointsInfo::TYPE::TASK;
   return text;
+}
+
+pointsInfo::EDIT Task::getAttribute_editingFormat(const int index) const
+{
+    pointsInfo::EDIT typeFromBase = Point::getAttribute_editingFormat(index);
+    if (typeFromBase != pointsInfo::EDIT::OUT_OF_RANGE) {
+        return typeFromBase;
+    }
+    
+    switch (index)
+    {
+    case (6):
+        return pointsInfo::EDIT::DEADLINE;
+    case (7):
+        return pointsInfo::EDIT::COMPLETE;
+    default:
+        return pointsInfo::EDIT::OUT_OF_RANGE;
+    }
 }
 
 std::ostream& Task::print(std::ostream& os) const

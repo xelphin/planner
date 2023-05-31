@@ -54,12 +54,6 @@ namespace graphics_banner
      */
     bool chooseBannerCreation(Calendar &calendar, const char &action_char, Banner::TYPE& b_type);
 
-    /*
-     * Ask if user wants repetitions, so long as they do add them
-     * @param calendar - reference to Calendar
-     * @param b_type - Banner Type
-     */
-    void queryForRepetitions(Calendar &calendar, const Banner::TYPE b_type);
 }
 
 #endif

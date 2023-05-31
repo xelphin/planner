@@ -65,6 +65,11 @@ namespace graphics {
     std::string pointCreatorString();
 
     /*
+    * Returns string of Point Editor
+    */
+    std::string pointEditorString();
+
+    /*
     * Returns string asking to enter title
     * @param pointType - Type of point: Event, Reminder or Task
     */
@@ -124,6 +129,12 @@ namespace graphics {
     * Returns string asking for repetition date or 'n' for disinterested
     */
    std::string promptRepetitions();
+
+    /*
+    * Returns string asking for index for attribute
+    * @param maxIndex - max index available for attribute
+    */
+   std::string promptIndexOfAttribute(const int maxIndex);
 }
 
 

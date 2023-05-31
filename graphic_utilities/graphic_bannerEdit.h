@@ -18,6 +18,8 @@
 
 namespace graphics_edit
 {
+
+
     /*
      * Start process for editing Point (Banner).
      * @param calendar - reference to Calendar
@@ -26,11 +28,11 @@ namespace graphics_edit
     void mainBannerEditor(Calendar &calendar);
 
     /*
-     * Start process for editing Point (Banner).
+     * SGet index of attribute from user. Available indices defined at Point::getAttribute_editingFormat()
      * @param calendar - reference to Calendar
-     * @return: true: successfully edited Point | false: process incomplete
+     * @return: the attribute that user wants to edit
      */
-    bool queryForEdit(Calendar &calendar);
+    pointsInfo::EDIT idleReadIndex(Calendar &calendar);
 }
 
 #endif // GRAPHIC_BANNER_EDIT_H

@@ -53,6 +53,13 @@ namespace graphics_helper {
     */
    void getTime(Banner::TYPE type, int& timeStart, int& timeEnd, int& deadline);
 
+
+    /*
+     * Ask if user wants repetitions, so long as they do add them
+     * @param calendar - reference to Calendar
+     * @param b_type - Banner Type
+     */
+    void queryForRepetitions(Calendar &calendar, const Banner::TYPE b_type);
 }
 
 

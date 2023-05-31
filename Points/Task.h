@@ -49,8 +49,17 @@ public:
     /*
     * Print Point's info in editing format
     * (editing format: format used by graphic_bannerEdit)
+    * @param maxAvailable - The max available index for editing
+    * @param pointType - The max available index for editing
     */
-    std::string printInfo_editingFormat() const override;
+    std::string printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& pointType) const override;
+
+    /*
+    * Get Attribute that matches index in printInfo_editingFormat()
+    * (editing format: format used by graphic_bannerEdit)
+    * @param index - Index selected from printInfo_editingFormat()
+    */
+    pointsInfo::EDIT getAttribute_editingFormat(const int index) const override;
     
     /*
     * Print Reminder

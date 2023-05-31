@@ -19,15 +19,36 @@ DateAbstract* Event::getDate() const
     return m_date.get();
 }
 
-std::string Event::printInfo_editingFormat() const 
+std::string Event::printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& pointType) const 
 {
   std::string text ="";
-  text += Point::printInfo_editingFormat();
+  text += Point::printInfo_editingFormat(maxAvailable, pointType);
 
   text += "[6] Time Start: " + minutesToTime( (*(this->getDate())).getTime() )+ "\n";
   text += "[7] Time End: " + minutesToTime( (*(this->getDate())).getEnd() )+ "\n";
 
+  maxAvailable = 7;
+  pointType = pointsInfo::TYPE::EVENT;
+
   return text;
+}
+
+pointsInfo::EDIT Event::getAttribute_editingFormat(const int index) const
+{
+    pointsInfo::EDIT typeFromBase = Point::getAttribute_editingFormat(index);
+    if (typeFromBase != pointsInfo::EDIT::OUT_OF_RANGE) {
+        return typeFromBase;
+    }
+    
+    switch (index)
+    {
+    case (6):
+        return pointsInfo::EDIT::TIME_START;
+    case (7):
+        return pointsInfo::EDIT::TIME_END;
+    default:
+        return pointsInfo::EDIT::OUT_OF_RANGE;
+    }
 }
 
 std::ostream& Event::print(std::ostream& os) const

@@ -15,12 +15,21 @@ DateAbstract* Reminder::getDate() const
     return m_date.get();
 }
 
-std::string Reminder::printInfo_editingFormat() const 
+std::string Reminder::printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& pointType) const 
 {
   std::string text ="";
-  text += Point::printInfo_editingFormat();
+  text += Point::printInfo_editingFormat(maxAvailable, pointType);
 
+  pointType = pointsInfo::TYPE::REMINDER;
   return text;
+}
+
+pointsInfo::EDIT Reminder::getAttribute_editingFormat(const int index) const
+{
+    pointsInfo::EDIT typeFromBase = Point::getAttribute_editingFormat(index);
+    
+    return typeFromBase;
+
 }
 
 std::ostream& Reminder::print(std::ostream& os) const

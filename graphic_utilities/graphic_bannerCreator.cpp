@@ -39,7 +39,10 @@ bool graphics_banner::mainBannerCreation(Calendar &calendar)
  
 
     // SUGGEST REPETITIONS
-    graphics_banner::queryForRepetitions(calendar, b_type);
+    if (success) {
+        graphics_helper::queryForRepetitions(calendar, b_type);
+    }
+    
 
 
     // COMPLETED
@@ -133,41 +136,3 @@ bool graphics_banner::bannerInitializer(Calendar &calendar, Banner::TYPE type)
     return true;
 }
 
-void graphics_banner::queryForRepetitions(Calendar &calendar, const Banner::TYPE b_type)
-{
-    system("clear");
-    // Declare Variables
-    int year = calendar.getYear();
-    int p_month = 1;
-    int p_day = 1;
-    int p_timeStart = 0;
-    int p_timeEnd = 0;
-    int p_deadline = 0;
-    bool userWantsToAdd = true;
-
-    // Ask from user repetition
-    while (userWantsToAdd) {
-        userWantsToAdd = graphics_helper::getDateInputs(year, b_type, p_month, p_day, p_timeStart, p_timeEnd, p_deadline, true);
-
-        if (userWantsToAdd) {
-            // Add repetition to Calendar
-            // Note: The calendar is selecting the newly created Point (Banner)
-            switch (b_type)
-            {
-            case (Banner::TYPE::EVENT):
-                calendar.addEvent( ( *(calendar.getSelectedPoint()) ).getBanner(), p_month, p_day, p_timeStart, p_timeEnd);
-                continue;
-            case (Banner::TYPE::REMINDER):
-                calendar.addReminder( ( *(calendar.getSelectedPoint()) ).getBanner(), p_month, p_day);
-                continue;
-            case (Banner::TYPE::TASK):
-                calendar.addTask( ( *(calendar.getSelectedPoint()) ).getBanner(), p_month, p_day, p_deadline, false);
-                continue;
-            default: // Return
-                return;
-            }
-
-        }
-    }
-
-}
