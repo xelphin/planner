@@ -120,6 +120,10 @@ namespace graphics {
     */
    std::string promptDeadline(const std::string pointType);
 
+    /*
+    * Returns string asking for repetition date or 'n' for disinterested
+    */
+   std::string promptRepetitions();
 }
 
 

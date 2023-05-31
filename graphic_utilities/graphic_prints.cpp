@@ -214,4 +214,16 @@ std::string graphics::promptDeadline(const std::string pointType)
     return promptPointTime(pointType,graphics::TIME_TYPE::DEADLINE);
 }
 
+std::string graphics::promptRepetitions()
+{
+    std::string text = "";
+
+    text += "You can add a repetition.\n If you're not interested, simply write 'n'\n";
+    text += "Otherwise, please write the month and day in the following format:\n";
+    text += "The month should be between 1-12.\n[1] January, [2] February, ..., [12] December\n";
+    text += "You should write it as '<month>/<day>'\n";
+    text += "Example: March 12th is: '3/12'\n";
+    return text;
+}
+
 // TODO: Add to makefile

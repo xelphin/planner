@@ -22,8 +22,9 @@ namespace graphics_helper {
     * @param timeStart - timeStart of Point (for Event type)
     * @param timeEnd - timeEnd of Point (for Event type)
     * @param deadline - deadline of Point (for Task type)
+    * @param isForRep - asking for a repetition (means it will be okay if empty)
     */
-    bool getDateInputs(const int year, Banner::TYPE type, int& month, int& day, int& timeStart, int& timeEnd, int& deadline);
+    bool getDateInputs(const int year, Banner::TYPE type, int& month, int& day, int& timeStart, int& timeEnd, int& deadline, const bool isForRep);
 
     /*
     * Waits idly for user input of string.
@@ -40,7 +41,7 @@ namespace graphics_helper {
     * @param year - year of calendar
     * @param userInput - reference to string to fill
     */
-    void getDate(const int year, int& month, int& day);
+    void getDate(const int year, int& month, int& day, const bool isForRep);
 
     /*
     * Waits idly for user input of time, different prompts for different Point types.

@@ -1,15 +1,16 @@
 #include "./graphic_helper.h"
 
-bool graphics_helper::getDateInputs(const int year, Banner::TYPE type, int& month, int& day, int& timeStart, int& timeEnd, int& deadline)
+bool graphics_helper::getDateInputs(const int year, Banner::TYPE type, int& month, int& day, int& timeStart, int& timeEnd, int& deadline, const bool isForRep)
 {
-    std::string typeString = Banner::typeToString(type);
-    
     // Get month/day
-    graphics_helper::getDate(year, month, day);
+    graphics_helper::getDate(year, month, day, isForRep);
 
     // Get timeStart/timeEnd/deadline depending on type
-    graphics_helper::getTime(type, timeStart, timeEnd, deadline);
-
+    if (month != -1) {
+        graphics_helper::getTime(type, timeStart, timeEnd, deadline);
+    } else {
+        return false;
+    }
     return true;
 }
 
@@ -53,13 +54,12 @@ void graphics_helper::idleReadString(std::string (*printFunc)(const std::string)
     
 }
 
-void graphics_helper::getDate(const int year, int& month, int& day)
+void graphics_helper::getDate(const int year, int& month, int& day, const bool isForRep)
 {
 
     std::string userInput = "";
     std::string err = "";
     bool goodInput = true;
-    int count = 0;
     do {
         // PRINT DATE PROMPT BAR
         std::cout << graphics::calendarTitle() << std::endl;
@@ -68,19 +68,33 @@ void graphics_helper::getDate(const int year, int& month, int& day)
         if (!goodInput && err != "") {
             std::cout << "The input is invalid because "<< err << std::endl;
         }
-        std::cout << graphics::promptPointMonthDay() << std::endl;
+
+        if (isForRep) {
+            std::cout << graphics::promptRepetitions() << std::endl;
+        } else {
+            std::cout << graphics::promptPointMonthDay() << std::endl;
+        }
+        
         
         // GET INPUT
         std::getline(std::cin, userInput);
         userInput = trim(userInput);
 
         // GET DATE
-        goodInput = graphics_checks::isValidMonthDayFormat(year, userInput, err, month, day);
-        count++;
+        if (isForRep) {
+            goodInput = graphics_checks::isValidMonthDayFormatForRepetition(year, userInput, err, month, day);
+        } else {
+            goodInput = graphics_checks::isValidMonthDayFormat(year, userInput, err, month, day);
+        }
         system("clear");
 
     }
     while (!goodInput);
+
+    if (userInput == "n") {
+        month = -1;
+        day = -1;
+    }
     
 }
 

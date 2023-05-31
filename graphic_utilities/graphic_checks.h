@@ -83,6 +83,15 @@ namespace graphics_checks {
     * @return: the amount of minutes that the time represents
     */
     int timeToMinutes(const std::string time);
+
+    /*
+    * Checks that the string is a valid month/day format like isValidMonthDayFormat(), but also allows 'n'
+    * @param calendar - year of calendar
+    * @param userInput - string
+    * @param err - reference to enter into it reason for error
+    * @return: is a valid month/day format
+    */
+    bool isValidMonthDayFormatForRepetition(const int year,const std::string userInput, std::string& err, int& month, int& day);
 }
 
 

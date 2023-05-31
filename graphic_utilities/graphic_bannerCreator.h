@@ -49,10 +49,17 @@ namespace graphics_banner
      * Starts Banner creation after being given type
      * @param calendar - reference to Calendar
      * @param action - 'e', 't' , 'r', 'x'
+     * @param b_type - Banner Type
      * @return: true: valid type | false: invalid type
      */
-    bool chooseBannerCreation(Calendar &calendar, const char &action_char);
+    bool chooseBannerCreation(Calendar &calendar, const char &action_char, Banner::TYPE& b_type);
 
+    /*
+     * Ask if user wants repetitions, so long as they do add them
+     * @param calendar - reference to Calendar
+     * @param b_type - Banner Type
+     */
+    void queryForRepetitions(Calendar &calendar, const Banner::TYPE b_type);
 }
 
 #endif

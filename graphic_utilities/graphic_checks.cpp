@@ -157,3 +157,11 @@ int graphics_checks::timeToMinutes(const std::string time)
     int minutes = stoi(time.substr(3, 2));
     return (hour*60) + minutes;
 }
+
+bool graphics_checks::isValidMonthDayFormatForRepetition(const int year,const std::string userInput, std::string& err, int& month, int& day)
+{
+    if (userInput == "n" || graphics_checks::isValidMonthDayFormat(year, userInput,err,month,day)) {
+        return true;
+    }
+    return false;
+}
