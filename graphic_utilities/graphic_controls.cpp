@@ -76,6 +76,9 @@ bool graphics::apllyAction(Calendar& calendar, const char& action_char)
         case(graphics::ACTION::CREATE):
             graphics_banner::mainBannerCreation(calendar);
             break;
+        case(graphics::ACTION::REMOVE):
+            calendar.removeSelectedPoint();
+            break;
         case(graphics::ACTION::SAVE_AND_EXIT):
             calendar.parseCalendarToTextFile("database.txt");
             return false;
