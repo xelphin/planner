@@ -45,6 +45,12 @@ public:
     *      Date of the Point.
     */
     DateAbstract* getDate() const override;
+
+    /*
+    * Print Point's info in editing format
+    * (editing format: format used by graphic_bannerEdit)
+    */
+    std::string printInfo_editingFormat() const override;
     
     /*
     * Print Reminder

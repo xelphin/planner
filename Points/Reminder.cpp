@@ -15,6 +15,14 @@ DateAbstract* Reminder::getDate() const
     return m_date.get();
 }
 
+std::string Reminder::printInfo_editingFormat() const 
+{
+  std::string text ="";
+  text += Point::printInfo_editingFormat();
+
+  return text;
+}
+
 std::ostream& Reminder::print(std::ostream& os) const
 {
     os << this -> printToString(false);

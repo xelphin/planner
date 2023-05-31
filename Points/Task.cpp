@@ -20,6 +20,18 @@ DateAbstract* Task::getDate() const
     return m_date.get();
 }
 
+std::string Task::printInfo_editingFormat() const 
+{
+  std::string text ="";
+  text += Point::printInfo_editingFormat();
+
+  text += "[6] Deadline: " + minutesToTime( (*(this->getDate())).getTime() ) + "\n";
+  std::string completed = this->getComplete() == true ? "true" : "false";
+  text += "[7] Completed: " + completed + "\n";
+
+  return text;
+}
+
 std::ostream& Task::print(std::ostream& os) const
 {
     os << this -> printToString(false);

@@ -167,6 +167,13 @@ class Point {
         */
        bool operator>=(const Point& other) const;
 
+
+       /*
+        * Print Point's info in editing format
+        * (editing format: format used by graphic_bannerEdit)
+        */
+       virtual std::string printInfo_editingFormat() const;
+
         /*
         * Print Point
         */

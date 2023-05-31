@@ -19,6 +19,17 @@ DateAbstract* Event::getDate() const
     return m_date.get();
 }
 
+std::string Event::printInfo_editingFormat() const 
+{
+  std::string text ="";
+  text += Point::printInfo_editingFormat();
+
+  text += "[6] Time Start: " + minutesToTime( (*(this->getDate())).getTime() )+ "\n";
+  text += "[7] Time End: " + minutesToTime( (*(this->getDate())).getEnd() )+ "\n";
+
+  return text;
+}
+
 std::ostream& Event::print(std::ostream& os) const
 {
     os << this ->printToString(false);

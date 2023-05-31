@@ -124,6 +124,20 @@ std::string Point::textStart(const std::string text, const std::string::size_typ
   return text.substr(0,length-1) + "...";
 }
 
+std::string Point::printInfo_editingFormat() const
+{
+  std::string text ="";
+  
+  text += "[1] Title: " + m_banner->getTitle() + "\n";
+  text += "[2] Description: " + m_banner->getDescription() + "\n";
+  text += "[3] Location: " + m_banner->getLocation() + "\n";
+  std::string urgency = m_banner->getUrgency() == -1 ? "" : std::to_string(m_banner->getUrgency());
+  text += "[4] Urgency: " + urgency + "\n";
+  text += "[5] Month/Day: " + std::to_string(  (*(this->getDate())).getMonth()  ) + "/" + std::to_string(  (*(this->getDate())).getDay()  ) + "\n";
+
+  return text;
+}
+
 std::string Point::parsePointToTextFull() const
 {
   std::string fullText = "";

@@ -26,7 +26,7 @@ namespace graphics_banner
 
     /*
      * Translate from action character to enum
-     * @param action - 'a', 'd' , 'w', 's', 'e', 'c', 'r', 'x'
+     * @param action - 'e', 'r', 't', 'x'
      */
     graphics_banner::ACTION characterToBannerType(const char &action);
 

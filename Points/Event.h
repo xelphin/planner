@@ -46,6 +46,12 @@ public:
     DateAbstract* getDate() const override;
 
     /*
+    * Print Point's info in editing format
+    * (editing format: format used by graphic_bannerEdit)
+    */
+    std::string printInfo_editingFormat() const override;
+
+    /*
     * Print Event
     */
     std::ostream& print(std::ostream& os) const override;
