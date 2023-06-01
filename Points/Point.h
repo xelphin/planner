@@ -62,6 +62,14 @@ class Point {
         Point(const int year, std::shared_ptr<Banner> banner);
 
         /*
+        * Convert pointsInfo::TYPE to the string version and return 
+        * @param pointType - point type as represented by pointsInfo::TYPE
+        * @return
+        *      A string equivalent to the definition of pointType.
+        */
+        static std::string pointTypeToString(const pointsInfo::TYPE pointType);
+
+        /*
         * Edit title
         * @param newTitle - The new title for the point
         */

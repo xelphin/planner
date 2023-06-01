@@ -15,7 +15,7 @@ bool graphics_helper::getDateInputs(const int year, Banner::TYPE type, int& mont
 }
 
 void graphics_helper::idleReadString(std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&),
- std::string& str, const std::string type, const bool canBeEmpty)
+ std::string& str, const std::string type, const bool canBeEmpty, const std::string currVersion, const bool isEdit)
 {
     // TODO: turn from void into bool, when user enters 'x' then exits Point creation process.
     // Or maybe instead just do a throw and have mainPointCreationProcess() catch it
@@ -27,11 +27,19 @@ void graphics_helper::idleReadString(std::string (*printFunc)(const std::string)
     do {
         // PRINT ACTION BAR
         std::cout << graphics::calendarTitle() << std::endl;
-        std::cout << graphics::pointCreatorString() << std::endl;
+        if (isEdit) {
+            std::cout << graphics::pointEditorString() << std::endl;
+            std::cout << currVersion << std::endl;
+        } else {
+            std::cout << graphics::pointCreatorString() << std::endl;
+        }
         
+        // PRINT ERROR
         if (!goodInput && err != "") {
             std::cout << "The input is invalid because "<< err << std::endl;
         }
+
+        // PRINT PROMPT
         std::cout << printFunc(type) << std::endl;
         
         // GET INPUT

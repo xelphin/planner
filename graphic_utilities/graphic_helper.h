@@ -33,8 +33,18 @@ namespace graphics_helper {
     * @param str - reference to string to fill
     * @param type - type of Banner
     * @param canBeEmpty - If true, then an empty string will be represented by the user as 'n'
+    * @param currVersion - Current Version of type string (only used by graphics_edit)
+    * @param isEdit - True = from graphics_edit | False = from graphics_createBanner
     */
-   void idleReadString(std::string (*printFunc)(const std::string), bool (*checkFunc)(const std::string, std::string&), std::string& str, const std::string type, const bool canBeEmpty);
+   void idleReadString(
+        std::string (*printFunc)(const std::string),
+        bool (*checkFunc)(const std::string, std::string&),
+        std::string& str,
+        const std::string type,
+        const bool canBeEmpty,
+        const std::string currVersion = "",
+        const bool isEdit = false
+    );
 
     /*
     * Waits idly for user input of date.

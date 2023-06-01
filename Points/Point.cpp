@@ -8,6 +8,23 @@ Point::Point(const int year, std::shared_ptr<Banner> banner) :
 
 }
 
+std::string Point::pointTypeToString(const pointsInfo::TYPE pointType)
+{
+  switch(pointType) 
+  {
+    case (pointsInfo::TYPE::EVENT):
+        return "Event";
+        break;
+    case (pointsInfo::TYPE::TASK):
+        return "Task";
+        break;
+    case (pointsInfo::TYPE::REMINDER):
+        return "Reminder";
+        break;
+    default: // Return
+        return "INVALID";
+  }
+}
 
 void Point::updateTitle(const std::string newTitle)
 {

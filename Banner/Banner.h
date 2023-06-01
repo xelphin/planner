@@ -20,7 +20,7 @@ class Banner {
 
     public:
 
-        enum class TYPE {EVENT, TASK, REMINDER};
+        enum class TYPE {EVENT, TASK, REMINDER, INVALID};
 
         /*
         * Turns Banner::TYPE as string

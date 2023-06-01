@@ -135,6 +135,13 @@ namespace graphics {
     * @param maxIndex - max index available for attribute
     */
    std::string promptIndexOfAttribute(const int maxIndex);
+
+    /*
+    * Returns string showing current version of type
+    * @param type - type of value
+    * @param currValue - the current value
+    */
+    std::string strCurrentVersion(const std::string type, const std::string currValue);
 }
 
 

@@ -251,4 +251,12 @@ std::string graphics::promptIndexOfAttribute(const int maxIndex)
     return text;
 }
 
-// TODO: Add to makefile
+std::string graphics::strCurrentVersion(const std::string type, const std::string currValue)
+{
+    std::string text = "";
+
+    text += "Current " + type + ": " + currValue;
+    text += "\n";
+
+    return text;
+}
