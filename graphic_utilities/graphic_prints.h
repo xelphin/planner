@@ -142,6 +142,13 @@ namespace graphics {
     * @param currValue - the current value
     */
     std::string strCurrentVersion(const std::string type, const std::string currValue);
+
+
+    /*
+    * Returns string notifying that the process stopped without midway
+    * @param processName - Name of process stopped (example: "editing", "creating")
+    */
+    std::string strStoppedProcess(const std::string processName);
 }
 
 

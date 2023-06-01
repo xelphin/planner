@@ -4,6 +4,16 @@
 #include <string>
 #include <exception>
 
+// GRAPHICS EXCEPTIONS
+
+class Leave : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Leaving... Returning to Calendar.";
+    }
+};
+
+// INPUT EXCEPTIONS
 
 class InvalidLength : public std::exception {
 private:

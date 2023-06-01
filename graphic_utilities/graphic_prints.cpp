@@ -116,6 +116,7 @@ std::string graphics::pointCreatorString()
     text += graphics::spaces(amountSpaces);
     text += "==";
     text += graphics::decorativeBar();
+    text += "\n Press 'x' and ENTER to return to Calendar (may not save changes)";
 
     return text;
 }
@@ -132,6 +133,7 @@ std::string graphics::pointEditorString()
     text += graphics::spaces(amountSpaces);
     text += "==";
     text += graphics::decorativeBar();
+    text += "\n Press 'x' and ENTER to return to Calendar (may not save changes)";
 
     return text;
 }
@@ -257,6 +259,17 @@ std::string graphics::strCurrentVersion(const std::string type, const std::strin
 
     text += "Current " + type + ": " + currValue;
     text += "\n";
+
+    return text;
+}
+
+std::string graphics::strStoppedProcess(const std::string processName)
+{
+    std::string text = "";
+
+    text += "You have written 'x'\n";
+    text += "Process: \"" + processName + "\" stopped midway. Your changes may have not been saved.";
+    text += "Press any letter and then ENTER to return to the Calendar\n";
 
     return text;
 }

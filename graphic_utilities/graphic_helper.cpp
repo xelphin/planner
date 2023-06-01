@@ -46,6 +46,11 @@ void graphics_helper::idleReadString(std::string (*printFunc)(const std::string)
         std::getline(std::cin, userInput);
         userInput = trim(userInput);
 
+        // EXIT if wanted
+        if (userInput == "x") {
+            throw Leave();
+        }
+
         // APPLY ACTION
         goodInput = checkFunc(userInput, err);
         count++;
@@ -87,6 +92,11 @@ void graphics_helper::getDate(const int year, int& month, int& day, const bool i
         // GET INPUT
         std::getline(std::cin, userInput);
         userInput = trim(userInput);
+
+        // EXIT if wanted
+        if (userInput == "x") {
+            throw Leave();
+        }
 
         // GET DATE
         if (isForRep) {
@@ -172,4 +182,17 @@ void graphics_helper::queryForRepetitions(Calendar &calendar, const Banner::TYPE
         }
     }
 
+}
+
+void graphics_helper::notifyProcessStopped(const std::string processName)
+{
+    system("clear");
+
+    // PRINT
+    std::cout << graphics::calendarTitle() << std::endl;
+    std::cout << graphics::strStoppedProcess(processName);
+
+    // WAIT FOR KEY PRESS
+    std::string userInput;
+    std::cin >> userInput;
 }

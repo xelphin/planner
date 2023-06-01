@@ -10,6 +10,7 @@
 #include "../utilities.h"
 #include "./graphic_prints.h"
 #include "./graphic_checks.h"
+#include "../Exception.h"
 
 namespace graphics_helper {
 
@@ -70,6 +71,12 @@ namespace graphics_helper {
      * @param b_type - Banner Type
      */
     void queryForRepetitions(Calendar &calendar, const Banner::TYPE b_type);
+
+    /*
+     * Notify user that the process was stopped midway deliberatley
+     * @param processName - Process that was stopped
+     */
+    void notifyProcessStopped(const std::string processName);
 }
 
 

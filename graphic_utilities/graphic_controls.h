@@ -9,6 +9,7 @@
 #include "./graphic_prints.h"
 #include "./graphic_bannerCreator.h"
 #include "./graphic_bannerEdit.h"
+#include "../Exception.h"
 
 // TODO: Most likely turn all of graphic_ into one class. 
 // ALTHOUGH, it's kinda like my 'main' is the class and graphics are its function because graphics is so high.

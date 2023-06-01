@@ -11,6 +11,7 @@
 #include "./graphic_prints.h"
 #include "./graphic_checks.h"
 #include "./graphic_helper.h"
+#include "../Exception.h"
 
 namespace graphics_banner
 {

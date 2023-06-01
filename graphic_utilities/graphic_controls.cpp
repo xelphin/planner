@@ -74,10 +74,20 @@ bool graphics::apllyAction(Calendar& calendar, const char& action_char)
             calendar.selectLaterPointFromAnUpcomingMonth();
             break;
         case(graphics::ACTION::EDIT):
-            graphics_edit::mainBannerEditor(calendar);
+            try {
+                graphics_edit::mainBannerEditor(calendar);
+            } catch (const Leave& e) {
+                graphics_helper::notifyProcessStopped("Edit");
+                return true;
+            }
             break;
         case(graphics::ACTION::CREATE):
-            graphics_banner::mainBannerCreation(calendar);
+            try {
+               graphics_banner::mainBannerCreation(calendar); 
+            } catch (const Leave& e) {
+                graphics_helper::notifyProcessStopped("Create");
+                return true;
+            }
             break;
         case(graphics::ACTION::REMOVE):
             calendar.removeSelectedPoint();
