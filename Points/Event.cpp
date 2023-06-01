@@ -24,8 +24,8 @@ std::string Event::printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& 
   std::string text ="";
   text += Point::printInfo_editingFormat(maxAvailable, pointType);
 
-  text += "[6] Time Start: " + minutesToTime( (*(this->getDate())).getTime() )+ "\n";
-  text += "[7] Time End: " + minutesToTime( (*(this->getDate())).getEnd() )+ "\n";
+  text += "[6] Time: " + minutesToTime( (*(this->getDate())).getTime() )+ " till " + minutesToTime( (*(this->getDate())).getEnd() ) + "\n";
+
 
   maxAvailable = 7;
   pointType = pointsInfo::TYPE::EVENT;
@@ -43,9 +43,7 @@ pointsInfo::EDIT Event::getAttribute_editingFormat(const int index) const
     switch (index)
     {
     case (6):
-        return pointsInfo::EDIT::TIME_START;
-    case (7):
-        return pointsInfo::EDIT::TIME_END;
+        return pointsInfo::EDIT::TIME_RANGE;
     default:
         return pointsInfo::EDIT::OUT_OF_RANGE;
     }

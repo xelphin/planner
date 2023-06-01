@@ -126,9 +126,9 @@ std::string numToMonthName(const int num)
 std::string minutesToTime(const int min)
 {
     std::string time = "";
-    time += std::to_string((int)(min/60));
     if (min/60 < 10)
         time += "0";
+    time += std::to_string((int)(min/60));
     time += ":";
     time += std::to_string((int)(min%60));
     if (min%60 < 10)

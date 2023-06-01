@@ -27,7 +27,7 @@ std::string Banner::getTitle() const
 void Banner::updateDescription(const std::string newDescription)
 {
     int newLength = newDescription.length();
-    if (newLength< Banner::MIN_DESCRIPTION_LENGTH || newLength<Banner::MAX_DESCRIPTION_LENGTH) {
+    if (newLength< Banner::MIN_DESCRIPTION_LENGTH || newLength>Banner::MAX_DESCRIPTION_LENGTH) {
         throw InvalidLength(Banner::MIN_DESCRIPTION_LENGTH, Banner::MAX_DESCRIPTION_LENGTH, newLength);
     }
     m_description = newDescription;
@@ -54,7 +54,7 @@ std::string Banner::getLocation() const
 
 void Banner::updateUrgency(const int newUrgency)
 {
-    if ((newUrgency<Banner::MIN_URGENCY || newUrgency>Banner::MAX_URGENCY) && newUrgency!=Banner::UNDEFINED_URGENCY ) {
+    if (newUrgency != -1 && (newUrgency<Banner::MIN_URGENCY || newUrgency>Banner::MAX_URGENCY) && newUrgency!=Banner::UNDEFINED_URGENCY ) {
         throw InvalidLength(Banner::MIN_URGENCY, Banner::MAX_URGENCY, newUrgency);
     }
     m_urgency = newUrgency;

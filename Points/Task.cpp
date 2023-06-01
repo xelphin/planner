@@ -27,7 +27,7 @@ std::string Task::printInfo_editingFormat(int& maxAvailable, pointsInfo::TYPE& p
 
   text += "[6] Deadline: " + minutesToTime( (*(this->getDate())).getTime() ) + "\n";
   std::string completed = this->getComplete() == true ? "true" : "false";
-  text += "[7] Completed: " + completed + "\n";
+  text += "[7] Completed: " + completed + " (mark as opposite)\n";
 
   maxAvailable = 7;
   pointType = pointsInfo::TYPE::TASK;

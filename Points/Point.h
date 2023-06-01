@@ -42,8 +42,7 @@ namespace pointsInfo {
         LOCATION,
         URGENCY,
         MONTH_DAY,
-        TIME_START,
-        TIME_END,
+        TIME_RANGE,
         DEADLINE,
         COMPLETE,
         OUT_OF_RANGE

@@ -52,46 +52,20 @@ pointsInfo::EDIT graphics_edit::idleReadIndex(Calendar &calendar, pointsInfo::TY
 
 bool graphics_edit::editRedirection(Calendar &calendar, const pointsInfo::EDIT editType, const pointsInfo::TYPE pointType)
 {
+    int timeStart, timeEnd, deadline;
+    Banner::TYPE b_type = graphics_edit::pointTypeToBanner(pointType);
     std::string versionStr = "";
-    std::string newStr = "";
+    std::string newStr = "default";
     std::string pointTypeStr = Point::pointTypeToString(pointType);
     std::shared_ptr<Point> point = (calendar.getSelectedPoint());
-
-    // DOWNCAST
-    std::shared_ptr<Event> event;
-    std::shared_ptr<Task> task;
-    std::shared_ptr<Reminder> reminder;
-
-    switch (pointType) 
-    {
-        case pointsInfo::TYPE::EVENT:
-            event = std::dynamic_pointer_cast<Event>(point);
-            if (!event) {
-                return false;
-            }
-            break;
-        case pointsInfo::TYPE::TASK:
-            task = std::dynamic_pointer_cast<Task>(point);
-            if (!task) {
-                return false;
-            }
-            break;
-        case pointsInfo::TYPE::REMINDER:
-            reminder = std::dynamic_pointer_cast<Reminder>(point);
-            if (!reminder) {
-                return false;
-            }
-            break;
-        default:
-            return false;
-    }
-
+    int currMonth = (*point->getDate()).getMonth();
+    int currDay = (*point->getDate()).getDay();
 
     // APLLY EDIT
     switch (editType)
     {
     case (pointsInfo::EDIT::REPETITION):
-        graphics_helper::queryForRepetitions(calendar, graphics_edit::pointTypeToBanner(pointType));
+        graphics_helper::queryForRepetitions(calendar, b_type);
         break;
     case (pointsInfo::EDIT::TITLE):
         versionStr = graphics::strCurrentVersion("Title", point->getTitle());
@@ -114,6 +88,23 @@ bool graphics_edit::editRedirection(Calendar &calendar, const pointsInfo::EDIT e
         if (newStr.empty())
             newStr = "-1";
         point->updateUrgency(stoi(newStr));
+        break;
+    case (pointsInfo::EDIT::TIME_RANGE):
+        versionStr = graphics::strCurrentVersion("Time Range ", ""); // TODO
+        graphics_helper::getTime(b_type, timeStart, timeEnd, deadline);
+        point->updateDate(currMonth, currDay, timeStart, timeEnd);
+        break;
+    case (pointsInfo::EDIT::DEADLINE):
+        versionStr = graphics::strCurrentVersion("Deadline ", ""); // TODO
+        graphics_helper::getTime(b_type, timeStart, timeEnd, deadline);
+        point->updateDate(currMonth, currDay, deadline, deadline);
+        break;
+    case (pointsInfo::EDIT::COMPLETE):
+        if (point->getComplete()) {
+            point->markIncomplete();
+        } else {
+            point->markComplete();
+        }
         break;
     default: // Return
         return false;
