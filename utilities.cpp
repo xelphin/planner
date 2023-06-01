@@ -16,7 +16,7 @@
 
 int amountDaysInMonth(const int year, const int month)
 {
-    if (year<MIN_YEAR || year>MAX_YEAR || month<1 || month>12)
+    if (year<MIN_YEAR || year>MAX_YEAR || month<1 || month>13)
         throw InvalidDate();
     bool isLeapYear = (year%4 == 0);
     return (month == 2) ?

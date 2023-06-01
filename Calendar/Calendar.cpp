@@ -280,7 +280,7 @@ std::string Calendar::printMonth_withIt(const int month, std::list<std::shared_p
         ((*it) == m_selectedPoint) ? withArrow = true : withArrow = false;
         text += (*(*it)).printToString(withArrow);
     }
-    pointCount > simplified_maxPoints ? text += "" : text += printEmptyDayRanges(currDay, amountDaysInMonth(m_year, month + 1) + 1, month);
+    pointCount > simplified_maxPoints ? text += "" : text += printEmptyDayRanges(currDay, amountDaysInMonth(m_year, month) + 1, month);
     return text;
 }
 
@@ -297,7 +297,7 @@ std::string Calendar::printMonthTitles(const int prev, const int curr) const
     {
         text += "=== " + numToMonthName(m) + " ===\n\n";
         if (m + 1 != curr)
-            text += printEmptyDayRanges(0, amountDaysInMonth(m_year, m + 1) + 1, m + 1);
+            text += printEmptyDayRanges(0, amountDaysInMonth(m_year, m) + 1, m + 1);
     }
     return text;
 }
